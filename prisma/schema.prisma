@@ -37,8 +37,8 @@ model User{
   isActive Boolean @default(true)
   provider Provider @default(LOCAL) 
   providerId String?
-  create_at DateTime @default(now())
-  update_at DateTime @updatedAt
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
 
-  @@map("users")
+  @@map("users") // make database table name -> users
 }

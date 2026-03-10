@@ -19,7 +19,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "db:migrate": "dotenv -e .env.development -- prisma migrate dev",
-    "db:generate": "dotenv -e .env.development -- prisma generate"
+    "db:generate": "dotenv -e .env.development -- prisma generate",
+    "db:seed": "dotenv -e .env.development -- prisma db seed"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
@@ -32,7 +33,8 @@
     "class-validator": "^0.15.1",
     "pg": "^8.20.0",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "tsx": "^4.21.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
