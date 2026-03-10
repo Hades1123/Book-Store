@@ -35,8 +35,11 @@ export type UserMinAggregateOutputType = {
   isActive: boolean | null
   provider: $Enums.Provider | null
   providerId: string | null
-  create_at: Date | null
-  update_at: Date | null
+  hashRefreshToken: string | null
+  emailVerified: boolean | null
+  lastLoginAt: Date | null
+  createAt: Date | null
+  updateAt: Date | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -50,8 +53,11 @@ export type UserMaxAggregateOutputType = {
   isActive: boolean | null
   provider: $Enums.Provider | null
   providerId: string | null
-  create_at: Date | null
-  update_at: Date | null
+  hashRefreshToken: string | null
+  emailVerified: boolean | null
+  lastLoginAt: Date | null
+  createAt: Date | null
+  updateAt: Date | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -65,8 +71,11 @@ export type UserCountAggregateOutputType = {
   isActive: number
   provider: number
   providerId: number
-  create_at: number
-  update_at: number
+  hashRefreshToken: number
+  emailVerified: number
+  lastLoginAt: number
+  createAt: number
+  updateAt: number
   _all: number
 }
 
@@ -82,8 +91,11 @@ export type UserMinAggregateInputType = {
   isActive?: true
   provider?: true
   providerId?: true
-  create_at?: true
-  update_at?: true
+  hashRefreshToken?: true
+  emailVerified?: true
+  lastLoginAt?: true
+  createAt?: true
+  updateAt?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -97,8 +109,11 @@ export type UserMaxAggregateInputType = {
   isActive?: true
   provider?: true
   providerId?: true
-  create_at?: true
-  update_at?: true
+  hashRefreshToken?: true
+  emailVerified?: true
+  lastLoginAt?: true
+  createAt?: true
+  updateAt?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -112,8 +127,11 @@ export type UserCountAggregateInputType = {
   isActive?: true
   provider?: true
   providerId?: true
-  create_at?: true
-  update_at?: true
+  hashRefreshToken?: true
+  emailVerified?: true
+  lastLoginAt?: true
+  createAt?: true
+  updateAt?: true
   _all?: true
 }
 
@@ -200,8 +218,11 @@ export type UserGroupByOutputType = {
   isActive: boolean
   provider: $Enums.Provider
   providerId: string | null
-  create_at: Date
-  update_at: Date
+  hashRefreshToken: string | null
+  emailVerified: boolean
+  lastLoginAt: Date | null
+  createAt: Date
+  updateAt: Date
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
@@ -236,8 +257,11 @@ export type UserWhereInput = {
   isActive?: Prisma.BoolFilter<"User"> | boolean
   provider?: Prisma.EnumProviderFilter<"User"> | $Enums.Provider
   providerId?: Prisma.StringNullableFilter<"User"> | string | null
-  create_at?: Prisma.DateTimeFilter<"User"> | Date | string
-  update_at?: Prisma.DateTimeFilter<"User"> | Date | string
+  hashRefreshToken?: Prisma.StringNullableFilter<"User"> | string | null
+  emailVerified?: Prisma.BoolFilter<"User"> | boolean
+  lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  createAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updateAt?: Prisma.DateTimeFilter<"User"> | Date | string
 }
 
 export type UserOrderByWithRelationInput = {
@@ -251,8 +275,11 @@ export type UserOrderByWithRelationInput = {
   isActive?: Prisma.SortOrder
   provider?: Prisma.SortOrder
   providerId?: Prisma.SortOrderInput | Prisma.SortOrder
-  create_at?: Prisma.SortOrder
-  update_at?: Prisma.SortOrder
+  hashRefreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  emailVerified?: Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  createAt?: Prisma.SortOrder
+  updateAt?: Prisma.SortOrder
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -269,8 +296,11 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   isActive?: Prisma.BoolFilter<"User"> | boolean
   provider?: Prisma.EnumProviderFilter<"User"> | $Enums.Provider
   providerId?: Prisma.StringNullableFilter<"User"> | string | null
-  create_at?: Prisma.DateTimeFilter<"User"> | Date | string
-  update_at?: Prisma.DateTimeFilter<"User"> | Date | string
+  hashRefreshToken?: Prisma.StringNullableFilter<"User"> | string | null
+  emailVerified?: Prisma.BoolFilter<"User"> | boolean
+  lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  createAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updateAt?: Prisma.DateTimeFilter<"User"> | Date | string
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -284,8 +314,11 @@ export type UserOrderByWithAggregationInput = {
   isActive?: Prisma.SortOrder
   provider?: Prisma.SortOrder
   providerId?: Prisma.SortOrderInput | Prisma.SortOrder
-  create_at?: Prisma.SortOrder
-  update_at?: Prisma.SortOrder
+  hashRefreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  emailVerified?: Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  createAt?: Prisma.SortOrder
+  updateAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
@@ -305,8 +338,11 @@ export type UserScalarWhereWithAggregatesInput = {
   isActive?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   provider?: Prisma.EnumProviderWithAggregatesFilter<"User"> | $Enums.Provider
   providerId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  create_at?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
-  update_at?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  hashRefreshToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  emailVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  lastLoginAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  createAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  updateAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
 
 export type UserCreateInput = {
@@ -320,8 +356,11 @@ export type UserCreateInput = {
   isActive?: boolean
   provider?: $Enums.Provider
   providerId?: string | null
-  create_at?: Date | string
-  update_at?: Date | string
+  hashRefreshToken?: string | null
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createAt?: Date | string
+  updateAt?: Date | string
 }
 
 export type UserUncheckedCreateInput = {
@@ -335,8 +374,11 @@ export type UserUncheckedCreateInput = {
   isActive?: boolean
   provider?: $Enums.Provider
   providerId?: string | null
-  create_at?: Date | string
-  update_at?: Date | string
+  hashRefreshToken?: string | null
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createAt?: Date | string
+  updateAt?: Date | string
 }
 
 export type UserUpdateInput = {
@@ -350,8 +392,11 @@ export type UserUpdateInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   provider?: Prisma.EnumProviderFieldUpdateOperationsInput | $Enums.Provider
   providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  create_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  update_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  hashRefreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserUncheckedUpdateInput = {
@@ -365,8 +410,11 @@ export type UserUncheckedUpdateInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   provider?: Prisma.EnumProviderFieldUpdateOperationsInput | $Enums.Provider
   providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  create_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  update_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  hashRefreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserCreateManyInput = {
@@ -380,8 +428,11 @@ export type UserCreateManyInput = {
   isActive?: boolean
   provider?: $Enums.Provider
   providerId?: string | null
-  create_at?: Date | string
-  update_at?: Date | string
+  hashRefreshToken?: string | null
+  emailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  createAt?: Date | string
+  updateAt?: Date | string
 }
 
 export type UserUpdateManyMutationInput = {
@@ -395,8 +446,11 @@ export type UserUpdateManyMutationInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   provider?: Prisma.EnumProviderFieldUpdateOperationsInput | $Enums.Provider
   providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  create_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  update_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  hashRefreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -410,8 +464,11 @@ export type UserUncheckedUpdateManyInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   provider?: Prisma.EnumProviderFieldUpdateOperationsInput | $Enums.Provider
   providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  create_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  update_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  hashRefreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -425,8 +482,11 @@ export type UserCountOrderByAggregateInput = {
   isActive?: Prisma.SortOrder
   provider?: Prisma.SortOrder
   providerId?: Prisma.SortOrder
-  create_at?: Prisma.SortOrder
-  update_at?: Prisma.SortOrder
+  hashRefreshToken?: Prisma.SortOrder
+  emailVerified?: Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrder
+  createAt?: Prisma.SortOrder
+  updateAt?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -440,8 +500,11 @@ export type UserMaxOrderByAggregateInput = {
   isActive?: Prisma.SortOrder
   provider?: Prisma.SortOrder
   providerId?: Prisma.SortOrder
-  create_at?: Prisma.SortOrder
-  update_at?: Prisma.SortOrder
+  hashRefreshToken?: Prisma.SortOrder
+  emailVerified?: Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrder
+  createAt?: Prisma.SortOrder
+  updateAt?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -455,8 +518,11 @@ export type UserMinOrderByAggregateInput = {
   isActive?: Prisma.SortOrder
   provider?: Prisma.SortOrder
   providerId?: Prisma.SortOrder
-  create_at?: Prisma.SortOrder
-  update_at?: Prisma.SortOrder
+  hashRefreshToken?: Prisma.SortOrder
+  emailVerified?: Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrder
+  createAt?: Prisma.SortOrder
+  updateAt?: Prisma.SortOrder
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -479,6 +545,10 @@ export type EnumProviderFieldUpdateOperationsInput = {
   set?: $Enums.Provider
 }
 
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
@@ -496,8 +566,11 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   isActive?: boolean
   provider?: boolean
   providerId?: boolean
-  create_at?: boolean
-  update_at?: boolean
+  hashRefreshToken?: boolean
+  emailVerified?: boolean
+  lastLoginAt?: boolean
+  createAt?: boolean
+  updateAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -511,8 +584,11 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isActive?: boolean
   provider?: boolean
   providerId?: boolean
-  create_at?: boolean
-  update_at?: boolean
+  hashRefreshToken?: boolean
+  emailVerified?: boolean
+  lastLoginAt?: boolean
+  createAt?: boolean
+  updateAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -526,8 +602,11 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isActive?: boolean
   provider?: boolean
   providerId?: boolean
-  create_at?: boolean
-  update_at?: boolean
+  hashRefreshToken?: boolean
+  emailVerified?: boolean
+  lastLoginAt?: boolean
+  createAt?: boolean
+  updateAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -541,11 +620,14 @@ export type UserSelectScalar = {
   isActive?: boolean
   provider?: boolean
   providerId?: boolean
-  create_at?: boolean
-  update_at?: boolean
+  hashRefreshToken?: boolean
+  emailVerified?: boolean
+  lastLoginAt?: boolean
+  createAt?: boolean
+  updateAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "fullName" | "phone" | "avatarUrl" | "role" | "isActive" | "provider" | "providerId" | "create_at" | "update_at", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "fullName" | "phone" | "avatarUrl" | "role" | "isActive" | "provider" | "providerId" | "hashRefreshToken" | "emailVerified" | "lastLoginAt" | "createAt" | "updateAt", ExtArgs["result"]["user"]>
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
@@ -561,8 +643,11 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     isActive: boolean
     provider: $Enums.Provider
     providerId: string | null
-    create_at: Date
-    update_at: Date
+    hashRefreshToken: string | null
+    emailVerified: boolean
+    lastLoginAt: Date | null
+    createAt: Date
+    updateAt: Date
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -996,8 +1081,11 @@ export interface UserFieldRefs {
   readonly isActive: Prisma.FieldRef<"User", 'Boolean'>
   readonly provider: Prisma.FieldRef<"User", 'Provider'>
   readonly providerId: Prisma.FieldRef<"User", 'String'>
-  readonly create_at: Prisma.FieldRef<"User", 'DateTime'>
-  readonly update_at: Prisma.FieldRef<"User", 'DateTime'>
+  readonly hashRefreshToken: Prisma.FieldRef<"User", 'String'>
+  readonly emailVerified: Prisma.FieldRef<"User", 'Boolean'>
+  readonly lastLoginAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly createAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly updateAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     
 

@@ -528,8 +528,11 @@ export const UserScalarFieldEnum = {
   isActive: 'isActive',
   provider: 'provider',
   providerId: 'providerId',
-  create_at: 'create_at',
-  update_at: 'update_at'
+  hashRefreshToken: 'hashRefreshToken',
+  emailVerified: 'emailVerified',
+  lastLoginAt: 'lastLoginAt',
+  createAt: 'createAt',
+  updateAt: 'updateAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
