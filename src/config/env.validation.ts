@@ -14,6 +14,9 @@ class EnvironmentVariables {
 
   // Database
   @IsString()
+  DATABASE_URL: string;
+
+  @IsString()
   @IsOptional()
   DATABASE_HOST?: string;
 

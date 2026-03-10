@@ -4,6 +4,7 @@ export default registerAs(
   'database',
   () =>
     ({
+      databaseUrl: process.env.DATABASE_URL || '',
       host: process.env.DATABASE_HOST || 'localhost',
       port: parseInt(process.env.DATABASE_PORT ?? '5432', 10),
       username: process.env.DATABASE_USERNAME || 'postgres',
