@@ -44,6 +44,9 @@ class EnvironmentVariables {
 
   @IsString()
   GMAIL_APP_PASS?: string;
+
+  @IsString()
+  GMAIL_USER_NAME?: string;
 }
 
 export function validate(config: Record<string, unknown>) {

@@ -3,8 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { validate } from './config/env.validation';
-import { appConfig, databaseConfig } from './config/index';
-import { PrismaService } from './database/prisma.service';
+import { appConfig, databaseConfig, externalConfig } from './config/index';
 import { AuthModule } from './modules/auth/auth.module';
 import { PrismaModule } from './database/prisma.module';
 
@@ -12,7 +11,7 @@ import { PrismaModule } from './database/prisma.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [appConfig, databaseConfig],
+      load: [appConfig, databaseConfig, externalConfig],
       validate,
       cache: true,
     }),
