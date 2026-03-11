@@ -1,8 +1,7 @@
 import * as bcrypt from 'bcrypt';
-import * as nodemailer from 'nodemailer';
-import externalConfig from 'src/config/external.config';
-// 20 seconds
-export const EXPIRED_TIME = 20 * 1000;
+
+// 2 minutes
+export const OTP_EXPIRED_TIME = 60 * 2 * 1000;
 
 const SALTS_ROUND = 10;
 
