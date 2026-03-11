@@ -41,6 +41,9 @@ class EnvironmentVariables {
   @IsString()
   @IsOptional()
   DATABASE_SYNCHRONIZE?: string;
+
+  @IsString()
+  GMAIL_APP_PASS?: string;
 }
 
 export function validate(config: Record<string, unknown>) {

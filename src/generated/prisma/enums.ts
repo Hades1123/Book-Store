@@ -25,3 +25,11 @@ export const Provider = {
 } as const
 
 export type Provider = (typeof Provider)[keyof typeof Provider]
+
+
+export const VerificationType = {
+  EMAIL_VERIFICATION: 'EMAIL_VERIFICATION',
+  PASSWORD_RESET: 'PASSWORD_RESET'
+} as const
+
+export type VerificationType = (typeof VerificationType)[keyof typeof VerificationType]

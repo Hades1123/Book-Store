@@ -22,3 +22,8 @@ export * from './enums.js';
  * 
  */
 export type User = Prisma.UserModel
+/**
+ * Model VerificationToken
+ * 
+ */
+export type VerificationToken = Prisma.VerificationTokenModel
