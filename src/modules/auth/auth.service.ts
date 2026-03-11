@@ -4,6 +4,7 @@ import { RegisterDto } from './dto/register.dto';
 import { AppException } from 'src/common/exceptions/app.exception';
 import { generateOtp, hashPassword, OTP_EXPIRED_TIME } from './utils/helper';
 import { MailService } from 'src/modules/mail/mail.service';
+import { RegisterResponse } from './interfaces';
 
 @Injectable()
 export class AuthService {
@@ -11,7 +12,7 @@ export class AuthService {
     private readonly prismaService: PrismaService,
     private readonly mailService: MailService,
   ) {}
-  async register(body: RegisterDto) {
+  async register(body: RegisterDto): Promise<RegisterResponse> {
     const { email, fullName, password, phone } = body;
 
     const existingUser = await this.prismaService.user.findUnique({
@@ -50,5 +51,9 @@ export class AuthService {
     });
 
     await this.mailService.sendVerificationOtp(email, otp);
+    return {
+      email: email,
+      otpExpireTime: OTP_EXPIRED_TIME,
+    };
   }
 }

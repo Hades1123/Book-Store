@@ -2,6 +2,7 @@ import { Inject, Injectable, InternalServerErrorException } from '@nestjs/common
 import { Transporter } from 'nodemailer';
 import { type ExternalConfig, externalConfig } from 'src/config';
 import * as nodemailer from 'nodemailer';
+import { OTP_EXPIRED_TIME } from '../auth/utils/helper';
 
 @Injectable()
 export class MailService {
@@ -24,7 +25,7 @@ export class MailService {
         text: otp,
       });
     } catch (error: any) {
-      throw new InternalServerErrorException({ message: 'Mail system crash' });
+      throw new InternalServerErrorException({ message: 'Mail system crash or wrong email address' });
     }
   }
 }
