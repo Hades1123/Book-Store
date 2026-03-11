@@ -1,13 +1,8 @@
-export interface ApiResponse<T> {
+export interface ApiResponse<T = any> {
   success: boolean;
   data?: T;
-  //   message?: string;
-}
-
-export interface ApiError {
-  success: boolean;
-  error: {
-    code: string;
+  error?: {
+    code?: string;
     message: string;
   };
 }
