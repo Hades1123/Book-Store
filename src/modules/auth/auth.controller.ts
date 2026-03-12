@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { ResponseMessage } from 'src/common/decorators/response-message.decorator';
@@ -6,6 +6,9 @@ import { LoginResponse, RegisterResponse } from './interfaces';
 import { ResendOtpDto } from './dto/resend-otp.dto';
 import { VerifyEmailDto } from './dto/verify-email.dto';
 import { LoginDto } from './dto/login.dto';
+import { RefreshTokenDto } from './dto/refresh-token.dto';
+import { type Request } from 'express';
+import { AuthGuard } from 'src/common/guards/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -30,6 +33,17 @@ export class AuthController {
 
   @Post('login')
   async login(@Body() body: LoginDto): Promise<LoginResponse> {
-    return await this.authService.login(body);
+    return this.authService.login(body);
+  }
+
+  @Post('refresh-token')
+  async getNewToken(@Body() body: RefreshTokenDto): Promise<LoginResponse> {
+    return this.authService.getNewToken(body);
+  }
+
+  @UseGuards(AuthGuard)
+  @Post('logout')
+  async logout(@Req() req: Request): Promise<void> {
+    return this.authService.logout(req);
   }
 }

@@ -1,14 +1,21 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { RegisterDto } from './dto/register.dto';
 import { AppException } from 'src/common/exceptions/app.exception';
-import { comparePassword, generateOtp, hashPassword, OTP_EXPIRED_TIME } from './utils/helper';
+import { comparePassword, compareToken, generateOtp, hashPassword, hashToken, OTP_EXPIRED_TIME } from './utils/helper';
 import { MailService } from 'src/modules/mail/mail.service';
 import { LoginResponse, RegisterResponse } from './interfaces';
 import { ResendOtpDto } from './dto/resend-otp.dto';
 import { VerifyEmailDto } from './dto/verify-email.dto';
 import { LoginDto } from './dto/login.dto';
-import { JwtService } from '@nestjs/jwt';
+import { JwtService, TokenExpiredError } from '@nestjs/jwt';
+import { TPayload } from 'src/common/types/payload.type';
+import { User } from 'src/generated/prisma/client';
+import { type JwtConfig, jwtConfig } from 'src/config';
+import { StringValue } from 'ms';
+import { RefreshTokenDto } from './dto/refresh-token.dto';
+import { randomUUID } from 'crypto';
+import { Request } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -16,7 +23,31 @@ export class AuthService {
     private readonly prismaService: PrismaService,
     private readonly mailService: MailService,
     private readonly jwtService: JwtService,
+    @Inject(jwtConfig.KEY) private readonly jwtConfig: JwtConfig,
   ) {}
+
+  private async generatoken(user: User): Promise<LoginResponse> {
+    const payload: TPayload = {
+      sub: user.id,
+      email: user.email,
+      role: user.role,
+    };
+
+    // Use default secret in auth-core module
+    const accessToken = await this.jwtService.signAsync(payload);
+    const refreshToken = await this.jwtService.signAsync(
+      { ...payload, jti: randomUUID() },
+      {
+        secret: this.jwtConfig.jwtRefreshSecret,
+        expiresIn: this.jwtConfig.jwtRefreshExpire as StringValue,
+      },
+    );
+
+    return {
+      accessToken,
+      refreshToken,
+    };
+  }
 
   async register(body: RegisterDto): Promise<RegisterResponse> {
     const { email, fullName, password, phone } = body;
@@ -128,17 +159,86 @@ export class AuthService {
     const user = await this.prismaService.user.findUnique({
       where: { email },
     });
+
     if (!user) {
       throw AppException.userNotFound();
     }
+
+    if (!user.isActive) {
+      throw AppException.inActiveEmail();
+    }
+
     const isCorrectPassword = await comparePassword(user?.password!, password);
+
     if (!isCorrectPassword) {
       throw AppException.errorLogin();
     }
-    const payload = { id: user.id, email: user.email };
 
-    return {
-      accessToken: await this.jwtService.signAsync(payload),
-    };
+    const { accessToken, refreshToken } = await this.generatoken(user);
+
+    const hashedRefreshToken = hashToken(refreshToken);
+
+    await this.prismaService.user.update({
+      where: { id: user.id },
+      data: { hashRefreshToken: hashedRefreshToken },
+    });
+
+    return { accessToken, refreshToken };
+  }
+
+  async getNewToken(body: RefreshTokenDto): Promise<LoginResponse> {
+    const { refreshToken } = body;
+    try {
+      const payload: TPayload = await this.jwtService.verifyAsync(refreshToken, {
+        secret: this.jwtConfig.jwtRefreshSecret,
+      });
+
+      const { sub } = payload;
+
+      const user = await this.prismaService.user.findUnique({ where: { id: sub } });
+
+      if (!user || !user.hashRefreshToken) {
+        throw new UnauthorizedException();
+      }
+
+      const isTheSameToken = compareToken(user.hashRefreshToken, refreshToken);
+
+      if (!isTheSameToken) {
+        throw AppException.invalidToken();
+      }
+      const newTokens = await this.generatoken(user);
+
+      const hashedRefreshToken = hashToken(newTokens.refreshToken);
+
+      await this.prismaService.user.update({
+        where: { id: user.id },
+        data: { hashRefreshToken: hashedRefreshToken },
+      });
+
+      return {
+        accessToken: newTokens.accessToken,
+        refreshToken: newTokens.refreshToken,
+      };
+    } catch (error: any) {
+      if (error instanceof TokenExpiredError) {
+        throw AppException.tokenExpired();
+      }
+      throw AppException.invalidToken();
+    }
+  }
+
+  async logout(req: Request): Promise<void> {
+    if (!req.user) {
+      throw new UnauthorizedException();
+    }
+    const { sub } = req.user;
+    const user = await this.prismaService.user.findUnique({ where: { id: sub } });
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+    await this.prismaService.user.update({
+      where: { id: user.id },
+      data: { hashRefreshToken: null },
+    });
   }
 }

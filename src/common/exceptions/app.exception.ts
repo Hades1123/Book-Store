@@ -33,4 +33,12 @@ export class AppException extends HttpException {
   static tokenExpired() {
     return new AppException(ErrorCode.AUTH_TOKEN_EXPIRED, 'Token is expired', HttpStatus.UNAUTHORIZED);
   }
+
+  static invalidToken() {
+    return new AppException(ErrorCode.AUTH_REFRESH_TOKEN_INVALID, 'Token is invalid', HttpStatus.UNAUTHORIZED);
+  }
+
+  static inActiveEmail() {
+    return new AppException(ErrorCode.USER_INACTIVE, 'Email must be verified before login', HttpStatus.UNAUTHORIZED);
+  }
 }

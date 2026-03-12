@@ -1,9 +1,7 @@
 import { Request } from 'express';
 
-export type AuthenticatedRequest = Request & {
-  user?: {
-    id: string;
-    email: string;
-    role: string;
-  };
+export type TPayload = {
+  sub: string;
+  email: string;
+  role: string;
 };

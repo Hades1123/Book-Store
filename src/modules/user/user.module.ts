@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
-import { AuthCoreModule } from '../auth/auth-core.module';
+import { AuthCoreModule } from 'src/modules/auth/auth-core.module';
 
 @Module({
   imports: [AuthCoreModule],
