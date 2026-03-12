@@ -29,4 +29,8 @@ export class AppException extends HttpException {
       HttpStatus.NOT_FOUND,
     );
   }
+
+  static tokenExpired() {
+    return new AppException(ErrorCode.AUTH_TOKEN_EXPIRED, 'Token is expired', HttpStatus.UNAUTHORIZED);
+  }
 }

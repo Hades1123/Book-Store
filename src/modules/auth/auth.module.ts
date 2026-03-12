@@ -3,24 +3,10 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { PrismaModule } from 'src/database/prisma.module';
 import { MailModule } from 'src/modules/mail/mail.module';
-import { JwtModule } from '@nestjs/jwt';
-import { JwtConfig, jwtConfig } from 'src/config';
-import { StringValue } from 'ms';
+import { AuthCoreModule } from './auth-core.module';
 
 @Module({
-  imports: [
-    PrismaModule,
-    MailModule,
-    JwtModule.registerAsync({
-      inject: [jwtConfig.KEY],
-      useFactory: (config: JwtConfig) => ({
-        secret: config.jwtAccessSecret,
-        signOptions: {
-          expiresIn: config.jwtAcessExpire as StringValue,
-        },
-      }),
-    }),
-  ],
+  imports: [PrismaModule, MailModule, AuthCoreModule],
   providers: [AuthService],
   controllers: [AuthController],
 })
