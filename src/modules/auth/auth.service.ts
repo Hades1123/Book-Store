@@ -26,7 +26,7 @@ export class AuthService {
     @Inject(jwtConfig.KEY) private readonly jwtConfig: JwtConfig,
   ) {}
 
-  private async generatoken(user: User): Promise<LoginResponse> {
+  private async generateToken(user: User): Promise<LoginResponse> {
     const payload: TPayload = {
       sub: user.id,
       email: user.email,
@@ -58,34 +58,59 @@ export class AuthService {
       },
     });
 
-    if (existingUser) {
-      throw AppException.emailExist();
-    }
-
-    const hashedPassword = await hashPassword(password);
     const otp = generateOtp();
 
-    await this.prismaService.$transaction([
-      this.prismaService.user.create({
-        data: {
-          avatarUrl: '',
-          email: email,
-          fullName: fullName,
-          phone: phone,
-          role: 'CUSTOMER',
-          isActive: false,
-          password: hashedPassword,
-        },
-      }),
-      this.prismaService.verificationToken.create({
-        data: {
-          email: email,
-          token: otp,
-          type: 'EMAIL_VERIFICATION',
-          expiresAt: new Date(Date.now() + OTP_EXPIRED_TIME),
-        },
-      }),
-    ]);
+    if (existingUser && existingUser.isActive) {
+      throw AppException.emailExist();
+    } else if (existingUser && !existingUser.isActive) {
+      const existingOtp = await this.prismaService.verificationToken.findFirst({
+        where: { email, type: 'EMAIL_VERIFICATION' },
+      });
+      if (existingOtp && existingOtp.expiresAt > new Date(Date.now())) {
+        throw AppException.activeOtp();
+      }
+      const hashedPassword = await hashPassword(password);
+      await this.prismaService.$transaction([
+        this.prismaService.user.update({
+          where: { email: email },
+          data: { password: hashedPassword, phone, fullName },
+        }),
+        this.prismaService.verificationToken.deleteMany({
+          where: { email: email, type: 'EMAIL_VERIFICATION' },
+        }),
+        this.prismaService.verificationToken.create({
+          data: {
+            email: email,
+            token: otp,
+            type: 'EMAIL_VERIFICATION',
+            expiresAt: new Date(Date.now() + OTP_EXPIRED_TIME),
+          },
+        }),
+      ]);
+    } else {
+      const hashedPassword = await hashPassword(password);
+      await this.prismaService.$transaction([
+        this.prismaService.user.create({
+          data: {
+            avatarUrl: '',
+            email: email,
+            fullName: fullName,
+            phone: phone,
+            role: 'CUSTOMER',
+            isActive: false,
+            password: hashedPassword,
+          },
+        }),
+        this.prismaService.verificationToken.create({
+          data: {
+            email: email,
+            token: otp,
+            type: 'EMAIL_VERIFICATION',
+            expiresAt: new Date(Date.now() + OTP_EXPIRED_TIME),
+          },
+        }),
+      ]);
+    }
 
     await this.mailService.sendVerificationOtp(email, otp);
 
@@ -160,12 +185,8 @@ export class AuthService {
       where: { email },
     });
 
-    if (!user) {
-      throw AppException.userNotFound();
-    }
-
-    if (!user.isActive) {
-      throw AppException.inActiveEmail();
+    if (!user || !user.isActive) {
+      throw AppException.errorLogin();
     }
 
     const isCorrectPassword = await comparePassword(user?.password!, password);
@@ -174,7 +195,7 @@ export class AuthService {
       throw AppException.errorLogin();
     }
 
-    const { accessToken, refreshToken } = await this.generatoken(user);
+    const { accessToken, refreshToken } = await this.generateToken(user);
 
     const hashedRefreshToken = hashToken(refreshToken);
 
@@ -206,7 +227,7 @@ export class AuthService {
       if (!isTheSameToken) {
         throw AppException.invalidToken();
       }
-      const newTokens = await this.generatoken(user);
+      const newTokens = await this.generateToken(user);
 
       const hashedRefreshToken = hashToken(newTokens.refreshToken);
 

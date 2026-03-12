@@ -26,7 +26,7 @@ export class AppException extends HttpException {
     return new AppException(
       ErrorCode.AUTH_INVALID_CREDENTIALS,
       'Username or password is invalid',
-      HttpStatus.NOT_FOUND,
+      HttpStatus.UNAUTHORIZED,
     );
   }
 
