@@ -6,6 +6,8 @@ import { generateOtp, hashPassword, OTP_EXPIRED_TIME } from './utils/helper';
 import { MailService } from 'src/modules/mail/mail.service';
 import { RegisterResponse } from './interfaces';
 import { ResendOtpDto } from './dto/resend-otp.dto';
+import { VerifyEmailDto } from './dto/verify-email.dto';
+import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {
@@ -31,7 +33,6 @@ export class AuthService {
     const otp = generateOtp();
 
     await this.prismaService.$transaction([
-      this.prismaService.verificationToken.deleteMany({ where: { email: email, type: 'EMAIL_VERIFICATION' } }),
       this.prismaService.user.create({
         data: {
           avatarUrl: '',
@@ -98,4 +99,27 @@ export class AuthService {
       otpExpireTime: OTP_EXPIRED_TIME,
     };
   }
+
+  async verifyEmail(body: VerifyEmailDto): Promise<void> {
+    const { email, otp, otpType } = body;
+    const existingOtp = await this.prismaService.verificationToken.findFirst({
+      where: { email, token: otp, type: otpType },
+    });
+
+    if (!existingOtp || existingOtp.expiresAt < new Date(Date.now())) {
+      throw AppException.invalidOtp();
+    }
+
+    await this.prismaService.$transaction([
+      this.prismaService.user.update({
+        where: { email },
+        data: { isActive: true },
+      }),
+      this.prismaService.verificationToken.delete({
+        where: { id: existingOtp.id },
+      }),
+    ]);
+  }
+
+  async login(body: LoginDto): Promise<any> {}
 }

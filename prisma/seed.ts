@@ -15,6 +15,7 @@ async function main() {
       fullName: 'Van Si',
       phone: '0987249005',
       role: 'ADMIN',
+      password: '123456',
     },
   });
 }

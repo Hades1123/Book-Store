@@ -4,6 +4,7 @@ import { RegisterDto } from './dto/register.dto';
 import { ResponseMessage } from 'src/common/decorators/response-message.decorator';
 import { RegisterResponse } from './interfaces';
 import { ResendOtpDto } from './dto/resend-otp.dto';
+import { VerifyEmailDto } from './dto/verify-email.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -18,5 +19,11 @@ export class AuthController {
   @Post('resend-otp')
   async resendOtp(@Body() body: ResendOtpDto): Promise<RegisterResponse> {
     return this.authService.resendOTP(body);
+  }
+
+  @Post('verify-email')
+  @ResponseMessage('Verify successfully')
+  async verifyEmail(@Body() body: VerifyEmailDto): Promise<void> {
+    return this.authService.verifyEmail(body);
   }
 }
