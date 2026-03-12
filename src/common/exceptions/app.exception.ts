@@ -21,4 +21,12 @@ export class AppException extends HttpException {
   static userNotFound() {
     return new AppException(ErrorCode.USER_NOT_FOUND, 'User not found', HttpStatus.NOT_FOUND);
   }
+
+  static errorLogin() {
+    return new AppException(
+      ErrorCode.AUTH_INVALID_CREDENTIALS,
+      'Username or password is invalid',
+      HttpStatus.NOT_FOUND,
+    );
+  }
 }

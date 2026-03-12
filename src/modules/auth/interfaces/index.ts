@@ -1,3 +1,2 @@
-import { RegisterResponse } from './register.interface';
-
-export type { RegisterResponse };
+export * from './login.interface';
+export * from './register.interface';

@@ -2,18 +2,20 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { RegisterDto } from './dto/register.dto';
 import { AppException } from 'src/common/exceptions/app.exception';
-import { generateOtp, hashPassword, OTP_EXPIRED_TIME } from './utils/helper';
+import { comparePassword, generateOtp, hashPassword, OTP_EXPIRED_TIME } from './utils/helper';
 import { MailService } from 'src/modules/mail/mail.service';
-import { RegisterResponse } from './interfaces';
+import { LoginResponse, RegisterResponse } from './interfaces';
 import { ResendOtpDto } from './dto/resend-otp.dto';
 import { VerifyEmailDto } from './dto/verify-email.dto';
 import { LoginDto } from './dto/login.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly mailService: MailService,
+    private readonly jwtService: JwtService,
   ) {}
 
   async register(body: RegisterDto): Promise<RegisterResponse> {
@@ -121,5 +123,22 @@ export class AuthService {
     ]);
   }
 
-  async login(body: LoginDto): Promise<any> {}
+  async login(body: LoginDto): Promise<LoginResponse> {
+    const { email, password } = body;
+    const user = await this.prismaService.user.findUnique({
+      where: { email },
+    });
+    if (!user) {
+      throw AppException.userNotFound();
+    }
+    const isCorrectPassword = await comparePassword(user?.password!, password);
+    if (!isCorrectPassword) {
+      throw AppException.errorLogin();
+    }
+    const payload = { id: user.id, email: user.email };
+
+    return {
+      accessToken: await this.jwtService.signAsync(payload),
+    };
+  }
 }

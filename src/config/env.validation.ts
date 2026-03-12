@@ -2,6 +2,7 @@ import { plainToInstance } from 'class-transformer';
 import { IsNumber, IsOptional, IsString, Max, Min, validateSync } from 'class-validator';
 
 class EnvironmentVariables {
+  // App
   @IsNumber()
   @Min(0)
   @Max(65535)
@@ -42,11 +43,25 @@ class EnvironmentVariables {
   @IsOptional()
   DATABASE_SYNCHRONIZE?: string;
 
+  // External system
   @IsString()
-  GMAIL_APP_PASS?: string;
+  GMAIL_APP_PASS: string;
 
   @IsString()
-  GMAIL_USER_NAME?: string;
+  GMAIL_USER_NAME: string;
+
+  // JWT strategy
+  @IsString()
+  JWT_ACCESS_SECRET: string;
+
+  @IsString()
+  JWT_ACCESS_EXPIRES_IN: string;
+
+  @IsString()
+  JWT_REFRESH_EXPIRES_IN: string;
+
+  @IsString()
+  JWT_REFRESH_SECRET: string;
 }
 
 export function validate(config: Record<string, unknown>) {
