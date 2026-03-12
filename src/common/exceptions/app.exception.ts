@@ -13,4 +13,12 @@ export class AppException extends HttpException {
   static invalidOtp() {
     return new AppException(ErrorCode.AUTH_INVALID_OTP, 'Invalid Otp', HttpStatus.BAD_REQUEST);
   }
+
+  static activeOtp() {
+    return new AppException(ErrorCode.AUTH_OTP_ACTIVE, 'Your otp is recently sent', HttpStatus.BAD_REQUEST);
+  }
+
+  static userNotFound() {
+    return new AppException(ErrorCode.USER_NOT_FOUND, 'User not found', HttpStatus.NOT_FOUND);
+  }
 }

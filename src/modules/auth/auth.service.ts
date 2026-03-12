@@ -5,6 +5,7 @@ import { AppException } from 'src/common/exceptions/app.exception';
 import { generateOtp, hashPassword, OTP_EXPIRED_TIME } from './utils/helper';
 import { MailService } from 'src/modules/mail/mail.service';
 import { RegisterResponse } from './interfaces';
+import { ResendOtpDto } from './dto/resend-otp.dto';
 
 @Injectable()
 export class AuthService {
@@ -12,6 +13,7 @@ export class AuthService {
     private readonly prismaService: PrismaService,
     private readonly mailService: MailService,
   ) {}
+
   async register(body: RegisterDto): Promise<RegisterResponse> {
     const { email, fullName, password, phone } = body;
 
@@ -26,31 +28,71 @@ export class AuthService {
     }
 
     const hashedPassword = await hashPassword(password);
+    const otp = generateOtp();
 
-    await this.prismaService.user.create({
-      data: {
-        avatarUrl: '',
-        email: email,
-        fullName: fullName,
-        phone: phone,
-        role: 'CUSTOMER',
-        isActive: false,
-        password: hashedPassword,
-      },
+    await this.prismaService.$transaction([
+      this.prismaService.verificationToken.deleteMany({ where: { email: email, type: 'EMAIL_VERIFICATION' } }),
+      this.prismaService.user.create({
+        data: {
+          avatarUrl: '',
+          email: email,
+          fullName: fullName,
+          phone: phone,
+          role: 'CUSTOMER',
+          isActive: false,
+          password: hashedPassword,
+        },
+      }),
+      this.prismaService.verificationToken.create({
+        data: {
+          email: email,
+          token: otp,
+          type: 'EMAIL_VERIFICATION',
+          expiresAt: new Date(Date.now() + OTP_EXPIRED_TIME),
+        },
+      }),
+    ]);
+
+    await this.mailService.sendVerificationOtp(email, otp);
+
+    return {
+      email: email,
+      otpExpireTime: OTP_EXPIRED_TIME,
+    };
+  }
+
+  async resendOTP(body: ResendOtpDto): Promise<RegisterResponse> {
+    const { email, otpType } = body;
+
+    const user = await this.prismaService.user.findUnique({
+      where: { email: email },
     });
+
+    if (!user) {
+      throw AppException.userNotFound();
+    }
+
+    const existingOTP = await this.prismaService.verificationToken.findFirst({
+      where: { email: email, type: otpType },
+    });
+
+    if (existingOTP && existingOTP.expiresAt > new Date(Date.now())) {
+      throw AppException.activeOtp();
+    }
 
     const otp = generateOtp();
 
-    await this.prismaService.verificationToken.create({
-      data: {
-        email: email,
-        token: otp,
-        type: 'EMAIL_VERIFICATION',
-        expiresAt: new Date(Date.now() + OTP_EXPIRED_TIME),
-      },
-    });
+    await this.prismaService.$transaction([
+      this.prismaService.verificationToken.deleteMany({
+        where: { email, type: otpType },
+      }),
+      this.prismaService.verificationToken.create({
+        data: { email: email, token: otp, type: otpType, expiresAt: new Date(Date.now() + OTP_EXPIRED_TIME) },
+      }),
+    ]);
 
     await this.mailService.sendVerificationOtp(email, otp);
+
     return {
       email: email,
       otpExpireTime: OTP_EXPIRED_TIME,

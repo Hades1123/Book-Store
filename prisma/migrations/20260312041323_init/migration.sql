@@ -42,6 +42,3 @@ CREATE TABLE "verification_tokens" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
-
--- CreateIndex
-CREATE INDEX "verification_tokens_email_token_idx" ON "verification_tokens"("email", "token");

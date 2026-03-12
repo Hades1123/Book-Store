@@ -12,5 +12,4 @@ model VerificationToken{
     createAt DateTime @default(now())
 
     @@map("verification_tokens")
-    @@index([email, token])
 }
