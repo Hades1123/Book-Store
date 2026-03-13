@@ -7,6 +7,7 @@ import { appConfig, databaseConfig, externalConfig, jwtConfig } from './config/i
 import { AuthModule } from './modules/auth/auth.module';
 import { PrismaModule } from './database/prisma.module';
 import { UserModule } from './modules/user/user.module';
+import { UploadModule } from './modules/upload/upload.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { UserModule } from './modules/user/user.module';
     AuthModule,
     PrismaModule,
     UserModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],

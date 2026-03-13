@@ -92,7 +92,7 @@ export class AuthService {
       await this.prismaService.$transaction([
         this.prismaService.user.create({
           data: {
-            avatarUrl: '',
+            avatarPublicId: '',
             email: email,
             fullName: fullName,
             phone: phone,

@@ -16,7 +16,7 @@ model User{
   password String?
   fullName String 
   phone String 
-  avatarUrl String 
+  avatarPublicId String 
   role Role
   isActive Boolean @default(true)
   provider Provider @default(LOCAL) 

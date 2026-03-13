@@ -11,7 +11,7 @@ async function main() {
   await prisma.user.create({
     data: {
       email: 'seller@gmail.com',
-      avatarUrl: '',
+      avatarPublicId: '',
       fullName: 'Van Si',
       phone: '0987249005',
       role: 'ADMIN',

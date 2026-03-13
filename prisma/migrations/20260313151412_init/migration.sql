@@ -14,7 +14,7 @@ CREATE TABLE "users" (
     "password" TEXT,
     "fullName" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
-    "avatarUrl" TEXT NOT NULL,
+    "avatarPublicId" TEXT NOT NULL,
     "role" "Role" NOT NULL,
     "isActive" BOOLEAN NOT NULL DEFAULT true,
     "provider" "Provider" NOT NULL DEFAULT 'LOCAL',

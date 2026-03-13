@@ -4,20 +4,20 @@
 
 ### 1. User
 
-| Thuộc tính  | Kiểu             | Ghi chú                            |
-| ----------- | ---------------- | ---------------------------------- |
-| id          | UUID (PK)        |                                    |
-| email       | VARCHAR (unique) |                                    |
-| password    | VARCHAR          | nullable (OAuth user)              |
-| full_name   | VARCHAR          |                                    |
-| phone       | VARCHAR          |                                    |
-| avatar_url  | VARCHAR          | Cloudinary                         |
-| role        | ENUM             | `CUSTOMER`, `ADMIN`, `SUPER_ADMIN` |
-| is_active   | BOOLEAN          | Mở/khóa tài khoản                  |
-| provider    | ENUM             | `LOCAL`, `GOOGLE`, `FACEBOOK`      |
-| provider_id | VARCHAR          | ID từ OAuth provider               |
-| created_at  | TIMESTAMP        |                                    |
-| updated_at  | TIMESTAMP        |                                    |
+| Thuộc tính       | Kiểu             | Ghi chú                            |
+| ---------------- | ---------------- | ---------------------------------- |
+| id               | UUID (PK)        |                                    |
+| email            | VARCHAR (unique) |                                    |
+| password         | VARCHAR          | nullable (OAuth user)              |
+| full_name        | VARCHAR          |                                    |
+| phone            | VARCHAR          |                                    |
+| avatar_public_id | VARCHAR          | Cloudinary                         |
+| role             | ENUM             | `CUSTOMER`, `ADMIN`, `SUPER_ADMIN` |
+| is_active        | BOOLEAN          | Mở/khóa tài khoản                  |
+| provider         | ENUM             | `LOCAL`, `GOOGLE`, `FACEBOOK`      |
+| provider_id      | VARCHAR          | ID từ OAuth provider               |
+| created_at       | TIMESTAMP        |                                    |
+| updated_at       | TIMESTAMP        |                                    |
 
 ### 2. Address
 
@@ -38,16 +38,16 @@
 
 ### 3. Category
 
-| Thuộc tính  | Kiểu                 | Ghi chú                    |
-| ----------- | -------------------- | -------------------------- |
-| id          | UUID (PK)            |                            |
-| name        | VARCHAR              | Máy tính, Điện thoại...    |
-| description | TEXT                 |                            |
-| image_url   | VARCHAR              |                            |
-| parent_id   | UUID (FK → Category) | nullable, danh mục cha-con |
-| is_active   | BOOLEAN              | soft delete                |
-| created_at  | TIMESTAMP            |                            |
-| updated_at  | TIMESTAMP            |                            |
+| Thuộc tính      | Kiểu                 | Ghi chú                    |
+| --------------- | -------------------- | -------------------------- |
+| id              | UUID (PK)            |                            |
+| name            | VARCHAR              | Máy tính, Điện thoại...    |
+| description     | TEXT                 |                            |
+| image_public_id | VARCHAR              |                            |
+| parent_id       | UUID (FK → Category) | nullable, danh mục cha-con |
+| is_active       | BOOLEAN              | soft delete                |
+| created_at      | TIMESTAMP            |                            |
+| updated_at      | TIMESTAMP            |                            |
 
 ### 4. Product
 
@@ -72,7 +72,7 @@
 | ------------ | ------------------- | --------------------- |
 | id           | UUID (PK)           |                       |
 | product_id   | UUID (FK → Product) |                       |
-| url          | VARCHAR             | Cloudinary URL        |
+| public_id    | VARCHAR             | Cloudinary URL        |
 | type         | ENUM                | `IMAGE`, `VIDEO`      |
 | is_thumbnail | BOOLEAN             | Ảnh đại diện sản phẩm |
 | sort_order   | INT                 | Thứ tự hiển thị       |
@@ -257,7 +257,7 @@
 | ----------------- | ------------------------- | ---------------- |
 | id                | UUID (PK)                 |                  |
 | return_request_id | UUID (FK → ReturnRequest) |                  |
-| url               | VARCHAR                   | Cloudinary URL   |
+| public_id         | VARCHAR                   | Cloudinary URL   |
 | type              | ENUM                      | `IMAGE`, `VIDEO` |
 | created_at        | TIMESTAMP                 |                  |
 
