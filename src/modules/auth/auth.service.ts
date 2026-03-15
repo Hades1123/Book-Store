@@ -60,9 +60,9 @@ export class AuthService {
 
     const otp = generateOtp();
 
-    if (existingUser && existingUser.isActive) {
+    if (existingUser && existingUser.emailVerified) {
       throw AppException.emailExist();
-    } else if (existingUser && !existingUser.isActive) {
+    } else if (existingUser && !existingUser.emailVerified) {
       const existingOtp = await this.prismaService.verificationToken.findFirst({
         where: { email, type: 'EMAIL_VERIFICATION' },
       });
@@ -97,7 +97,6 @@ export class AuthService {
             fullName: fullName,
             phone: phone,
             role: 'CUSTOMER',
-            isActive: false,
             password: hashedPassword,
           },
         }),
@@ -171,7 +170,7 @@ export class AuthService {
     await this.prismaService.$transaction([
       this.prismaService.user.update({
         where: { email },
-        data: { isActive: true },
+        data: { emailVerified: true },
       }),
       this.prismaService.verificationToken.delete({
         where: { id: existingOtp.id },
@@ -185,7 +184,7 @@ export class AuthService {
       where: { email },
     });
 
-    if (!user || !user.isActive) {
+    if (!user || !user.emailVerified) {
       throw AppException.errorLogin();
     }
 

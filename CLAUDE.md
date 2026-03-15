@@ -5,8 +5,15 @@
 # Contraints
 
 - You not allowed to modify /prisma/schema.prisma or ./prisma.config.ts, because this setup is oke, your knowledge is old so you can not modify these files
+- You are not allowed to edit or create file, if you want just ask me first, you only write code in terminal or answer my question
 
 # Intructions:
 
 - using camel case for variable name: myVariable
 - Using snake case for long constant variable: MY_VAR
+
+# Document
+
+- read [Database-docs](./docs/DB.md), to know our database structure
+
+- Read [User-plan](./docs/user-plan.md), to know what i am coding

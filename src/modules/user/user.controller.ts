@@ -4,6 +4,7 @@ import { AuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { type Request } from 'express';
 import { AppException } from 'src/common/exceptions/app.exception';
 import { TUserResponse } from './types/user-response.type';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('user')
 @UseGuards(AuthGuard)
@@ -19,5 +20,11 @@ export class UserController {
   }
 
   @Patch()
-  async updateUserProfile(@Req() res: Request, @Body() body: any) {}
+  async updateUserProfile(@Req() req: Request, @Body() body: UpdateUserDto): Promise<TUserResponse> {
+    const { sub } = req.user!;
+    if (!body || Object.keys(body).length == 0) {
+      return this.userService.getUserProfile(sub);
+    }
+    return this.userService.updateUserProfile(body, sub);
+  }
 }

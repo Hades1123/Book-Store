@@ -13,7 +13,7 @@ async function bootstrap() {
   const reflactor = app.get(Reflector);
 
   app.setGlobalPrefix(configService.get<string>('app.apiPrefix') ?? 'default');
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalInterceptors(new TransformInterceptor(reflactor));
   await app.listen(port);
