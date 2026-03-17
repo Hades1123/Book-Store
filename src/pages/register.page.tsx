@@ -67,12 +67,14 @@ export const RegisterPage = () => {
               />
             </div>
           </div>
-          <div className="register__form-checkbox">
+          <label
+            htmlFor="6f89968b-5153-40bd-8f0a-1391ba0a0235"
+            className="register__form-checkbox"
+          >
             <input type="checkbox" id="6f89968b-5153-40bd-8f0a-1391ba0a0235" />
-            <label htmlFor="6f89968b-5153-40bd-8f0a-1391ba0a0235">
-              Remember me for 30 days
-            </label>
-          </div>
+            <span className="checkmark"></span>
+            <span>Remember me for 30 days</span>
+          </label>
           <button className="btn btn-primary w-100">Sign In</button>
           <span className="register__btn-sep">OR CONTINUE WITH</span>
           <div className="register__Oauth">
@@ -94,7 +96,7 @@ export const RegisterPage = () => {
             <li>Terms of Service</li>
             <li>Cookies</li>
           </ul>
-          <span>© 2024 TechStore Inc. All rights reserved.</span>
+          <span>© 2026 TechStore Inc. All rights reserved.</span>
         </div>
       </div>
     </>
