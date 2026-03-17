@@ -1,22 +1,18 @@
-.register {
+.login {
   background-color: #020617;
   color: #ffffff;
   min-height: 100vh;
   font-size: 1rem;
   font-family: 'Inter';
-  // position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: relative;
 
   &__header {
-    width: 100%;
     padding: 15px;
     background-color: #1e293b;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    &--left {
+    &--right {
       display: flex;
       align-items: center;
       gap: 10px;
@@ -33,19 +29,20 @@
         font-size: 1.25rem;
       }
     }
-    &--right {
-      span {
-        font-size: 0.875rem;
-        padding-right: 10px;
+    &--left {
+      a {
+        text-decoration: none;
         color: #94a3b8;
+        font-weight: 500;
+        font-size: 1rem;
       }
     }
   }
 
   &__form {
-    // left: 50%;
-    // transform: translateX(-50%);
-    // position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
     border: 1px solid #1e293b;
     border-radius: 12px;
     background-color: #0f172a;
@@ -55,12 +52,10 @@
     gap: 21px;
     width: 512px;
     flex-direction: column;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 80px;
     h2 {
       font-size: 1.875rem;
       font-weight: 900;
-      margin-bottom: 8px;
     }
     p {
       color: #94a3b8;
@@ -70,16 +65,15 @@
       justify-content: space-between;
       align-items: center;
     }
-    &-main {
+    &-input {
       display: flex;
       flex-direction: column;
-      gap: 25px;
+      gap: 10px;
       width: 100%;
-      & label {
+      label {
         font-size: 0.875rem;
         font-weight: 500;
         color: #cbd5e1;
-        margin-bottom: 8px;
       }
       img.right {
         position: absolute;
@@ -99,6 +93,62 @@
     }
     &-wrapper {
       position: relative;
+    }
+    &-checkbox {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      gap: 10px;
+      &:hover {
+        cursor: pointer;
+      }
+      // hide the default checkbox
+      input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+      }
+      input:checked ~ .checkmark {
+        background-color: #2196f3;
+      }
+      .checkmark:after {
+        content: '';
+        position: absolute;
+        display: none;
+      }
+      .checkmark::after {
+        left: 5px;
+        top: 1px;
+        width: 6px;
+        height: 12px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+      input:checked ~ .checkmark:after {
+        display: block;
+      }
+      // customize checkbox
+      .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 16px;
+        width: 16px;
+        background-color: #1e293b;
+        border: 1px solid #334155;
+        border-radius: 2px;
+      }
+      span:not(.checkmark) {
+        margin-left: 20px;
+        color: #94a3b8;
+        font-size: 0.875rem;
+      }
     }
     input[type='text'],
     input[type='password'] {
@@ -122,7 +172,10 @@
       outline: 2px solid blue;
     }
   }
-
+  &__btn-sep {
+    color: #94a3b8;
+    font-size: 0.75rem;
+  }
   &__Oauth {
     display: flex;
     width: 100%;
@@ -144,8 +197,22 @@
       }
     }
   }
-
-  &__privacy {
-    font-size: 0.75rem;
+  &__footer {
+    color: #64748b;
+    position: absolute;
+    bottom: 0;
+    padding: 20px;
+    background-color: #1a212b;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 0.875rem;
+    gap: 10px;
+    ul {
+      display: flex;
+      gap: 20px;
+    }
   }
 }
