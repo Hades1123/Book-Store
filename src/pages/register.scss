@@ -1,0 +1,174 @@
+.register {
+  background-color: #020617;
+  color: #ffffff;
+  min-height: 100vh;
+  font-size: 1rem;
+  font-family: 'Inter';
+  position: relative;
+
+  &__header {
+    padding: 15px;
+    background-color: #1e293b;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &--right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      div {
+        background-color: #0d6cf2;
+        padding: 10px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      span {
+        font-weight: 900;
+        font-size: 1.25rem;
+      }
+    }
+    &--left {
+      a {
+        text-decoration: none;
+        color: #94a3b8;
+        font-weight: 500;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  &__form {
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    background-color: #0f172a;
+    display: flex;
+    align-items: center;
+    padding: 32px;
+    gap: 21px;
+    width: 512px;
+    flex-direction: column;
+    margin-top: 80px;
+    h2 {
+      font-size: 1.875rem;
+      font-weight: 900;
+    }
+    p {
+      color: #94a3b8;
+    }
+    &-password {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    &-input {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #cbd5e1;
+      }
+      img.right {
+        position: absolute;
+        right: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      img.left {
+        position: absolute;
+        left: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+    &-wrapper {
+      position: relative;
+    }
+    &-checkbox {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      gap: 10px;
+      label {
+        color: #94a3b8;
+        font-size: 0.875rem;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+    input[type='text'],
+    input[type='password'] {
+      width: 100%;
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 4px;
+      padding: 16px;
+      padding-right: 50px;
+      padding-left: 50px;
+      color: white;
+    }
+    input[type='checkbox'] {
+      background-color: #1e293b;
+      border: 1px solid #334155;
+    }
+    input::placeholder {
+      color: #64748b;
+    }
+    input:focus {
+      outline: 2px solid blue;
+    }
+  }
+  &__btn-sep {
+    color: #94a3b8;
+    font-size: 0.75rem;
+  }
+  &__Oauth {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+    button {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 50%;
+      background-color: #1e293b;
+      color: #e2e8f0;
+      font-size: 0.875rem;
+      padding: 12px 60px;
+      border: 2px solid #334155;
+      border-radius: 4px;
+      &:hover {
+        opacity: 70%;
+      }
+    }
+  }
+  &__footer {
+    color: #64748b;
+    position: absolute;
+    bottom: 0;
+    padding: 20px;
+    background-color: #1a212b;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    ul {
+      display: flex;
+      gap: 20px;
+    }
+  }
+}

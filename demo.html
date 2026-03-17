@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>TechStore - MacBook Pro 14" M3</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d6cf2",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101722",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+    <!-- Navigation -->
+    <header
+        class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <div class="flex items-center gap-8">
+                    <div class="flex items-center gap-2 text-primary">
+                        <span class="material-symbols-outlined text-3xl">terminal</span>
+                        <h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">TechStore</h1>
+                    </div>
+                    <nav class="hidden md:flex items-center gap-6">
+                        <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Laptops</a>
+                        <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Phones</a>
+                        <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Accessories</a>
+                        <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Support</a>
+                    </nav>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="hidden sm:flex relative">
+                        <span
+                            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">search</span>
+                        <input
+                            class="bg-slate-100 dark:bg-slate-800 border-none rounded-lg pl-10 pr-4 py-2 text-sm w-64 focus:ring-2 focus:ring-primary"
+                            placeholder="Search products..." type="text" />
+                    </div>
+                    <button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg relative">
+                        <span class="material-symbols-outlined">shopping_cart</span>
+                        <span
+                            class="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] text-white">2</span>
+                    </button>
+                    <button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+                        <span class="material-symbols-outlined">person</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Breadcrumbs -->
+        <nav class="flex mb-8 text-sm text-slate-500 dark:text-slate-400 gap-2 items-center">
+            <a class="hover:text-primary" href="#">Home</a>
+            <span class="material-symbols-outlined text-sm">chevron_right</span>
+            <a class="hover:text-primary" href="#">Laptops</a>
+            <span class="material-symbols-outlined text-sm">chevron_right</span>
+            <span class="text-slate-900 dark:text-slate-100 font-medium">MacBook Pro 14" M3</span>
+        </nav>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+            <!-- Product Gallery -->
+            <div class="space-y-4">
+                <div
+                    class="aspect-[4/3] rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 group">
+                    <img alt="MacBook Pro"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        data-alt="Sleek space gray metallic laptop on desk"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHUTrs_NlBN_2dDS1zqeKRxdFgpCGC8hYRSbKTftEJLTOyEq33mb-AlmZuW6Xj1nBT-nfHfI3YEZnldpaUm_BXvHVRzlQ2pWodW26hKTCuSZJ07pTnZqURJ7znTTt7dJQxQWJnesfc8HSPkhm3YvJMZt454ZLQrZ6Zw3p8BSR5UxIWI0P9gEIXErhFVICKOSscylODD1nhO7lkcl9zX1puncOOd5jsX_3J5MOabPRSDAkN7CJ4VE9icUeGzY17FSw1FkcYPb1BkbpH" />
+                </div>
+                <div class="grid grid-cols-4 gap-4">
+                    <div class="aspect-square rounded-lg border-2 border-primary overflow-hidden cursor-pointer">
+                        <img alt="View 1" class="w-full h-full object-cover"
+                            data-alt="Close up of laptop display and keyboard"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-YcBLw3H05EZzesZegDnIFJC3tiPImTOjLRzLGZR8OhOKO9Y0ZcJSfg2YWby9ZyyE0IEM5VNq0CTZwdd4C0Ez773y74Bak9yOm58yU3S9lnT3831OdlOxP5HhQ_EXtGMjH85W6ZiO9iGDgbvKqPZdqUw5QwKw0ggs9CsamFGu8JBKiUn7-mkECDIwWEg8UWUu_Fx9MvydYxszf8OYEFZxbjQyMDMZABEfPyETtKlEYvxRqB57rzo7L_GZCQ1XZCfMaAp8s8316f-Z" />
+                    </div>
+                    <div
+                        class="aspect-square rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden cursor-pointer hover:border-primary transition-colors">
+                        <img alt="View 2" class="w-full h-full object-cover opacity-80 hover:opacity-100"
+                            data-alt="Side profile of thin premium laptop"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnAm_I8LIGgC8u30mYwuhHn_XqO7-W_AeGTcfF00j1MG_IEG-o0nRP_DFIcmQLvxdbYJW-D5Y8-w467hKuAwXDGabMfQ4BTRW9oJDGSg4JSd8qkNmfKxNw8bSze6Dub2r4ezHy4OagJd7yCWJIjpLLi-2K0pWDDmTshCPQihOtvlNPriLvUv5tGva2ouvjZviV224ozmZPBoD4kTfbjHdcQQ4Uj54VQE4Y_X4xFDCBTjDjQG-jvN783NI2eaLJzQr1vmGvkZ8tD8c_" />
+                    </div>
+                    <div
+                        class="aspect-square rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden cursor-pointer hover:border-primary transition-colors">
+                        <img alt="View 3" class="w-full h-full object-cover opacity-80 hover:opacity-100"
+                            data-alt="Top view of closed aluminum laptop"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2b34oBFbLyCsuPsb-F9E2MHgvwaSrwaOVel0sJ3bt_ct5rV2pGvXYuc7sZWsf9mGk6wR6HPU6vgAm6U_K0V2IjZu_mj0Ju4aLpm5VqtH96VtJdXwAg0hX1fYUeQYyGiNo71FdgeVTK-2Adb3UuK3ffpQGPCRmzOilkrJmm6NigfY6TQYJs-wEqg5GAJo4HXoLQVUqzMaWT-Kw3DkpkAdhczongm5Yn01RuR7ysaTFV1TZggk0NGMLa6tEtnJ3HqHia_BjiX0WWHIn" />
+                    </div>
+                    <div
+                        class="aspect-square rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden cursor-pointer hover:border-primary transition-colors">
+                        <img alt="View 4" class="w-full h-full object-cover opacity-80 hover:opacity-100"
+                            data-alt="Laptop glowing in dark studio lighting"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqXqLerhVRRKnwRwwo0HJ3C-kY4MW7h2c7yCs7zyuWOACij4TRYg8KGSJNGEdsGXXW7JnSYn3XcUqJhd7QRfisIXJ-oW_uzazyVMs3acPPZGQ7HD0eARJycrPKw3aChifBpBMePuWzTT9oHO7z93BmQZrCPaJbBaTXVqp8QLhU-xivQ3dEwhNv7cegtiZMR-jFN06IXVmDYrdRTOaobD1Sbe5pSrDWMiT4TBe4UYdYbAEuDcwq6uRL5K2yCZ-NP6bjjDNGQgTIG9wO" />
+                    </div>
+                </div>
+            </div>
+            <!-- Product Info -->
+            <div class="flex flex-col">
+                <div class="mb-2">
+                    <span
+                        class="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary">New
+                        Arrival</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mb-2 leading-tight">
+                    MacBook Pro 14"</h2>
+                <p class="text-lg text-slate-500 dark:text-slate-400 mb-4">Apple M3 chip with 8-core CPU and 10-core
+                    GPU, 512GB SSD - Space Gray</p>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="flex items-center text-amber-400">
+                        <span class="material-symbols-outlined fill-1">star</span>
+                        <span class="material-symbols-outlined fill-1">star</span>
+                        <span class="material-symbols-outlined fill-1">star</span>
+                        <span class="material-symbols-outlined fill-1">star</span>
+                        <span class="material-symbols-outlined">star_half</span>
+                    </div>
+                    <span class="text-sm font-medium text-slate-600 dark:text-slate-300">4.8 (1,240 reviews)</span>
+                </div>
+                <div class="mb-8">
+                    <p class="text-3xl font-bold text-slate-900 dark:text-white">$1,599.00</p>
+                    <p class="text-sm text-slate-500">Or $133.25/mo. for 12 mos.</p>
+                </div>
+                <!-- Configuration Options -->
+                <div class="space-y-6 mb-8">
+                    <!-- RAM -->
+                    <div>
+                        <h3 class="text-sm font-bold uppercase tracking-wider mb-3">Memory (RAM)</h3>
+                        <div class="grid grid-cols-3 gap-3">
+                            <button
+                                class="px-4 py-3 rounded-xl border-2 border-primary bg-primary/5 text-sm font-semibold">8GB</button>
+                            <button
+                                class="px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600 text-sm font-semibold">16GB</button>
+                            <button
+                                class="px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600 text-sm font-semibold">24GB</button>
+                        </div>
+                    </div>
+                    <!-- Storage -->
+                    <div>
+                        <h3 class="text-sm font-bold uppercase tracking-wider mb-3">Storage</h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button
+                                class="px-4 py-3 rounded-xl border-2 border-primary bg-primary/5 text-sm font-semibold text-left flex justify-between items-center">
+                                <span>512GB SSD</span>
+                                <span class="text-xs text-slate-500">Included</span>
+                            </button>
+                            <button
+                                class="px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600 text-sm font-semibold text-left flex justify-between items-center">
+                                <span>1TB SSD</span>
+                                <span class="text-xs text-slate-500">+$200</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Color -->
+                    <div>
+                        <h3 class="text-sm font-bold uppercase tracking-wider mb-3">Color</h3>
+                        <div class="flex gap-4">
+                            <button
+                                class="size-10 rounded-full border-2 border-primary p-0.5 ring-offset-2 ring-offset-background-dark">
+                                <span class="block size-full rounded-full bg-slate-700"></span>
+                            </button>
+                            <button
+                                class="size-10 rounded-full border-2 border-transparent p-0.5 hover:border-slate-400">
+                                <span class="block size-full rounded-full bg-slate-300"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button
+                        class="flex-1 bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined">shopping_bag</span>
+                        Add to Cart
+                    </button>
+                    <button
+                        class="flex-1 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-bold py-4 rounded-xl transition-all">
+                        Buy Now
+                    </button>
+                </div>
+                <div class="mt-8 flex items-center gap-6 text-sm text-slate-500 dark:text-slate-400">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">local_shipping</span>
+                        <span>Free Shipping</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">verified_user</span>
+                        <span>1 Year Warranty</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Details & Specs Section -->
+        <div class="mt-24">
+            <div class="border-b border-slate-200 dark:border-slate-800 flex gap-8 mb-12">
+                <button class="border-b-2 border-primary pb-4 text-sm font-bold text-slate-900 dark:text-white">Product
+                    Overview</button>
+                <button
+                    class="border-b-2 border-transparent pb-4 text-sm font-bold text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors">Specifications</button>
+                <button
+                    class="border-b-2 border-transparent pb-4 text-sm font-bold text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors">Reviews</button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="md:col-span-2 space-y-8">
+                    <section>
+                        <h3 class="text-2xl font-bold mb-4">Unleash Performance</h3>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+                            The 14-inch MacBook Pro blasts forward with M3, an incredibly advanced chip that brings
+                            serious speed and capability for your everyday tasks and pro workflows. With best-in-class
+                            battery life—up to 22 hours—and a beautiful Liquid Retina XDR display, it's a pro laptop
+                            without equal. Now in a striking new color: Space Black.
+                        </p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+                                <span>Liquid Retina XDR display features Extreme Dynamic Range and incredible
+                                    contrast.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+                                <span>Look sharp and sound clear with a 1080p FaceTime HD camera and studio-quality
+                                    mics.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+                                <span>Magic Keyboard with Touch ID provides a fast, easy, secure way to unlock your
+                                    Mac.</span>
+                            </li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3 class="text-xl font-bold mb-6">Technical Specifications</h3>
+                        <div class="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800">
+                            <table class="w-full text-left text-sm">
+                                <tbody>
+                                    <tr
+                                        class="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
+                                        <th class="py-4 px-6 font-semibold text-slate-500 dark:text-slate-400 w-1/3">
+                                            Chip</th>
+                                        <td class="py-4 px-6">Apple M3 chip with 8-core CPU, 10-core GPU</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-200 dark:border-slate-800">
+                                        <th class="py-4 px-6 font-semibold text-slate-500 dark:text-slate-400">Memory
+                                        </th>
+                                        <td class="py-4 px-6">8GB Unified Memory</td>
+                                    </tr>
+                                    <tr
+                                        class="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
+                                        <th class="py-4 px-6 font-semibold text-slate-500 dark:text-slate-400">Display
+                                        </th>
+                                        <td class="py-4 px-6">14.2-inch Liquid Retina XDR display (3024 x 1964)</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-200 dark:border-slate-800">
+                                        <th class="py-4 px-6 font-semibold text-slate-500 dark:text-slate-400">Battery
+                                        </th>
+                                        <td class="py-4 px-6">Up to 22 hours Apple TV app movie playback</td>
+                                    </tr>
+                                    <tr
+                                        class="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
+                                        <th class="py-4 px-6 font-semibold text-slate-500 dark:text-slate-400">Ports
+                                        </th>
+                                        <td class="py-4 px-6">MagSafe 3, two Thunderbolt / USB 4, SDXC, HDMI, headphone
+                                            jack</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+                <div class="space-y-8">
+                    <div
+                        class="rounded-2xl bg-slate-100 dark:bg-slate-800 p-8 border border-slate-200 dark:border-slate-700">
+                        <h4 class="text-lg font-bold mb-4">Included in the Box</h4>
+                        <ul class="space-y-4">
+                            <li class="flex items-center gap-3 text-sm">
+                                <span class="material-symbols-outlined text-slate-400">laptop</span>
+                                MacBook Pro 14"
+                            </li>
+                            <li class="flex items-center gap-3 text-sm">
+                                <span class="material-symbols-outlined text-slate-400">electrical_services</span>
+                                70W USB-C Power Adapter
+                            </li>
+                            <li class="flex items-center gap-3 text-sm">
+                                <span class="material-symbols-outlined text-slate-400">settings_input_component</span>
+                                USB-C to MagSafe 3 Cable (2m)
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Related Products -->
+        <div class="mt-24 mb-16">
+            <h3 class="text-2xl font-extrabold mb-8">Related Products</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Related 1 -->
+                <div class="group cursor-pointer">
+                    <div
+                        class="aspect-square rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 overflow-hidden mb-4 relative">
+                        <img alt="iPhone 15 Pro"
+                            class="w-full h-full object-cover transition-transform group-hover:scale-110"
+                            data-alt="Titanium gray smartphone on black surface"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAInOIN4o6mrBKnbRTdm5L05bmc9AaxouM6AoOkGFl9XLbWFWhei81_kpIOnLzmgT-5SOUJ89LryddP7hitc_8vGFdr6D1lZJRq9BmeEZyOFvGjIbdYUp5NxQSfak8NF-pgrk0guPApmUYS6juabmf2289uD5s0cZoF2Veeq2R1jCToFagralx0W7QiaLF2RxTgIIpoj7h8mxlGOedNbWTKkEHBUEzDbtVlILIvUo-_8mj2rVkdHeJIOSx4f9e_AW1FwSiqfR52UUGP" />
+                        <button
+                            class="absolute bottom-4 right-4 size-10 rounded-full bg-white dark:bg-slate-900 text-slate-900 dark:text-white flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all shadow-lg">
+                            <span class="material-symbols-outlined">add_shopping_cart</span>
+                        </button>
+                    </div>
+                    <h4 class="font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">
+                        iPhone 15 Pro Max</h4>
+                    <p class="text-slate-500 text-sm mb-2">Natural Titanium, 256GB</p>
+                    <p class="font-bold text-slate-900 dark:text-white">$1,199.00</p>
+                </div>
+                <!-- Related 2 -->
+                <div class="group cursor-pointer">
+                    <div
+                        class="aspect-square rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 overflow-hidden mb-4 relative">
+                        <img alt="iPad Pro"
+                            class="w-full h-full object-cover transition-transform group-hover:scale-110"
+                            data-alt="High resolution tablet with stylus pen"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmwTgKA1UBcnOUbAO9MXWLNucgxcWK1wEUu5Mxc4GbVafd3LpzqPTiz2T1QAN0MvMnoRJPOCz8j1V8yQbjgx5rjX-fN3TtL68q4BwcwJM6tt3XM_Gk8DJhsOObE61sVbEd5IlgABQJBXTMph6l1jwTA_dBhgh81UUC07Yb20qHuKvnnERDRVrscT62hUnUQRg3ppaa6z3UqAVxKVDZ4-1T_Q4XKQM0Q7flVobWYhNdYJdOx1DxT9T1GsUf9Rc962XnUVPinhMnJHFF" />
+                        <button
+                            class="absolute bottom-4 right-4 size-10 rounded-full bg-white dark:bg-slate-900 text-slate-900 dark:text-white flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all shadow-lg">
+                            <span class="material-symbols-outlined">add_shopping_cart</span>
+                        </button>
+                    </div>
+                    <h4 class="font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">iPad
+                        Pro 12.9"</h4>
+                    <p class="text-slate-500 text-sm mb-2">M2 Chip, WiFi + Cellular</p>
+                    <p class="font-bold text-slate-900 dark:text-white">$1,099.00</p>
+                </div>
+                <!-- Related 3 -->
+                <div class="group cursor-pointer">
+                    <div
+                        class="aspect-square rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 overflow-hidden mb-4 relative">
+                        <img alt="AirPods Max"
+                            class="w-full h-full object-cover transition-transform group-hover:scale-110"
+                            data-alt="Premium silver over-ear headphones"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZrFX-6fCQoX_JNZNSA5WvpRPqSpgEC0XAUXZakDMUyyBsEutJN8Vw72Asjsr9YiPks1kQg4LKSOelhZZtlcDVRMMdo_ptQyHWD0f9EB-WkcoUGU4Lt-sZ2ffrCvtqycpgMnZALvRzDRMOcTzFm8JMAlirEucm3tT4eZkWUlFOIrgyKYinS6M8jWGEpZLSTcRA5CDKtqdqyu0Kvh2R1svq7IxPg1hlUvpSLcH9rgMioMx6dwpQM7yKxqxJ2UQNK3Yeuq7F-nZ15yTf" />
+                        <button
+                            class="absolute bottom-4 right-4 size-10 rounded-full bg-white dark:bg-slate-900 text-slate-900 dark:text-white flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all shadow-lg">
+                            <span class="material-symbols-outlined">add_shopping_cart</span>
+                        </button>
+                    </div>
+                    <h4 class="font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">
+                        AirPods Max</h4>
+                    <p class="text-slate-500 text-sm mb-2">Space Gray, High-Fidelity Audio</p>
+                    <p class="font-bold text-slate-900 dark:text-white">$549.00</p>
+                </div>
+                <!-- Related 4 -->
+                <div class="group cursor-pointer">
+                    <div
+                        class="aspect-square rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 overflow-hidden mb-4 relative">
+                        <img alt="Apple Watch"
+                            class="w-full h-full object-cover transition-transform group-hover:scale-110"
+                            data-alt="Smart watch with black sport band"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYjjvIRBcptI9x3MX1E5nWFOd4W5Ime9EKmpuPcqRoio5bCaHwmsAIkvhzSHgCjHsMVu8Ah2QKSyuqCTFYeVytYSGXGAAM60V3EpImRMmCC3DRm8SIhpSNa_PFG2Qzz8cgNaEN0jiuaj_Uup0rEG9_OXW5opcPP-JQqORc9t9u_5x_mGyez8_CyXf_f2MINVE5Gi86sKnay83qwOBDzUeZMs0A-M341fCBV3G6_qsYAX6l1NenmqxKPzUA4zV5VWcq2K-slCwCq9qr" />
+                        <button
+                            class="absolute bottom-4 right-4 size-10 rounded-full bg-white dark:bg-slate-900 text-slate-900 dark:text-white flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all shadow-lg">
+                            <span class="material-symbols-outlined">add_shopping_cart</span>
+                        </button>
+                    </div>
+                    <h4 class="font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">
+                        Apple Watch Ultra 2</h4>
+                    <p class="text-slate-500 text-sm mb-2">Titanium Case, Indigo Loop</p>
+                    <p class="font-bold text-slate-900 dark:text-white">$799.00</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-slate-100 dark:bg-slate-900/50 border-t border-slate-200 dark:border-slate-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h5 class="text-sm font-bold uppercase tracking-widest text-slate-900 dark:text-white mb-4">Shop
+                    </h5>
+                    <ul class="space-y-2 text-sm text-slate-500 dark:text-slate-400">
+                        <li><a class="hover:text-primary" href="#">Laptops</a></li>
+                        <li><a class="hover:text-primary" href="#">Tablets</a></li>
+                        <li><a class="hover:text-primary" href="#">Phones</a></li>
+                        <li><a class="hover:text-primary" href="#">Accessories</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-sm font-bold uppercase tracking-widest text-slate-900 dark:text-white mb-4">Support
+                    </h5>
+                    <ul class="space-y-2 text-sm text-slate-500 dark:text-slate-400">
+                        <li><a class="hover:text-primary" href="#">Order Status</a></li>
+                        <li><a class="hover:text-primary" href="#">Returns</a></li>
+                        <li><a class="hover:text-primary" href="#">Shipping Info</a></li>
+                        <li><a class="hover:text-primary" href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-sm font-bold uppercase tracking-widest text-slate-900 dark:text-white mb-4">Company
+                    </h5>
+                    <ul class="space-y-2 text-sm text-slate-500 dark:text-slate-400">
+                        <li><a class="hover:text-primary" href="#">About TechStore</a></li>
+                        <li><a class="hover:text-primary" href="#">Careers</a></li>
+                        <li><a class="hover:text-primary" href="#">Sustainability</a></li>
+                        <li><a class="hover:text-primary" href="#">Newsroom</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-sm font-bold uppercase tracking-widest text-slate-900 dark:text-white mb-4">
+                        Newsletter</h5>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Stay updated with our latest releases.
+                    </p>
+                    <div class="flex gap-2">
+                        <input
+                            class="bg-white dark:bg-slate-800 border-none rounded-lg px-4 py-2 text-sm flex-1 focus:ring-1 focus:ring-primary"
+                            placeholder="Email" type="email" />
+                        <button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold">Join</button>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-2 text-slate-500 text-sm">
+                    <span class="material-symbols-outlined text-primary text-lg">terminal</span>
+                    <span>© 2024 TechStore Inc. All rights reserved.</span>
+                </div>
+                <div class="flex gap-6 text-sm text-slate-500">
+                    <a class="hover:text-primary" href="#">Privacy Policy</a>
+                    <a class="hover:text-primary" href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
