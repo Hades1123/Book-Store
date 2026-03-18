@@ -12,9 +12,17 @@ import { useState } from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { registerSchema } from '@/schemas/auth.schema';
-import type { ReqRegister } from '@/types/auth';
+import type { RegisterResponse, ReqRegister } from '@/types/auth';
+import { postRegister } from '@/api/auth.api';
+import { useNavigate } from 'react-router';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export const RegisterPage = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const [passwordVision, setPasswordVision] = useState<boolean>(false);
+  const [confirmPassVision, setConfirmPassVision] = useState<boolean>(false);
   const {
     handleSubmit,
     register,
@@ -22,9 +30,31 @@ export const RegisterPage = () => {
   } = useForm({
     resolver: zodResolver(registerSchema),
   });
-  const onSubmit: SubmitHandler<ReqRegister> = (data) => {};
-  const [passwordVision, setPasswordVision] = useState<boolean>(false);
-  const [confirmPassVision, setConfirmPassVision] = useState<boolean>(false);
+
+  const onSubmit: SubmitHandler<ReqRegister> = async (data) => {
+    const req: ReqRegister = {
+      email: data.email,
+      fullName: data.fullName,
+      password: data.password,
+      phone: data.phone,
+    };
+    try {
+      setLoading(true);
+      const result = await postRegister(req);
+      if (result.data && result.data.data) {
+        const data = result.data.data;
+        const successData: RegisterResponse = {
+          email: data.email,
+          otpExpireTime: data.otpExpireTime / 1000,
+        };
+        navigate('/otp', { state: successData });
+      }
+    } catch (error: any) {
+      console.log(error);
+    }
+    setLoading(false);
+  };
+
   return (
     <>
       <div className="register">
@@ -37,21 +67,17 @@ export const RegisterPage = () => {
           </div>
           <div className="register__header--right">
             <span>Already have an account?</span>
-            <button className="btn btn-primary">Sign In</button>
+            <button className="btn btn-primary" onClick={() => navigate('/login')}>
+              Sign In
+            </button>
           </div>
         </div>
         <div className="register__form">
           <div className="register__form-title">
             <h2>Create Account</h2>
-            <p>
-              Join TechStore for the best tech deals and early access to
-              gadgets.
-            </p>
+            <p>Join TechStore for the best tech deals and early access to gadgets.</p>
           </div>
-          <form
-            className="register__form-main"
-            onSubmit={handleSubmit(onSubmit)}
-          >
+          <form className="register__form-main" onSubmit={handleSubmit(onSubmit)}>
             <div className="register__name">
               <label htmlFor="">Full Name</label>
               <div className="register__form-wrapper">
@@ -79,24 +105,16 @@ export const RegisterPage = () => {
             <div className="register__password">
               <label htmlFor="">Password</label>
               <div className="register__form-wrapper">
-                <input
-                  type={passwordVision ? 'text' : 'password'}
-                  {...register('password')}
-                />
+                <input type={passwordVision ? 'text' : 'password'} {...register('password')} />
                 <img src={lockIcon} alt="pass" className="left" />
-                <img
-                  src={eyeIcon}
-                  className="right"
-                  alt="icon"
-                  onClick={() => setPasswordVision(!passwordVision)}
-                />
+                <img src={eyeIcon} className="right" alt="icon" onClick={() => setPasswordVision(!passwordVision)} />
               </div>
               <p className="error">{errors.password?.message}</p>
             </div>
             <div className="register__confirm-password">
               <label htmlFor="">Confirm password</label>
               <div className="register__form-wrapper">
-                <input type={confirmPassVision ? 'text' : 'password'} />
+                <input type={confirmPassVision ? 'text' : 'password'} {...register('confirmPassword')} />
                 <img src={confirmPass} alt="confirm" className="left" />
                 <img
                   src={eyeIcon}
@@ -105,10 +123,17 @@ export const RegisterPage = () => {
                   onClick={() => setConfirmPassVision(!confirmPassVision)}
                 />
               </div>
+              <p className="error">{errors.confirmPassword?.message}</p>
             </div>
-            <button className="btn btn-primary" type="submit">
+            <Button
+              color="primary"
+              variant="contained"
+              type="submit"
+              loading={loading}
+              loadingIndicator={<CircularProgress sx={{ color: 'blue', fontSize: 12 }} />}
+            >
               Sign Up
-            </button>
+            </Button>
           </form>
           <span>Or register with</span>
           <div className="register__Oauth">
@@ -120,9 +145,7 @@ export const RegisterPage = () => {
               <img src={fbIcon} alt="fb" /> Facebook
             </button>
           </div>
-          <div className="register__privacy">
-            By signing up, you agree to our Terms of Service and Privacy Policy
-          </div>
+          <div className="register__privacy">By signing up, you agree to our Terms of Service and Privacy Policy</div>
         </div>
       </div>
     </>

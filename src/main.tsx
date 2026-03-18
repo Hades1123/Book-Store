@@ -1,25 +1,12 @@
-import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { createBrowserRouter } from 'react-router';
 import { RouterProvider } from 'react-router/dom';
 import '@/styles/global.scss';
-import { LoginPage } from '@/pages/login.page';
-import { RegisterPage } from '@/pages/register.page';
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <h1>Hello</h1>,
-  },
-  {
-    path: '/login',
-    element: <LoginPage />,
-  },
-  {
-    path: '/register',
-    element: <RegisterPage />,
-  },
-]);
+import { router } from '@/routes/main.route';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import { StrictMode } from 'react';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
