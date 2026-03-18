@@ -14,7 +14,7 @@ Listed directory dto
 Viewed jwt-auth.guard.ts:1-45
 Listed directory enums
 
-Mình đã đọc xong code Auth module của bạn. Code khá sạch và chuẩn pattern NestJS! Auth đã có đầy đủ: **Register → Verify Email (OTP) → Login → Refresh Token → Logout**, kèm `@Public()` decorator và [AuthGuard](cci:2://file:///home/hades/Code/Project/Shoppe-Fake/backend/src/common/guards/jwt-auth.guard.ts:7:0-43:1) JWT.
+Mình đã đọc xong code Auth module của bạn. Code khá sạch và chuẩn pattern NestJS! Auth đã có đầy đủ: **Register → Verify Email (OTP) → Login → Refresh Token → Logout**, kèm `@Public()` decorator và [JwtGuard](cci:2://file:///home/hades/Code/Project/Shoppe-Fake/backend/src/common/guards/jwt-auth.guard.ts:7:0-43:1) JWT.
 
 Bây giờ nói về **User Module** — hiện tại [user.service.ts](cci:7://file:///home/hades/Code/Project/Shoppe-Fake/backend/src/modules/user/user.service.ts:0:0-0:0) và [user.controller.ts](cci:7://file:///home/hades/Code/Project/Shoppe-Fake/backend/src/modules/user/user.controller.ts:0:0-0:0) gần như trống. Dựa vào README và DB của bạn, mình gợi ý các nhóm API nên làm theo thứ tự ưu tiên:
 

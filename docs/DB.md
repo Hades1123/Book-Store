@@ -4,22 +4,36 @@
 
 ### 1. User
 
-| Thuộc tính       | Kiểu             | Ghi chú                            |
-| ---------------- | ---------------- | ---------------------------------- |
-| id               | UUID (PK)        |                                    |
-| email            | VARCHAR (unique) |                                    |
-| password         | VARCHAR          | nullable (OAuth user)              |
-| full_name        | VARCHAR          |                                    |
-| phone            | VARCHAR          |                                    |
-| avatar_public_id | VARCHAR          | Cloudinary                         |
-| role             | ENUM             | `CUSTOMER`, `ADMIN`, `SUPER_ADMIN` |
-| is_active        | BOOLEAN          | Mở/khóa tài khoản                  |
-| provider         | ENUM             | `LOCAL`, `GOOGLE`, `FACEBOOK`      |
-| provider_id      | VARCHAR          | ID từ OAuth provider               |
-| created_at       | TIMESTAMP        |                                    |
-| updated_at       | TIMESTAMP        |                                    |
+| Thuộc tính         | Kiểu             | Ghi chú                            |
+| ------------------ | ---------------- | ---------------------------------- |
+| id                 | UUID (PK)        |                                    |
+| email              | VARCHAR (unique) |                                    |
+| password           | VARCHAR          | nullable (OAuth user)              |
+| full_name          | VARCHAR          |                                    |
+| phone              | VARCHAR          | nullable (OAuth user)              |
+| avatar_public_id   | VARCHAR          | nullable (set khi upload ảnh)      |
+| role               | ENUM             | `CUSTOMER`, `ADMIN`, `SUPER_ADMIN` |
+| is_active          | BOOLEAN          | Mở/khóa tài khoản (ban)            |
+| email_verified     | BOOLEAN          | Trạng thái xác thực email          |
+| provider           | ENUM             | `LOCAL`, `GOOGLE`, `FACEBOOK`      |
+| provider_id        | VARCHAR          | ID từ OAuth provider               |
+| hash_refresh_token | VARCHAR          | Token để refresh session           |
+| last_login_at      | TIMESTAMP        | Lần đăng nhập cuối                 |
+| created_at         | TIMESTAMP        |                                    |
+| updated_at         | TIMESTAMP        |                                    |
 
-### 2. Address
+### 2. VerificationToken
+
+| Thuộc tính | Kiểu      | Ghi chú                                |
+| ---------- | --------- | -------------------------------------- |
+| id         | UUID (PK) |                                        |
+| email      | VARCHAR   | Email nhận mã                          |
+| token      | VARCHAR   | Mã OTP                                 |
+| type       | ENUM      | `EMAIL_VERIFICATION`, `PASSWORD_RESET` |
+| expires_at | TIMESTAMP | Thời gian hết hạn                      |
+| created_at | TIMESTAMP |                                        |
+
+### 3. Address
 
 | Thuộc tính     | Kiểu             | Ghi chú                          |
 | -------------- | ---------------- | -------------------------------- |
@@ -36,7 +50,7 @@
 
 > **Note**: Sở dĩ không có district vì Việt Nam đã bỏ đơn vị hành chính này rồi nhá
 
-### 3. Category
+### 4. Category
 
 | Thuộc tính      | Kiểu                 | Ghi chú                    |
 | --------------- | -------------------- | -------------------------- |
@@ -49,7 +63,7 @@
 | created_at      | TIMESTAMP            |                            |
 | updated_at      | TIMESTAMP            |                            |
 
-### 4. Product
+### 5. Product
 
 | Thuộc tính     | Kiểu                 | Ghi chú                         |
 | -------------- | -------------------- | ------------------------------- |
@@ -66,7 +80,9 @@
 | created_at     | TIMESTAMP            |                                 |
 | updated_at     | TIMESTAMP            |                                 |
 
-### 5. ProductMedia
+> **Lưu ý**: `sold_count`, `review_count`, `average_rating` là các trường **denormalized** — được cập nhật bất đồng bộ (sau mỗi order/review), không tính real-time. Ưu tiên read performance.
+
+### 6. ProductMedia
 
 | Thuộc tính   | Kiểu                | Ghi chú               |
 | ------------ | ------------------- | --------------------- |
@@ -78,7 +94,7 @@
 | sort_order   | INT                 | Thứ tự hiển thị       |
 | created_at   | TIMESTAMP           |                       |
 
-### 6. Cart
+### 7. Cart
 
 | Thuộc tính | Kiểu             | Ghi chú |
 | ---------- | ---------------- | ------- |
@@ -87,7 +103,7 @@
 | created_at | TIMESTAMP        |         |
 | updated_at | TIMESTAMP        |         |
 
-### 7. CartItem
+### 8. CartItem
 
 | Thuộc tính | Kiểu                       | Ghi chú                        |
 | ---------- | -------------------------- | ------------------------------ |
@@ -98,7 +114,7 @@
 | created_at | TIMESTAMP                  |                                |
 | updated_at | TIMESTAMP                  |                                |
 
-### 8. Wishlist
+### 9. Wishlist
 
 | Thuộc tính | Kiểu                | Ghi chú |
 | ---------- | ------------------- | ------- |
@@ -109,7 +125,7 @@
 
 > Bảng trung gian thể hiện quan hệ **N-N** giữa User và Product
 
-### 9. Voucher
+### 10. Voucher
 
 | Thuộc tính           | Kiểu             | Ghi chú                        |
 | -------------------- | ---------------- | ------------------------------ |
@@ -129,32 +145,31 @@
 | created_at           | TIMESTAMP        |                                |
 | updated_at           | TIMESTAMP        |                                |
 
-### 10. Order
+### 11. Order
 
-| Thuộc tính        | Kiểu                | Ghi chú                      |
-| ----------------- | ------------------- | ---------------------------- |
-| id                | UUID (PK)           |                              |
-| user_id           | UUID (FK → User)    |                              |
-| voucher_id        | UUID (FK → Voucher) | nullable                     |
-| receiver_name     | VARCHAR             | Snapshot địa chỉ lúc đặt     |
-| receiver_phone    | VARCHAR             |                              |
-| shipping_province | VARCHAR             |                              |
-| shipping_ward     | VARCHAR             |                              |
-| shipping_detail   | VARCHAR             |                              |
-| total_amount      | BIGINT              | Tổng tiền hàng               |
-| discount_amount   | BIGINT              | Tiền giảm (voucher)          |
-| shipping_provider | VARCHAR             | Đơn vị vận chuyển: Grab,...  |
-| shipping_fee      | BIGINT              | Phí ship                     |
-| final_amount      | BIGINT              | Thành tiền cuối              |
-| status            | ENUM                | Xem bảng trạng thái bên dưới |
-| payment_method    | ENUM                | `COD`, `VNPAY`               |
-| note              | TEXT                |                              |
-| created_at        | TIMESTAMP           |                              |
-| updated_at        | TIMESTAMP           |                              |
+| Thuộc tính        | Kiểu                | Ghi chú                                                                                                                                                      |
+| ----------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| id                | UUID (PK)           |                                                                                                                                                              |
+| user_id           | UUID (FK → User)    |                                                                                                                                                              |
+| voucher_id        | UUID (FK → Voucher) | nullable                                                                                                                                                     |
+| receiver_name     | VARCHAR             | Snapshot địa chỉ lúc đặt                                                                                                                                     |
+| receiver_phone    | VARCHAR             |                                                                                                                                                              |
+| shipping_province | VARCHAR             |                                                                                                                                                              |
+| shipping_ward     | VARCHAR             |                                                                                                                                                              |
+| shipping_detail   | VARCHAR             |                                                                                                                                                              |
+| total_amount      | BIGINT              | Tổng tiền hàng                                                                                                                                               |
+| discount_amount   | BIGINT              | Tiền giảm (voucher)                                                                                                                                          |
+| shipping_provider | VARCHAR             | Đơn vị vận chuyển: Grab,...                                                                                                                                  |
+| shipping_fee      | BIGINT              | Phí ship                                                                                                                                                     |
+| final_amount      | BIGINT              | Thành tiền cuối                                                                                                                                              |
+| status            | ENUM                | `PENDING`, `CONFIRMED`, `PREPARING`, `SHIPPING`, `DELIVERED`, `COMPLETED`, `CANCELLED`, `RETURN_REQUESTED`, `RETURN_APPROVED`, `RETURN_REJECTED`, `REFUNDED` |
+| note              | TEXT                |                                                                                                                                                              |
+| created_at        | TIMESTAMP           |                                                                                                                                                              |
+| updated_at        | TIMESTAMP           |                                                                                                                                                              |
 
 > **Lưu ý**: Địa chỉ giao hàng lưu trực tiếp trong Order (snapshot), KHÔNG reference tới bảng Address — vì user có thể sửa/xóa địa chỉ sau khi đặt hàng.
 
-### 11. OrderItem
+### 12. OrderItem
 
 | Thuộc tính      | Kiểu                       | Ghi chú                                  |
 | --------------- | -------------------------- | ---------------------------------------- |
@@ -176,7 +191,7 @@
 > - `total_price` là số tiền user thực trả cho item này → dùng để hoàn tiền chính xác
 > - Ví dụ: Đơn 500k, voucher 50k, item A 200k → discount = 50k × (200k/500k) = 20k → total_price = 180k
 
-### 12. OrderStatusHistory
+### 13. OrderStatusHistory
 
 | Thuộc tính | Kiểu              | Ghi chú             |
 | ---------- | ----------------- | ------------------- |
@@ -187,7 +202,7 @@
 | changed_by | UUID (FK → User)  | Admin hoặc hệ thống |
 | created_at | TIMESTAMP         |                     |
 
-### 13. Review
+### 14. Review
 
 | Thuộc tính    | Kiểu                  | Ghi chú                         |
 | ------------- | --------------------- | ------------------------------- |
@@ -200,7 +215,7 @@
 | created_at    | TIMESTAMP             |                                 |
 | updated_at    | TIMESTAMP             |                                 |
 
-### 14. Notification
+### 15. Notification
 
 | Thuộc tính | Kiểu             | Ghi chú                               |
 | ---------- | ---------------- | ------------------------------------- |
@@ -213,7 +228,7 @@
 | is_read    | BOOLEAN          |                                       |
 | created_at | TIMESTAMP        |                                       |
 
-### 15. Payment
+### 16. Payment
 
 | Thuộc tính     | Kiểu              | Ghi chú                        |
 | -------------- | ----------------- | ------------------------------ |
@@ -226,7 +241,7 @@
 | paid_at        | TIMESTAMP         | nullable                       |
 | created_at     | TIMESTAMP         |                                |
 
-### 16. ReturnRequest
+### 17. ReturnRequest
 
 | Thuộc tính      | Kiểu                  | Ghi chú                                        |
 | --------------- | --------------------- | ---------------------------------------------- |
@@ -251,7 +266,7 @@
 >    - `voucher_penalty` = tổng discount_amount của các item còn lại
 >    - `refund_amount` = refund_amount - voucher_penalty
 
-### 17. ReturnRequestMedia
+### 18. ReturnRequestMedia
 
 | Thuộc tính        | Kiểu                      | Ghi chú          |
 | ----------------- | ------------------------- | ---------------- |
@@ -261,7 +276,7 @@
 | type              | ENUM                      | `IMAGE`, `VIDEO` |
 | created_at        | TIMESTAMP                 |                  |
 
-### 18. VoucherUsage
+### 19. VoucherUsage
 
 | Thuộc tính | Kiểu                | Ghi chú |
 | ---------- | ------------------- | ------- |
@@ -273,7 +288,7 @@
 
 ---
 
-### 19. ProductVariant
+### 20. ProductVariant
 
 | Thuộc tính     | Kiểu                | Ghi chú                           |
 | -------------- | ------------------- | --------------------------------- |
@@ -287,7 +302,7 @@
 | created_at     | TIMESTAMP           |                                   |
 | updated_at     | TIMESTAMP           |                                   |
 
-### 20. VariantAttribute
+### 21. VariantAttribute
 
 | Thuộc tính | Kiểu                       | Ghi chú                |
 | ---------- | -------------------------- | ---------------------- |
@@ -301,42 +316,76 @@
 
 ## Quan hệ (Relationships)
 
-| Quan hệ                            | Kiểu           | Ghi chú                           |
-| ---------------------------------- | -------------- | --------------------------------- |
-| User → Address                     | **1-N**        | 1 user có nhiều địa chỉ           |
-| User → Cart                        | **1-1**        | 1 user có 1 giỏ hàng              |
-| User → Order                       | **1-N**        | 1 user có nhiều đơn hàng          |
-| User → Review                      | **1-N**        | 1 user viết nhiều review          |
-| User → Notification                | **1-N**        | 1 user nhận nhiều thông báo       |
-| User → ReturnRequest               | **1-N**        | 1 user tạo nhiều yêu cầu trả      |
-| User ↔ Product (qua Wishlist)      | **N-N**        | Nhiều user thích nhiều SP         |
-| Category → Category                | **1-N** (self) | Danh mục cha-con                  |
-| Category → Product                 | **1-N**        | 1 danh mục có nhiều SP            |
-| Product → ProductMedia             | **1-N**        | 1 SP có nhiều ảnh/video           |
-| Product → ProductVariant           | **1-N**        | 1 SP có nhiều variant             |
-| ProductVariant → VariantAttribute  | **1-N**        | 1 variant có nhiều thuộc tính     |
-| ProductVariant → CartItem          | **1-N**        | 1 variant nằm trong nhiều giỏ     |
-| ProductVariant → OrderItem         | **1-N**        | 1 variant có trong nhiều đơn      |
-| OrderItem → Review                 | **1-1**        | 1 item có tối đa 1 review         |
-| Cart → CartItem                    | **1-N**        | 1 giỏ có nhiều item               |
-| Order → OrderItem                  | **1-N**        | 1 đơn có nhiều SP                 |
-| Order → OrderStatusHistory         | **1-N**        | 1 đơn có nhiều lần đổi trạng thái |
-| Order → Payment                    | **1-N**        | 1 đơn có N giao dịch thanh toán   |
-| OrderItem → ReturnRequest          | **1-1**        | 1 item có tối đa 1 yêu cầu trả    |
-| ReturnRequest → ReturnRequestMedia | **1-N**        | 1 yêu cầu có nhiều ảnh/video      |
-| Voucher → Order                    | **1-N**        | 1 voucher dùng cho nhiều đơn      |
-| Voucher → VoucherUsage             | **1-N**        | Tracking lịch sử dùng voucher     |
-| User → VoucherUsage                | **1-N**        | Tracking user dùng voucher        |
+| Quan hệ                            | Kiểu           | Ghi chú                                                                                           |
+| ---------------------------------- | -------------- | ------------------------------------------------------------------------------------------------- |
+| User → Address                     | **1-N**        | 1 user có nhiều địa chỉ                                                                           |
+| User → Cart                        | **1-1**        | 1 user có 1 giỏ hàng                                                                              |
+| User → Order                       | **1-N**        | 1 user có nhiều đơn hàng                                                                          |
+| User → Review                      | **1-N**        | 1 user viết nhiều review                                                                          |
+| User → Notification                | **1-N**        | 1 user nhận nhiều thông báo                                                                       |
+| User → ReturnRequest               | **1-N**        | 1 user tạo nhiều yêu cầu trả                                                                      |
+| User ↔ Product (qua Wishlist)      | **N-N**        | Nhiều user thích nhiều SP                                                                         |
+| Category → Category                | **1-N** (self) | Danh mục cha-con                                                                                  |
+| Category → Product                 | **1-N**        | 1 danh mục có nhiều SP                                                                            |
+| Product → ProductMedia             | **1-N**        | 1 SP có nhiều ảnh/video                                                                           |
+| Product → ProductVariant           | **1-N**        | 1 SP có nhiều variant                                                                             |
+| ProductVariant → VariantAttribute  | **1-N**        | 1 variant có nhiều thuộc tính                                                                     |
+| ProductVariant → CartItem          | **1-N**        | 1 variant nằm trong nhiều giỏ                                                                     |
+| ProductVariant → OrderItem         | **1-N**        | 1 variant có trong nhiều đơn                                                                      |
+| OrderItem → Review                 | **1-1**        | 1 item có tối đa 1 review                                                                         |
+| Cart → CartItem                    | **1-N**        | 1 giỏ có nhiều item                                                                               |
+| Order → OrderItem                  | **1-N**        | 1 đơn có nhiều SP                                                                                 |
+| Order → OrderStatusHistory         | **1-N**        | 1 đơn có nhiều lần đổi trạng thái                                                                 |
+| Order → Payment                    | **1-N**        | 1 đơn có N giao dịch thanh toán                                                                   |
+| OrderItem → ReturnRequest          | **1-N**        | 1 item có thể có nhiều yêu cầu trả (partial return nhiều lần, tổng quantity ≤ OrderItem.quantity) |
+| ReturnRequest → ReturnRequestMedia | **1-N**        | 1 yêu cầu có nhiều ảnh/video                                                                      |
+| Voucher → Order                    | **1-N**        | 1 voucher dùng cho nhiều đơn                                                                      |
+| Voucher → VoucherUsage             | **1-N**        | Tracking lịch sử dùng voucher                                                                     |
+| User → VoucherUsage                | **1-N**        | Tracking user dùng voucher                                                                        |
+| User → VerificationToken           | **1-N**        | Email verification tokens                                                                         |
 
 ---
 
 ## Trạng thái đơn hàng (Order Status)
 
 ```
-PENDING → CONFIRMED → PREPARING → SHIPPING → DELIVERED → COMPLETED
-                                                    ↘ CANCELLED
-                                          RETURN_REQUESTED → REFUNDED
+                    ┌─────────────┐
+                    │   PENDING   │ ← Vừa đặt hàng
+                    └──────┬──────┘
+                           │
+              ┌────────────▼────────────┐
+         ┌────┤        CONFIRMED        │ ← Admin xác nhận
+         │    └────────────┬────────────┘
+         │                 │
+         │    ┌────────────▼────────────┐
+         ├────┤        PREPARING        │ ← Đang chuẩn bị hàng
+         │    └────────────┬────────────┘
+         │                 │
+         │    ┌────────────▼────────────┐
+         │    │         SHIPPING        │ ← Đang giao
+         │    └────────────┬────────────┘
+         │                 │
+         │    ┌────────────▼────────────┐
+         │    │         DELIVERED       │ ← Đã giao thành công
+         │    └────────────┬────────────┘
+         │                 │
+         │    ┌────────────▼────────────┐
+         │    │         COMPLETED       │ ← User xác nhận / tự động sau N ngày
+         │    └─────────────────────────┘
+         │
+         └──────────► CANCELLED ← Có thể huỷ ở PENDING / CONFIRMED / PREPARING
+
+Sau DELIVERED, user có thể mở yêu cầu trả hàng:
+
+DELIVERED → RETURN_REQUESTED → RETURN_APPROVED → REFUNDED
+                             ↘ RETURN_REJECTED
 ```
+
+> **Lưu ý chuyển trạng thái**:
+>
+> - `CANCELLED`: Chỉ cho phép ở 3 trạng thái đầu (`PENDING`, `CONFIRMED`, `PREPARING`). Sau khi `SHIPPING` thì không huỷ được.
+> - `COMPLETED`: Tự động chuyển sau N ngày kể từ `DELIVERED` nếu user không có khiếu nại.
+> - `RETURN_REQUESTED`: Chỉ mở được khi đơn đang ở `DELIVERED` (chưa `COMPLETED`).
 
 ---
 

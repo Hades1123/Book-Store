@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { AppException } from 'src/common/exceptions/app.exception';
 import { PrismaService } from 'src/database/prisma.service';
 import { TAllUsersRes, TUserResponse } from './types/user-response.type';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PaginationDto } from './dto/pagination.dto';
+import { Role, User } from 'src/generated/prisma/client';
 
 @Injectable()
 export class UserService {
@@ -15,6 +16,7 @@ export class UserService {
       throw AppException.userNotFound();
     }
     return {
+      id: user.id,
       fullName: user.fullName,
       email: user.email,
       avatarPublicId: user.avatarPublicId,
@@ -36,6 +38,7 @@ export class UserService {
       },
     });
     return {
+      id: user.id,
       avatarPublicId: user.avatarPublicId,
       email: user.email,
       fullName: user.fullName,
@@ -55,6 +58,7 @@ export class UserService {
       },
     });
     const result: TUserResponse[] = users.map((user) => ({
+      id: user.id,
       fullName: user.fullName,
       avatarPublicId: user.avatarPublicId,
       email: user.email,
@@ -69,5 +73,24 @@ export class UserService {
       },
       user: result,
     };
+  }
+
+  async getUserById(id: string): Promise<User> {
+    const user = await this.prismaService.user.findUnique({ where: { id } });
+    if (!user) {
+      throw AppException.userNotFound();
+    }
+    return user;
+  }
+
+  async updateUserRole(id: string, role: Role): Promise<void> {
+    /**
+     * only one super_admin in our system and the number must be = 1
+     * number of admin is flexible :D
+     */
+    if (role == 'SUPER_ADMIN') {
+      // const superAdmin = await this.prismaService.user.findUnique({ where: {} });
+      throw new ForbiddenException('Must be one Super Admin !!!');
+    }
   }
 }

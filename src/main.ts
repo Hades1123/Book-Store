@@ -12,6 +12,9 @@ async function bootstrap() {
 
   const reflactor = app.get(Reflector);
 
+  app.enableCors({
+    origin: [configService.get<string>('FE_URL')],
+  });
   app.setGlobalPrefix(configService.get<string>('app.apiPrefix') ?? 'default');
   app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
   app.useGlobalFilters(new HttpExceptionFilter());

@@ -6,7 +6,7 @@ import { AppException } from 'src/common/exceptions/app.exception';
 import { IS_PUBLIC_KEY } from 'src/common/decorators/public.decorator';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class JwtGuard implements CanActivate {
   constructor(
     private jwtService: JwtService,
     private reflactor: Reflector,

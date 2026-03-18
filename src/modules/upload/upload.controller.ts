@@ -14,9 +14,9 @@ import { UploadService } from './upload.service';
 import { IMAGE_TYPE_REGEX, MAX_FILE_SIZE } from 'src/common/constants/common';
 import { maxFileSizeValidator } from 'src/common/pipes/maxFileSizeValidator.pipe';
 import { UploadFileDto } from './dto/upload-file.dto';
-import { AuthGuard } from 'src/common/guards/jwt-auth.guard';
+import { JwtGuard } from 'src/common/guards/jwt-auth.guard';
 
-@UseGuards(AuthGuard)
+@UseGuards(JwtGuard)
 @Controller('upload')
 export class UploadController {
   constructor(private readonly uploadService: UploadService) {}

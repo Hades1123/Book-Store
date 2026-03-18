@@ -8,7 +8,7 @@ import { VerifyEmailDto } from './dto/verify-email.dto';
 import { LoginDto } from './dto/login.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { type Request } from 'express';
-import { AuthGuard } from 'src/common/guards/jwt-auth.guard';
+import { JwtGuard } from 'src/common/guards/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -41,7 +41,7 @@ export class AuthController {
     return this.authService.getNewToken(body);
   }
 
-  @UseGuards(AuthGuard)
+  @UseGuards(JwtGuard)
   @Post('logout')
   async logout(@Req() req: Request): Promise<void> {
     return this.authService.logout(req);
