@@ -21,7 +21,7 @@ export class JwtGuard implements CanActivate {
       return true;
     }
     const request = context.switchToHttp().getRequest();
-    const token = this.extractTokenFromHeader(request);
+    const token = this.extractToken(request);
     if (!token) {
       throw new UnauthorizedException();
     }
@@ -35,6 +35,10 @@ export class JwtGuard implements CanActivate {
       throw new UnauthorizedException();
     }
     return true;
+  }
+
+  private extractToken(req: Request): string | undefined {
+    return req.cookies?.['access_token'] || this.extractTokenFromHeader(req);
   }
 
   private extractTokenFromHeader(request: Request): string | undefined {

@@ -206,8 +206,10 @@ export class AuthService {
     return { accessToken, refreshToken };
   }
 
-  async getNewToken(body: RefreshTokenDto): Promise<LoginResponse> {
-    const { refreshToken } = body;
+  async getNewToken(refreshToken: string): Promise<LoginResponse> {
+    if (!refreshToken) {
+      throw AppException.invalidToken();
+    }
     try {
       const payload: TPayload = await this.jwtService.verifyAsync(refreshToken, {
         secret: this.jwtConfig.jwtRefreshSecret,
