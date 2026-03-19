@@ -1,10 +1,9 @@
 .register {
-  background-color: #020617;
-  color: #ffffff;
+  background-color: #f8fafc;
+  color: #1e293b;
   min-height: 100vh;
   font-size: 1rem;
   font-family: 'Inter';
-  // position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,16 +11,17 @@
   &__header {
     width: 100%;
     padding: 15px;
-    background-color: #1e293b;
+    background-color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     &--left {
       display: flex;
       align-items: center;
       gap: 10px;
       div {
-        background-color: #0d6cf2;
+        background-color: #3b82f6;
         padding: 10px;
         border-radius: 10px;
         display: flex;
@@ -31,24 +31,22 @@
       span {
         font-weight: 900;
         font-size: 1.25rem;
+        color: #1e293b;
       }
     }
     &--right {
       span {
         font-size: 0.875rem;
         padding-right: 10px;
-        color: #94a3b8;
+        color: #64748b;
       }
     }
   }
 
   &__form {
-    // left: 50%;
-    // transform: translateX(-50%);
-    // position: absolute;
-    border: 1px solid #1e293b;
+    border: 1px solid #e2e8f0;
     border-radius: 12px;
-    background-color: #0f172a;
+    background-color: #ffffff;
     display: flex;
     align-items: center;
     padding: 32px;
@@ -57,13 +55,15 @@
     flex-direction: column;
     margin-top: 30px;
     margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     h2 {
       font-size: 1.875rem;
       font-weight: 900;
       margin-bottom: 8px;
+      color: #0f172a;
     }
     p {
-      color: #94a3b8;
+      color: #64748b;
     }
     &-password {
       display: flex;
@@ -78,7 +78,7 @@
       & label {
         font-size: 0.875rem;
         font-weight: 500;
-        color: #cbd5e1;
+        color: #475569;
         margin-bottom: 8px;
       }
       img.right {
@@ -103,23 +103,25 @@
     input[type='text'],
     input[type='password'] {
       width: 100%;
-      background-color: #1e293b;
-      border: 1px solid #334155;
+      background-color: #ffffff;
+      border: 1px solid #d1d5db;
       border-radius: 4px;
       padding: 16px;
       padding-right: 50px;
       padding-left: 50px;
-      color: white;
+      color: #1e293b;
     }
     input[type='checkbox'] {
-      background-color: #1e293b;
-      border: 1px solid #334155;
+      background-color: #ffffff;
+      border: 1px solid #d1d5db;
     }
     input::placeholder {
-      color: #64748b;
+      color: #9ca3af;
     }
     input:focus {
-      outline: 2px solid blue;
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
     }
   }
 
@@ -133,24 +135,25 @@
       align-items: center;
       gap: 10px;
       width: 50%;
-      background-color: #1e293b;
-      color: #e2e8f0;
+      background-color: #ffffff;
+      color: #374151;
       font-size: 0.875rem;
       padding: 12px 60px;
-      border: 2px solid #334155;
+      border: 1px solid #d1d5db;
       border-radius: 4px;
       &:hover {
-        opacity: 70%;
+        background-color: #f9fafb;
       }
     }
   }
 
   &__privacy {
     font-size: 0.75rem;
+    color: #64748b;
   }
 
   p.error {
-    color: orange;
+    color: #ef4444;
     padding-top: 3px;
   }
 }
