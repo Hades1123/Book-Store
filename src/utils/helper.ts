@@ -8,7 +8,7 @@ export const convertTime = (param: number): string => {
 };
 
 export const sleep = async (ms: number = 3000) =>
-  new Promise((resolve, reject) => {
+  new Promise((resolve) => {
     const timer = setTimeout(() => {
       resolve(timer);
     }, ms);

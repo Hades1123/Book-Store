@@ -24,3 +24,7 @@ export const postResendOtp = (req: ReqResendOtp) => {
 export const postLogin = (req: ReqLogin) => {
   return axios.post<ApiResponse<LoginResponse>>('/auth/login', req);
 };
+
+export const postLogout = () => {
+  return axios.post<ApiResponse<LoginResponse>>('/auth/logout');
+};
