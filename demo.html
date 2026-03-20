@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 
-<html class="dark" lang="en">
+<html class="light" lang="en">
 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Verify Your Email - TechStore</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Manrope:wght@200..800&amp;display=swap"
         rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
@@ -21,126 +21,341 @@
             theme: {
                 extend: {
                     colors: {
-                        "primary": "#0d6cf2",
-                        "background-light": "#f5f7f8",
-                        "background-dark": "#101722",
+                        "on-tertiary-fixed-variant": "#663e00",
+                        "secondary-container": "#c4e7e2",
+                        "surface-container-high": "#ede7e6",
+                        "surface": "#fef8f7",
+                        "primary-container": "#c54f2c",
+                        "on-primary-container": "#fffbff",
+                        "secondary-fixed-dim": "#accdc9",
+                        "on-surface-variant": "#58423c",
+                        "tertiary-fixed-dim": "#feb965",
+                        "on-secondary-container": "#496865",
+                        "on-background": "#1d1b1b",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#a0691b",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#456461",
+                        "surface-dim": "#ded9d8",
+                        "on-error-container": "#93000a",
+                        "primary": "#a43716",
+                        "on-primary-fixed-variant": "#862201",
+                        "primary-fixed-dim": "#ffb5a0",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#c7e9e5",
+                        "outline": "#8b716a",
+                        "inverse-surface": "#323030",
+                        "background": "#fef8f7",
+                        "primary-fixed": "#ffdbd1",
+                        "on-tertiary-container": "#fffbff",
+                        "tertiary": "#835100",
+                        "on-surface": "#1d1b1b",
+                        "on-secondary-fixed-variant": "#2d4c49",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#f8f2f2",
+                        "surface-variant": "#e7e1e1",
+                        "surface-tint": "#a73918",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#dfc0b7",
+                        "surface-container-highest": "#e7e1e1",
+                        "surface-container": "#f3ecec",
+                        "on-secondary-fixed": "#00201e",
+                        "on-tertiary-fixed": "#2b1700",
+                        "inverse-primary": "#ffb5a0",
+                        "tertiary-fixed": "#ffddb9",
+                        "on-primary-fixed": "#3b0900",
+                        "on-secondary": "#ffffff",
+                        "surface-bright": "#fef8f7",
+                        "inverse-on-surface": "#f6efef"
                     },
                     fontFamily: {
-                        "display": ["Inter", "sans-serif"]
+                        "headline": ["Newsreader"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
                     },
-                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
                 },
             },
         }
     </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #fef8f7;
+            color: #1d1b1b;
+        }
+
+        h1,
+        h2,
+        h3,
+        .serif-italic {
+            font-family: 'Newsreader', serif;
+        }
+    </style>
 </head>
 
-<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
-    <div
-        class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark overflow-x-hidden">
-        <div class="layout-container flex h-full grow flex-col">
-            <!-- Header / Nav -->
-            <header
-                class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 px-6 lg:px-40 py-4 bg-background-light dark:bg-background-dark/50 backdrop-blur-md sticky top-0 z-50">
-                <div class="flex items-center gap-3">
-                    <div class="flex items-center justify-center size-10 rounded-lg bg-primary/10 text-primary">
-                        <span class="material-symbols-outlined text-2xl">terminal</span>
-                    </div>
-                    <h2 class="text-slate-900 dark:text-white text-xl font-bold leading-tight tracking-tight">TechStore
-                    </h2>
-                </div>
-                <button
-                    class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-                    <span class="material-symbols-outlined">help</span>
+<body class="bg-surface text-on-surface">
+    <!-- TopNavBar -->
+    <nav class="fixed top-0 w-full z-50 bg-[#fef8f7]/80 dark:bg-stone-900/80 backdrop-blur-xl">
+        <div class="flex justify-between items-center px-24 py-6 max-w-[1920px] mx-auto">
+            <div class="font-['Newsreader'] font-bold text-2xl text-[#1d1b1b] dark:text-stone-100">The Literary Curator
+            </div>
+            <div class="hidden md:flex items-center gap-12">
+                <a class="text-[#D95D39] font-bold border-b-2 border-[#D95D39] pb-1 scale-95 duration-200 ease-in-out"
+                    href="#">Home</a>
+                <a class="text-[#1d1b1b]/70 dark:text-stone-400 font-['Manrope'] text-sm uppercase tracking-widest hover:text-[#D95D39] transition-colors duration-300"
+                    href="#">Categories</a>
+                <a class="text-[#1d1b1b]/70 dark:text-stone-400 font-['Manrope'] text-sm uppercase tracking-widest hover:text-[#D95D39] transition-colors duration-300"
+                    href="#">Best Sellers</a>
+                <a class="text-[#1d1b1b]/70 dark:text-stone-400 font-['Manrope'] text-sm uppercase tracking-widest hover:text-[#D95D39] transition-colors duration-300"
+                    href="#">About</a>
+            </div>
+            <div class="flex items-center gap-6 text-[#1d1b1b]/70">
+                <button class="hover:text-[#D95D39] transition-colors">
+                    <span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
                 </button>
-            </header>
-            <!-- Main Content -->
-            <main class="flex flex-1 items-center justify-center p-6">
-                <div
-                    class="layout-content-container flex flex-col max-w-[480px] w-full bg-white dark:bg-slate-900/50 p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xl shadow-black/10">
-                    <!-- Title Section -->
-                    <div class="flex flex-col gap-3 mb-8 text-center">
-                        <div
-                            class="mx-auto flex size-16 items-center justify-center rounded-full bg-primary/10 text-primary mb-2">
-                            <span class="material-symbols-outlined text-3xl">mark_email_unread</span>
-                        </div>
-                        <h1 class="text-slate-900 dark:text-white text-3xl font-extrabold leading-tight tracking-tight">
-                            Verify Your Email</h1>
-                        <p class="text-slate-600 dark:text-slate-400 text-base font-normal leading-relaxed">
-                            We've sent a 6-digit verification code to <span
-                                class="font-semibold text-slate-900 dark:text-slate-200">alex***@example.com</span>.
-                            Please enter it below to continue.
-                        </p>
+                <button class="hover:text-[#D95D39] transition-colors">
+                    <span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-32">
+        <!-- Hero Section -->
+        <section class="px-24 mb-48">
+            <div class="grid grid-cols-12 gap-12 items-end">
+                <div class="col-span-12 md:col-span-7 pb-12">
+                    <span
+                        class="text-on-surface-variant font-label text-sm uppercase tracking-[0.3em] mb-6 block">Editor's
+                        Choice — Winter 2024</span>
+                    <h1 class="text-7xl md:text-8xl font-headline italic tracking-tight leading-[0.95] mb-8">
+                        The Architecture of <br />Modern <span class="text-primary">Solitude.</span>
+                    </h1>
+                    <p class="font-body text-xl text-on-surface-variant max-w-xl mb-12 leading-relaxed">
+                        A profound exploration of silence in the digital age. This month's featured masterpiece invites
+                        you to rediscover the art of being present.
+                    </p>
+                    <button
+                        class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-10 py-5 rounded-md font-label font-bold text-sm uppercase tracking-widest shadow-xl shadow-primary/10 hover:brightness-110 transition-all">
+                        Discover the Volume
+                    </button>
+                </div>
+                <div class="col-span-12 md:col-span-5 relative">
+                    <div class="aspect-[3/4] bg-surface-container-highest overflow-hidden relative shadow-2xl">
+                        <img class="w-full h-full object-cover grayscale contrast-125"
+                            data-alt="Minimalist book cover design with architectural abstract patterns"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDs_6IT9Nhd_RZSxDh9vn8tIkpfl8MFNR0p0ynau7JkX1xAd7ahXOhWHJnAsfdRDlzJIMlZSuAhoJqozNbT2b3l63Gx1rApoFONvZ78nubo3ngKq-URuPdh_fjXlzjNSBfilWUlDcGiXEp5qZiJde4I8Esn_GR2OYXnBOJ58wDX2bj0M6KKPaDPTrHzGcOlnJSi9FsEAJEgkAb_TEoKHiPJ7kDjjSSi4jel6B8NvJPPUyAYNmM_Sh9VtrSzmlGtBsymg9iQKsRU6kaU" />
+                        <div class="absolute inset-0 bg-primary/5 mix-blend-multiply"></div>
                     </div>
-                    <!-- OTP Inputs -->
-                    <div class="flex justify-center mb-8">
-                        <fieldset class="relative flex gap-3 sm:gap-4">
-                            <input autocomplete="one-time-code"
-                                class="flex h-14 w-11 sm:w-14 text-center rounded-lg border border-slate-300 dark:border-slate-700 bg-transparent text-xl font-bold focus:border-primary focus:ring-1 focus:ring-primary dark:text-white transition-all outline-none"
-                                max="9" maxlength="1" placeholder="•" type="text" />
-                            <input
-                                class="flex h-14 w-11 sm:w-14 text-center rounded-lg border border-slate-300 dark:border-slate-700 bg-transparent text-xl font-bold focus:border-primary focus:ring-1 focus:ring-primary dark:text-white transition-all outline-none"
-                                max="9" maxlength="1" placeholder="•" type="text" />
-                            <input
-                                class="flex h-14 w-11 sm:w-14 text-center rounded-lg border border-slate-300 dark:border-slate-700 bg-transparent text-xl font-bold focus:border-primary focus:ring-1 focus:ring-primary dark:text-white transition-all outline-none"
-                                max="9" maxlength="1" placeholder="•" type="text" />
-                            <input
-                                class="flex h-14 w-11 sm:w-14 text-center rounded-lg border border-slate-300 dark:border-slate-700 bg-transparent text-xl font-bold focus:border-primary focus:ring-1 focus:ring-primary dark:text-white transition-all outline-none"
-                                max="9" maxlength="1" placeholder="•" type="text" />
-                            <input
-                                class="flex h-14 w-11 sm:w-14 text-center rounded-lg border border-slate-300 dark:border-slate-700 bg-transparent text-xl font-bold focus:border-primary focus:ring-1 focus:ring-primary dark:text-white transition-all outline-none"
-                                max="9" maxlength="1" placeholder="•" type="text" />
-                            <input
-                                class="flex h-14 w-11 sm:w-14 text-center rounded-lg border border-slate-300 dark:border-slate-700 bg-transparent text-xl font-bold focus:border-primary focus:ring-1 focus:ring-primary dark:text-white transition-all outline-none"
-                                max="9" maxlength="1" placeholder="•" type="text" />
-                        </fieldset>
+                    <!-- Asymmetrical element -->
+                    <div
+                        class="absolute -bottom-12 -left-12 w-48 h-48 bg-tertiary-container p-6 flex flex-col justify-end">
+                        <span class="material-symbols-outlined text-on-tertiary-container text-4xl mb-4"
+                            data-icon="auto_stories">auto_stories</span>
+                        <p class="font-headline italic text-on-tertiary-container leading-tight">"A triumph of lyrical
+                            prose."</p>
                     </div>
-                    <!-- Action Button -->
-                    <div class="flex flex-col gap-4 mb-6">
-                        <button
-                            class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary hover:bg-primary/90 text-white text-base font-bold leading-normal tracking-wide transition-colors shadow-lg shadow-primary/20">
-                            <span class="truncate">Verify Identity</span>
-                        </button>
-                        <div class="flex flex-col items-center gap-2">
-                            <p class="text-slate-500 dark:text-slate-400 text-sm font-normal">Didn't receive the code?
-                            </p>
+                </div>
+            </div>
+        </section>
+        <!-- Curated Selection -->
+        <section class="bg-surface-container-low py-32 px-24">
+            <div class="flex justify-between items-baseline mb-20">
+                <h2 class="text-5xl font-headline italic">Curated Selection</h2>
+                <a class="font-label text-sm uppercase tracking-widest text-primary border-b border-primary/30 pb-1 hover:border-primary transition-all"
+                    href="#">View All Arrivals</a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <!-- Book 1 -->
+                <div class="group cursor-pointer">
+                    <div
+                        class="aspect-[2/3] bg-surface-container-lowest mb-6 overflow-hidden shadow-sm group-hover:shadow-2xl transition-all duration-500">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                            data-alt="Elegant classic novel hardcover book on a wooden surface"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAHvb1638EbAyVR1YYTjKx0lRiX9yrsEdPh9dBKQ7hNrr9MGeLKIuaSb7UlXTRNnXn4j8F_DQSIK1wAMccc_e_SL7Vfl5pj5FNl2V-xP8i-p-qmVUOPUrHNzVCXVir0_-f3r5zF96di6edBgtZG__SKjj2kfAUEI85YEajcAHplaEsw0jvbsJkFxoC43lFkdEdV-xuiXF_G1AxQDjGJuhzs8kbuHQMO4Yn_QxHIv7csa9ETKHFCLIgArvg6xmXYdiW65otbpqFwgo6" />
+                    </div>
+                    <span class="text-xs font-label uppercase tracking-widest text-on-surface-variant mb-2 block">Essays
+                        &amp; Critique</span>
+                    <h3 class="text-xl font-headline mb-1">The Invisible Thread</h3>
+                    <p class="text-sm text-on-surface-variant mb-4">Elena Rossi</p>
+                    <p class="font-body font-bold text-primary">$32.00</p>
+                </div>
+                <!-- Book 2 -->
+                <div class="group cursor-pointer">
+                    <div
+                        class="aspect-[2/3] bg-surface-container-lowest mb-6 overflow-hidden shadow-sm group-hover:shadow-2xl transition-all duration-500">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                            data-alt="Minimal book design with gold foil typography"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDDJAmrt0A34e5QoF8c7OlhKg5smxoV_OyHDXAydnpyZ6-g0cz6WZpUx0FZPC4j-bNRgajHQkyNb808GthTvYLktYFpGpC3dye4UMm-69cvn2PLG3LCEH2fLwwH4LHc0Ns3-1gdYJ1uVIdI_sFurnr_6Rpchcg6zerVJUZ_mnrDyfY8o0tFBXYlX2LAr_FCNSB54cTs-VQH8vjsEwUaABYD8RDMlG5yQ_RfvkB94HqP-BVVr_MNykSUl76Qk-nIgniCWwS9pCESwou" />
+                    </div>
+                    <span class="text-xs font-label uppercase tracking-widest text-on-surface-variant mb-2 block">Visual
+                        Arts</span>
+                    <h3 class="text-xl font-headline mb-1">Shadow &amp; Light</h3>
+                    <p class="text-sm text-on-surface-variant mb-4">Julian Thorne</p>
+                    <p class="font-body font-bold text-primary">$48.00</p>
+                </div>
+                <!-- Book 3 -->
+                <div class="group cursor-pointer">
+                    <div
+                        class="aspect-[2/3] bg-surface-container-lowest mb-6 overflow-hidden shadow-sm group-hover:shadow-2xl transition-all duration-500">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                            data-alt="Contemporary fiction book cover with abstract painterly art"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLda0siCGa28XvGj7ceeL9xQ5gdlNR2SIfggoJM0KHRZi59qEsbvlD1BOgJ3J7vUsTxLfPPpWnlYsOyIACrWOeM_xQKg4gcDEMpaWlZNcoUfH84QRljlsa62V22tkdoMEYgaaNfT8vReCFthLadGpqld0lysK-X-HgOd3ncpRmHD5ySi-_EQkjnZpE0bbJekPb3LHWZs1ymnmO6RnH8qm8xCW9XtIIyoeYumEB2HbvnuPJq_UjeCTLcWGsdq_Bk1hngb75tu8oQ1Bp" />
+                    </div>
+                    <span
+                        class="text-xs font-label uppercase tracking-widest text-on-surface-variant mb-2 block">Contemporary
+                        Fiction</span>
+                    <h3 class="text-xl font-headline mb-1">Neon Nostalgia</h3>
+                    <p class="text-sm text-on-surface-variant mb-4">S. J. Marlo</p>
+                    <p class="font-body font-bold text-primary">$29.00</p>
+                </div>
+                <!-- Book 4 -->
+                <div class="group cursor-pointer">
+                    <div
+                        class="aspect-[2/3] bg-surface-container-lowest mb-6 overflow-hidden shadow-sm group-hover:shadow-2xl transition-all duration-500">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                            data-alt="Classic poetry collection with botanical illustrations"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBY4g2BKOX3qG8uwXGqrcs5kVfgLNOiv5fMW9WPtyHHqBfeivjxRy_AZmzvlD-csOyNE2MPpBZv5qkC9ywnVH8Pz2VL1J9guWCsHQStynyaeF0cNBobtpn07ZPo9NnLPG-abgJEkaJK79QMf0Fnsr9P0ImYmdz2zed_ESEdZMgqUfGEqXMNdpUTUwZbahxTN_d5teY68a1_3_L9-ymRnzBSBvVsJ7lWDXqceP8rtcFJF-k1N8YeFvRZvu8lfryhTEy2CAqRZUmmRLzo" />
+                    </div>
+                    <span
+                        class="text-xs font-label uppercase tracking-widest text-on-surface-variant mb-2 block">Poetry</span>
+                    <h3 class="text-xl font-headline mb-1">Whisper of Pines</h3>
+                    <p class="text-sm text-on-surface-variant mb-4">Arthur Vane</p>
+                    <p class="font-body font-bold text-primary">$24.50</p>
+                </div>
+            </div>
+        </section>
+        <!-- Categories (Bento Grid Style) -->
+        <section class="py-48 px-24">
+            <h2 class="text-5xl font-headline italic mb-20 text-center">Browse the Archives</h2>
+            <div class="grid grid-cols-12 gap-8 h-[700px]">
+                <div class="col-span-8 relative group overflow-hidden bg-surface-container">
+                    <img class="w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-[2s]"
+                        data-alt="Vast library with towering shelves of books"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOLrIQ603c7L7i7tDc-MDula15rITPNb7SL2QcxhOwO5JSpFrwQjOWc37hbPYMPGrCKQqS8Z4v8jqTkAV5BsyLhgU-B_JZjW5D0CMaml4Yz9QdPP87wwqXYxs-AyjCiRIvSM2KpYZUiQ1AgQ8KhLYKF7y7FvbUP5ZoR77m8XncPp0EMp8MtvsNTq9GJs0RKdN4jvLRFaW64JiC25tLw_cefoLwXS9vC4Ydy-OKayjGR8zS2-ZsM2OE2iTNRY02GKtCJ1uwnpAbue1C" />
+                    <div
+                        class="absolute inset-0 flex flex-col justify-end p-12 bg-gradient-to-t from-background/90 to-transparent">
+                        <span class="text-primary font-bold text-4xl mb-2">01</span>
+                        <h3 class="text-4xl font-headline italic">Philosophy &amp; Theory</h3>
+                        <p class="font-body text-on-surface-variant mt-4 max-w-sm">Deep dives into the fundamental
+                            nature of knowledge and existence.</p>
+                    </div>
+                </div>
+                <div class="col-span-4 grid grid-rows-2 gap-8">
+                    <div class="relative group overflow-hidden bg-secondary-container/20">
+                        <div class="absolute inset-0 flex flex-col justify-center items-center p-8 text-center">
+                            <span class="material-symbols-outlined text-primary text-5xl mb-4"
+                                data-icon="palette">palette</span>
+                            <h3 class="text-2xl font-headline italic">Art &amp; Design</h3>
                             <button
-                                class="text-primary hover:text-primary/80 text-sm font-semibold transition-colors flex items-center gap-1 group">
-                                Resend code in <span class="text-slate-700 dark:text-slate-300">00:59</span>
-                                <span
-                                    class="material-symbols-outlined text-sm group-hover:rotate-180 transition-transform duration-500">refresh</span>
+                                class="mt-6 font-label text-xs uppercase tracking-widest hover:text-primary transition-colors">Explore
+                                Collection</button>
+                        </div>
+                    </div>
+                    <div class="relative group overflow-hidden bg-tertiary-container/10">
+                        <div class="absolute inset-0 flex flex-col justify-center items-center p-8 text-center">
+                            <span class="material-symbols-outlined text-primary text-5xl mb-4"
+                                data-icon="history_edu">history_edu</span>
+                            <h3 class="text-2xl font-headline italic">First Editions</h3>
+                            <button
+                                class="mt-6 font-label text-xs uppercase tracking-widest hover:text-primary transition-colors">Rare
+                                Finds</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Curator's Note -->
+        <section class="px-24 mb-48">
+            <div class="max-w-4xl mx-auto bg-tertiary-container/10 p-20 relative">
+                <span class="material-symbols-outlined absolute -top-8 -left-8 text-primary text-7xl opacity-20"
+                    data-icon="format_quote">format_quote</span>
+                <div class="text-center">
+                    <span
+                        class="font-label text-xs uppercase tracking-[0.4em] text-on-tertiary-container mb-8 block">The
+                        Curator's Note</span>
+                    <p class="font-headline italic text-3xl leading-relaxed text-on-surface mb-10">
+                        "A library is not a luxury but one of the necessities of life. Our collection is curated not for
+                        the masses, but for the soul that seeks a quiet corner in a loud world."
+                    </p>
+                    <div class="flex items-center justify-center gap-4">
+                        <div class="w-12 h-px bg-outline-variant"></div>
+                        <span class="font-label text-sm uppercase tracking-widest">Thomas H. Blackwood</span>
+                        <div class="w-12 h-px bg-outline-variant"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Newsletter -->
+        <section class="px-24 mb-48">
+            <div class="grid grid-cols-12 gap-12 bg-on-surface text-surface p-24">
+                <div class="col-span-12 md:col-span-6">
+                    <h2 class="text-5xl font-headline italic mb-6">Join the Registry</h2>
+                    <p class="font-body text-surface/70 text-lg max-w-md">Weekly dispatches from the curation desk,
+                        including rare find alerts and literary essays.</p>
+                </div>
+                <div class="col-span-12 md:col-span-6 flex items-center">
+                    <form class="w-full flex flex-col gap-4">
+                        <div class="relative group">
+                            <input
+                                class="w-full bg-transparent border-0 border-b border-surface/30 py-4 focus:ring-0 focus:border-primary placeholder:text-surface/40 transition-all font-body text-xl"
+                                placeholder="Your Email Address" type="email" />
+                            <button
+                                class="absolute right-0 bottom-4 text-primary hover:translate-x-2 transition-transform"
+                                type="submit">
+                                <span class="material-symbols-outlined text-3xl"
+                                    data-icon="arrow_forward">arrow_forward</span>
                             </button>
                         </div>
-                    </div>
-                    <!-- Footer Link -->
-                    <div class="pt-6 border-t border-slate-200 dark:border-slate-800 text-center">
-                        <a class="inline-flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white text-sm font-medium transition-colors"
-                            href="#">
-                            <span class="material-symbols-outlined text-base">arrow_back</span>
-                            Back to Login
-                        </a>
-                    </div>
+                        <p class="text-[10px] uppercase tracking-widest text-surface/40 mt-4">By subscribing, you agree
+                            to our privacy standards.</p>
+                    </form>
                 </div>
-            </main>
-            <!-- Page Footer Decorative -->
-            <footer
-                class="py-8 px-6 lg:px-40 flex flex-col md:flex-row items-center justify-between gap-4 text-slate-500 dark:text-slate-500 text-xs">
-                <p>© 2024 TechStore E-commerce Inc. All rights reserved.</p>
-                <div class="flex gap-6">
-                    <a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
-                    <a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
-                    <a class="hover:text-primary transition-colors" href="#">Contact Support</a>
-                </div>
-            </footer>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-[#fef8f7] dark:bg-stone-950 w-full border-t border-[#1d1b1b]/5">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-24 px-24 py-20 w-full">
+            <div>
+                <div class="font-['Newsreader'] italic text-xl text-[#1d1b1b] dark:text-stone-200 mb-8">The Literary
+                    Curator</div>
+                <p
+                    class="font-['Manrope'] font-light text-xs tracking-wider text-[#1d1b1b]/60 dark:text-stone-500 leading-relaxed max-w-xs">
+                    Curating timeless wisdom and modern narratives since 2024. A sanctuary for the selective reader.
+                </p>
+            </div>
+            <div class="flex flex-col gap-6">
+                <span
+                    class="font-['Manrope'] font-bold text-[10px] uppercase tracking-[0.3em] text-[#1d1b1b]/40">Connections</span>
+                <nav class="flex flex-col gap-4">
+                    <a class="font-['Manrope'] font-light text-xs tracking-wider uppercase text-[#1d1b1b]/60 dark:text-stone-500 hover:text-[#D95D39] underline-offset-4 hover:underline opacity-80 hover:opacity-100 transition-opacity"
+                        href="#">Instagram</a>
+                    <a class="font-['Manrope'] font-light text-xs tracking-wider uppercase text-[#1d1b1b]/60 dark:text-stone-500 hover:text-[#D95D39] underline-offset-4 hover:underline opacity-80 hover:opacity-100 transition-opacity"
+                        href="#">Twitter</a>
+                    <a class="font-['Manrope'] font-light text-xs tracking-wider uppercase text-[#1d1b1b]/60 dark:text-stone-500 hover:text-[#D95D39] underline-offset-4 hover:underline opacity-80 hover:opacity-100 transition-opacity"
+                        href="#">Facebook</a>
+                </nav>
+            </div>
+            <div class="flex flex-col gap-6">
+                <span class="font-['Manrope'] font-bold text-[10px] uppercase tracking-[0.3em] text-[#1d1b1b]/40">Legal
+                    &amp; Support</span>
+                <nav class="flex flex-col gap-4">
+                    <a class="font-['Manrope'] font-light text-xs tracking-wider uppercase text-[#1d1b1b]/60 dark:text-stone-500 hover:text-[#D95D39] underline-offset-4 hover:underline opacity-80 hover:opacity-100 transition-opacity"
+                        href="#">Newsletter</a>
+                    <a class="font-['Manrope'] font-light text-xs tracking-wider uppercase text-[#1d1b1b]/60 dark:text-stone-500 hover:text-[#D95D39] underline-offset-4 hover:underline opacity-80 hover:opacity-100 transition-opacity"
+                        href="#">Privacy Policy</a>
+                    <p class="font-['Manrope'] font-light text-[10px] tracking-wider uppercase text-[#1d1b1b]/40 mt-4">©
+                        2024 The Literary Curator. All rights reserved.</p>
+                </nav>
+            </div>
         </div>
-    </div>
-    <!-- Decorative Elements -->
-    <div
-        class="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/5 rounded-full blur-[120px] pointer-events-none -z-10">
-    </div>
-    <div
-        class="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/5 rounded-full blur-[120px] pointer-events-none -z-10">
-    </div>
+    </footer>
 </body>
 
 </html>
