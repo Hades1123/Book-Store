@@ -1,5 +1,6 @@
 import { createRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router/dom';
+import '@/styles/reset.css';
 import '@/styles/global.scss';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -11,11 +12,14 @@ import { createBrowserRouter } from 'react-router';
 import { LoginPage } from '@/pages/auth/login.page';
 import { RegisterPage } from '@/pages/auth/register.page';
 import { OtpPage } from '@/pages/auth/otp.page';
+import { MainLayout } from './components/layouts/layout';
+import { HomePage } from './pages/home.page';
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <h1>Hello world</h1>,
+    element: <MainLayout />,
+    children: [{ index: true, element: <HomePage /> }],
   },
   {
     path: '/login',
