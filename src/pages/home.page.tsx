@@ -90,6 +90,21 @@ export const HomePage = () => {
           <span className="culator__author">Thomas H. Blackwood</span>
         </div>
       </section>
+      <section className="newsletter">
+        <div className="newsletter__container">
+          <div className="newsletter__title">
+            <h3>Join the Registry</h3>
+            <p>
+              Weekly dispatches from the curation desk, including rare find alerts and literary
+              essays.
+            </p>
+          </div>
+          <div className="newsletter__email">
+            <input type="text" placeholder="Your Email Address" />
+            <span>By subscribing, you agree to our privacy standards.</span>
+          </div>
+        </div>
+      </section>
     </>
   );
 };

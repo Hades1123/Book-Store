@@ -9,12 +9,13 @@ $font-heading: 'Newsreader', serif;
   text-overflow: ellipsis; // elips -> ...
 }
 
-@mixin text-style($size: 1rem, $weight: 400, $lh: 1.5, $family: $font-main, $style: normal) {
-  font-family: $family;
+@mixin text-style($size: null, $weight: null, $lh: null, $family: $font-main, $style: null) {
   font-size: $size;
   font-weight: $weight;
   line-height: $lh;
-  @if $style != normal {
-    font-style: $style;
+  font-style: $style;
+
+  @if $family != $font-main {
+    font-family: $family;
   }
 }
