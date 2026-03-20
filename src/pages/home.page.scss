@@ -1,0 +1,297 @@
+@use '../styles/mixins';
+
+$transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+$zoom-speed: transform 0.7s ease-out;
+
+.hero-container {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  padding: 48px 96px 192px;
+  background-color: #fef8f7;
+  .left-media {
+    .title {
+      font-size: 1.25rem;
+      font-family: 'Manrope', sans-serif;
+      color: #58423c;
+      margin-bottom: 24px;
+      margin-top: 38.5px;
+    }
+    h1 {
+      font-size: 6rem;
+      font-family: 'Newsreader';
+      font-style: italic;
+      line-height: 96px;
+      max-width: 648.1px;
+      letter-spacing: -2.4px;
+      span {
+        color: #a43716;
+        font-size: 6rem;
+        font-family: 'Newsreader';
+        font-style: italic;
+        line-height: 96px;
+      }
+    }
+    p {
+      max-width: 570.08px;
+      font-family: 'Manrope', sans-serif;
+      font-size: 1.25rem;
+      line-height: 32.5px;
+      color: #58423c;
+      margin-bottom: 51.5px;
+    }
+    .btn-discover {
+      color: #fff;
+      font-size: 0.875rem;
+      background-color: #c54f2c;
+      width: 265.63px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      border-radius: 6px;
+      &:hover {
+        cursor: pointer;
+        opacity: 80%;
+      }
+    }
+  }
+  .right-media {
+    position: relative;
+    height: 100%;
+    .img-wrapper {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .brown-box {
+      position: absolute;
+      top: 512px;
+      left: 144px;
+      width: 192px;
+      height: 192px;
+      background-color: #a0691b;
+      padding: 70px 24px 26px;
+      box-sizing: border-box;
+      span {
+        font-family: 'Newsreader', sans-serif;
+        color: #fffbff;
+        font-style: italic;
+      }
+    }
+  }
+}
+
+.curated-selection {
+  padding: 128px 96px;
+  background-color: #f8f2f2;
+  font-family: 'Manrope', sans-serif;
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    div:first-child {
+      font-family: 'Newsreader', sans-serif;
+      color: #1d1b1b;
+      font-size: 3rem;
+      font-style: italic;
+    }
+    div:last-child {
+      cursor: pointer;
+      color: #a43716;
+      padding-bottom: 5px;
+      font-family: 'Manrope', sans-serif;
+      border-bottom: 2px solid #a43716;
+    }
+    margin-bottom: 80px;
+  }
+  .books {
+    display: flex;
+    justify-content: space-between;
+    .book {
+      cursor: pointer;
+      &:hover {
+        img {
+          transform: scale(1.1);
+        }
+      }
+      .thumbnail-wrapper {
+        aspect-ratio: 2 / 3;
+        overflow: hidden;
+        background-color: #f9f9f9;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: $transition-smooth;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: $zoom-speed;
+          will-change: transform;
+        }
+      }
+      &__category {
+        font-size: 0.75rem;
+        color: #58423c;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+      }
+      &__title {
+        font-size: 1.25rem;
+        font-family: 'Newsreader';
+        margin-bottom: 4px;
+      }
+      &__author {
+        font-size: 0.875rem;
+        color: #58423c;
+        margin-bottom: 20px;
+      }
+      &__price {
+        font-size: 1rem;
+        color: #a43716;
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+.category {
+  background-color: #fef8f7;
+  padding: 192px 96px;
+  font-family: 'Newsreader';
+
+  &__title {
+    text-align: center;
+    font-size: 3rem;
+    font-style: italic;
+    margin-bottom: 80px;
+  }
+
+  &__container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: repeat(2, 334px);
+    gap: 32px;
+  }
+
+  &__main {
+    position: relative;
+    grid-row: span 2;
+    background-image: url('../assets/lib.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    &-content {
+      position: relative;
+      z-index: 1;
+      padding-left: 48px;
+      padding-bottom: 49px;
+    }
+
+    &-number {
+      font-family: 'Manrope', sans-serif;
+      font-size: 2.25rem;
+      color: #a43716;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    &-title {
+      font-family: 'Newsreader', sans-serif;
+      font-size: 2.25rem;
+      font-style: italic;
+      margin-bottom: 17px;
+    }
+
+    &-desc {
+      font-family: 'Manrope', sans-serif;
+      font-size: 1rem;
+      max-width: 310px;
+      color: #58423c;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(255, 255, 255, 0.9), transparent 70%);
+    }
+  }
+
+  &__side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+
+    h3 {
+      font-family: 'Newsreader', sans-serif;
+      font-style: italic;
+      font-size: 1.5rem;
+    }
+
+    span {
+      font-family: 'Manrope';
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    &--top {
+      background-color: rgba(196, 231, 226, 20%);
+    }
+
+    &--bottom {
+      background-color: rgba(160, 105, 27, 10%);
+    }
+  }
+}
+
+.culator {
+  background: #fef8f7;
+  padding: 0px 272px;
+
+  &__container {
+    background: rgba(160, 105, 27, 0.1);
+    padding: 80px 83px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__title {
+    margin-bottom: 41px;
+    color: black;
+    font-family: Manrope;
+    font-size: 0.75rem;
+    font-weight: 900;
+    line-height: 133%; /* 133.333% */
+    letter-spacing: 4.8px;
+    text-transform: uppercase;
+  }
+
+  &__note {
+    color: #1d1b1b;
+    font-family: Newsreader;
+    font-size: 1.875rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 162.5%; /* 162.5% */
+    margin-bottom: 3.11rem;
+    text-align: center;
+    max-width: 46rem;
+    @include mixins.line-clamp(3);
+  }
+
+  &__author {
+    color: #1d1b1b;
+    font-family: Manrope;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.25rem; /* 142.857% */
+    letter-spacing: 0.0875rem;
+    text-transform: uppercase;
+  }
+}

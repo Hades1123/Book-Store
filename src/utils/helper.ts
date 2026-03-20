@@ -13,3 +13,7 @@ export const sleep = async (ms: number = 3000) =>
       resolve(timer);
     }, ms);
   });
+
+export const formatCurrency = (price: number) => {
+  return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+};
