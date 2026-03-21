@@ -7,6 +7,7 @@ import { useState, type MouseEvent } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
+import bookIcon from '@/assets/book.svg';
 
 export const HeaderComponent = () => {
   const { user, logout } = useAuthContext();
@@ -33,7 +34,12 @@ export const HeaderComponent = () => {
 
   return (
     <header>
-      <h1>Book Store</h1>
+      <div className="header__left" onClick={() => navigate('/')}>
+        <div className="wrapper">
+          <img src={bookIcon} alt="logo" />
+        </div>
+        <h1>Book Store</h1>
+      </div>
       <ul>
         <li>HOME</li>
         <li>CATEGORIES</li>
@@ -77,7 +83,14 @@ export const HeaderComponent = () => {
                 },
               }}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleClose();
+                  navigate('/user');
+                }}
+              >
+                Profile
+              </MenuItem>
               <MenuItem onClick={onLogout}>Logout</MenuItem>
             </Menu>
           </>

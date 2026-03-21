@@ -39,7 +39,7 @@ export const HomePage = () => {
           <div>View All Arrivals</div>
         </div>
         <div className="books">
-          {[0, 1, 2, 3].map((item) => {
+          {[0, 1, 2, 3].map(() => {
             return (
               <>
                 <div className="book">

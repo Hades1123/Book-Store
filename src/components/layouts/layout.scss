@@ -8,9 +8,23 @@
     align-items: center;
     padding: 25.75px 96px;
     background-color: #fef8f7;
-    h1 {
-      font-weight: 700;
-      font-size: 1.5rem;
+    .header__left {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      .wrapper {
+        background-color: #3b82f6;
+        padding: 10px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      h1 {
+        font-weight: 700;
+        font-size: 1.5rem;
+      }
     }
     ul {
       display: flex;

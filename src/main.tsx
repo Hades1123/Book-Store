@@ -14,12 +14,24 @@ import { RegisterPage } from '@/pages/auth/register.page';
 import { OtpPage } from '@/pages/auth/otp.page';
 import { MainLayout } from './components/layouts/layout';
 import { HomePage } from './pages/home.page';
+import { ProfileLayout } from './pages/user/layout';
+import { ProfileInfo } from './pages/user/info';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <MainLayout />,
     children: [{ index: true, element: <HomePage /> }],
+  },
+  {
+    path: '/user',
+    element: <ProfileLayout />,
+    children: [
+      {
+        index: true,
+        element: <ProfileInfo />,
+      },
+    ],
   },
   {
     path: '/login',
