@@ -2,11 +2,10 @@ import axios, { AxiosError } from 'axios';
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_URL,
+  withCredentials: true,
 });
 
-export function isAxiosError<ResponseType>(
-  error: unknown
-): error is AxiosError<ResponseType> {
+export function isAxiosError<ResponseType>(error: unknown): error is AxiosError<ResponseType> {
   return axios.isAxiosError(error);
 }
 // Add a request interceptor

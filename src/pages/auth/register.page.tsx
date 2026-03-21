@@ -1,5 +1,5 @@
 import './register.scss';
-import rocketIcon from '@/assets/auth/rocket.svg';
+import bookIcon from '@/assets/book.svg';
 import mailIcon from '@/assets/auth/mailIcon.svg';
 import lockIcon from '@/assets/auth/lock.svg';
 import eyeIcon from '@/assets/auth/eye.svg';
@@ -59,23 +59,23 @@ export const RegisterPage = () => {
     <>
       <div className="register">
         <div className="register__header">
-          <div className="register__header--left">
+          <div className="register__header--left" onClick={() => navigate('/')}>
             <div>
-              <img src={rocketIcon} alt="icon" />
+              <img src={bookIcon} alt="icon" />
             </div>
-            <span>TechStore</span>
+            <span>Book Store</span>
           </div>
           <div className="register__header--right">
             <span>Already have an account?</span>
-            <button className="btn btn-primary" onClick={() => navigate('/login')}>
+            <Button variant="contained" color="primary" onClick={() => navigate('/login')}>
               Sign In
-            </button>
+            </Button>
           </div>
         </div>
         <div className="register__form">
           <div className="register__form-title">
             <h2>Create Account</h2>
-            <p>Join TechStore for the best tech deals and early access to gadgets.</p>
+            <p>Join Book Store for the best book deals and early access to gadgets.</p>
           </div>
           <form className="register__form-main" onSubmit={handleSubmit(onSubmit)}>
             <div className="register__name">
@@ -107,14 +107,22 @@ export const RegisterPage = () => {
               <div className="register__form-wrapper">
                 <input type={passwordVision ? 'text' : 'password'} {...register('password')} />
                 <img src={lockIcon} alt="pass" className="left" />
-                <img src={eyeIcon} className="right" alt="icon" onClick={() => setPasswordVision(!passwordVision)} />
+                <img
+                  src={eyeIcon}
+                  className="right"
+                  alt="icon"
+                  onClick={() => setPasswordVision(!passwordVision)}
+                />
               </div>
               <p className="error">{errors.password?.message}</p>
             </div>
             <div className="register__confirm-password">
               <label htmlFor="">Confirm password</label>
               <div className="register__form-wrapper">
-                <input type={confirmPassVision ? 'text' : 'password'} {...register('confirmPassword')} />
+                <input
+                  type={confirmPassVision ? 'text' : 'password'}
+                  {...register('confirmPassword')}
+                />
                 <img src={confirmPass} alt="confirm" className="left" />
                 <img
                   src={eyeIcon}
@@ -145,7 +153,9 @@ export const RegisterPage = () => {
               <img src={fbIcon} alt="fb" /> Facebook
             </button>
           </div>
-          <div className="register__privacy">By signing up, you agree to our Terms of Service and Privacy Policy</div>
+          <div className="register__privacy">
+            By signing up, you agree to our Terms of Service and Privacy Policy
+          </div>
         </div>
       </div>
     </>

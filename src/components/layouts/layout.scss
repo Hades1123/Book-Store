@@ -5,6 +5,7 @@
   header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 25.75px 96px;
     background-color: #fef8f7;
     h1 {
@@ -27,6 +28,7 @@
     .header__right {
       display: flex;
       gap: 24px;
+      align-items: center;
     }
   }
 

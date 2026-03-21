@@ -18,7 +18,7 @@ export interface IResendAlertComponent {
 
 export const AlertComponent = (prop: IResendAlertComponent) => {
   const { handleClose, status } = prop;
-  const { displayCooldown = true, duration } = status;
+  const { displayCooldown = false, duration } = status;
   const [cooldown, setCooldown] = useState(duration ? duration / 1000 : DURATION / 1000);
 
   useEffect(() => {
@@ -61,7 +61,7 @@ export const AlertComponent = (prop: IResendAlertComponent) => {
           sx={{ width: '100%', fontSize: '20px' }}
         >
           {status.message ?? 'Success'}
-          {`(${cooldown})`}
+          {displayCooldown ? `(${cooldown})` : ''}
         </Alert>
       </Snackbar>
     </div>

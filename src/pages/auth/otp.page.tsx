@@ -157,7 +157,7 @@ export const OtpPage = () => {
       </div>
       <AlertComponent
         handleClose={() => setAlertStatus({ ...alertStatus, open: false })}
-        status={alertStatus}
+        status={{ ...alertStatus, displayCooldown: true, duration: 2000 }}
       />
     </>
   );
