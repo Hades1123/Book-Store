@@ -1,8 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import { createHash, timingSafeEqual } from 'crypto';
 
-// 2 minutes
-export const OTP_EXPIRED_TIME = 60 * 2 * 1000;
+export const OTP_EXPIRED_TIME = 60 * 2 * 1000; // 2 minutes
 const SALTS_ROUND = 10;
 
 // Hash password func

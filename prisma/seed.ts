@@ -27,7 +27,7 @@ async function main() {
         avatarPublicId: '',
         fullName: 'Hades',
         phone: '09928228282',
-        role: 'SUPER_ADMIN',
+        role: 'ADMIN',
         password: hashedPassword,
         emailVerified: true,
       },

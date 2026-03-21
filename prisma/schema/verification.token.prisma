@@ -9,7 +9,11 @@ model VerificationToken{
     token String 
     type VerificationType
     expiresAt DateTime
-    createAt DateTime @default(now())
+    createdAt DateTime @default(now())
+
+    // relation
+    userId String 
+    user User @relation(fields: [userId], references: [id])
 
     @@map("verification_tokens")
 }

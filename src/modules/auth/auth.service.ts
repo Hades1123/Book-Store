@@ -13,7 +13,6 @@ import { TPayload } from 'src/common/types/payload.type';
 import { User } from 'src/generated/prisma/client';
 import { type JwtConfig, jwtConfig } from 'src/config';
 import { StringValue } from 'ms';
-import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { randomUUID } from 'crypto';
 import { Request } from 'express';
 

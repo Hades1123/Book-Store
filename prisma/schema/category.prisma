@@ -1,0 +1,17 @@
+model Category{
+    id String @id @default(uuid())
+    name String 
+    description String
+    imagePublicId String?
+    isActive Boolean @default(true)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // relation
+    products Product[]
+    parentId String?
+    parent Category? @relation("parentChildren", fields: [parentId], references: [id])
+    children Category[] @relation("parentChildren")
+
+    @@map("categories")
+}

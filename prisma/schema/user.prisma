@@ -1,7 +1,6 @@
 enum Role{
   CUSTOMER
   ADMIN
-  SUPER_ADMIN
 }
 
 enum Provider{
@@ -15,8 +14,8 @@ model User{
   email String @unique
   password String?
   fullName String 
-  phone String 
-  avatarPublicId String 
+  phone String? 
+  avatarPublicId String? 
   role Role
   isActive Boolean @default(true)
   provider Provider @default(LOCAL) 
@@ -24,8 +23,12 @@ model User{
   hashRefreshToken String?
   emailVerified Boolean @default(false)
   lastLoginAt DateTime? @default(now())
-  createAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // relation
+  address Address[]
+  verificationTokens VerificationToken[]
 
   @@map("users") // make database table name -> users
 }
