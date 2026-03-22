@@ -1,12 +1,18 @@
 import { Outlet } from 'react-router';
 import './layout.scss';
-import bookIcon from '@/assets/book.svg';
+import BookIcon from '@/assets/book.svg?react';
+import UserIcon from '@/assets/user.svg?react';
+import LocationIcon from '@/assets/location.svg?react';
+import ResetPassIcon from '@/assets/auth/confirm-pass.svg?react';
+import LogoutIcon from '@/assets/auth/logout.svg?react';
+import NotifyIcon from '@/assets/notify.svg?react';
+import SettingIcon from '@/assets/setting.svg?react';
 
 const MENU_ITEMS = [
-  { id: 'info', label: 'Profile Info', icon: bookIcon, path: '/' },
-  { id: 'address', label: 'Addresses', icon: bookIcon, path: '/' },
-  { id: 'password', label: 'Reset Password', icon: bookIcon, path: '/' },
-  { id: 'order', label: 'Order History', icon: bookIcon, path: '/' },
+  { id: 'info', label: 'Profile Info', icon: UserIcon, path: '/' },
+  { id: 'address', label: 'Addresses', icon: LocationIcon, path: '/' },
+  { id: 'password', label: 'Reset Password', icon: ResetPassIcon, path: '/' },
+  { id: 'order', label: 'Order History', icon: BookIcon, path: '/' },
 ];
 
 export const ProfileLayout = () => {
@@ -21,16 +27,19 @@ export const ProfileLayout = () => {
           </div>
           <nav className="profile__nav">
             <ul className="profile__nav-list">
-              {MENU_ITEMS.map((item) => (
-                <li key={item.id}>
-                  <img src={item.icon} alt="icon" />
-                  <span>{item.label}</span>
-                </li>
-              ))}
+              {MENU_ITEMS.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <li key={item.id}>
+                    <Icon className="profile__icon" />
+                    <span>{item.label}</span>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
           <div className="profile__logout">
-            <img src={bookIcon} alt="icon" />
+            <LogoutIcon className="profile__icon" />
             <span>Logout</span>
           </div>
         </aside>
@@ -41,10 +50,10 @@ export const ProfileLayout = () => {
             <h2 className="profile__page-title">Profile Settings</h2>
             <div className="profile__actions">
               <div className="profile__action-btn">
-                <img src={bookIcon} alt="icon" />
+                <NotifyIcon />
               </div>
               <div className="profile__action-btn">
-                <img src={bookIcon} alt="icon" />
+                <SettingIcon />
               </div>
             </div>
           </header>

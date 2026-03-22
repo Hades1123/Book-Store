@@ -1,5 +1,5 @@
 import CameraIcon from '@/assets/camera.svg?react';
-import userIcon from '@/assets/user.svg';
+import UserIcon from '@/assets/user.svg?react';
 import EditIcon from '@/assets/edit-profile.svg?react';
 import avatar from '@/assets/avatar.png';
 import './info.scss';
@@ -60,7 +60,7 @@ export const ProfileInfo = () => {
         {/* contact info  */}
         <section className="contact-info profile-card">
           <div className="contact-info__header profile-card__header">
-            <img className="contact-info__symbol" src={userIcon} alt="icon" />
+            <UserIcon style={{ color: 'red', width: '1.5rem', height: '1.75rem' }} />
             <h3 className="contact-info__title">Contact Information</h3>
           </div>
           <div className="contact-info__main profile-card__main">
@@ -87,7 +87,7 @@ export const ProfileInfo = () => {
         <section className="order profile-card">
           <div className="order__header profile-card__header">
             <div className="order__img-wrapper">
-              <img src={userIcon} alt="icon" />
+              <EditIcon style={{ color: 'red', height: '1.75rem', width: '1.5rem' }} />
               <h3 className="order__title">Recent Orders</h3>
             </div>
             <div className="order__link">View All History</div>

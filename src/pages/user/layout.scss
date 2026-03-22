@@ -58,6 +58,13 @@
     }
   }
 
+  &__icon {
+    width: 1.5rem;
+    height: 1.75rem;
+    flex-shrink: 0;
+    color: #78716c;
+  }
+
   &__logout {
     cursor: pointer;
     margin-top: auto;

@@ -16,12 +16,31 @@ import { MainLayout } from './components/layouts/layout';
 import { HomePage } from './pages/home.page';
 import { ProfileLayout } from './pages/user/layout';
 import { ProfileInfo } from './pages/user/info';
+import { ProtectedRoute } from '@/components/routes/protected.route';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <MainLayout />,
     children: [{ index: true, element: <HomePage /> }],
+  },
+  {
+    path: 'admin',
+    element: (
+      <ProtectedRoute roles={['ADMIN']}>
+        <div>Admin layout</div>
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        index: true,
+        element: <div>This is dashboard</div>,
+      },
+      {
+        path: 'stat',
+        element: <div>This is stat page</div>,
+      },
+    ],
   },
   {
     path: '/user',
@@ -35,15 +54,27 @@ export const router = createBrowserRouter([
   },
   {
     path: '/login',
-    element: <LoginPage />,
+    element: (
+      <ProtectedRoute loginProtect>
+        <LoginPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/register',
-    element: <RegisterPage />,
+    element: (
+      <ProtectedRoute loginProtect>
+        <RegisterPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/otp',
-    element: <OtpPage />,
+    element: (
+      <ProtectedRoute loginProtect>
+        <OtpPage />
+      </ProtectedRoute>
+    ),
   },
 ]);
 

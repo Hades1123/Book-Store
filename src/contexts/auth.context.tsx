@@ -49,6 +49,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       setIsLoading(true);
       await postLogout();
+      setUser(null);
     } catch (err: unknown) {
       console.error(err);
     }
