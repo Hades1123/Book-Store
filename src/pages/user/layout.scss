@@ -17,6 +17,7 @@
 
   &__brand {
     margin-bottom: 3rem;
+    cursor: pointer;
   }
 
   &__title {
@@ -34,30 +35,29 @@
     background: rgba(248, 242, 242, 0.3);
   }
 
-  &__nav-list {
-    li {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 0.6rem 4.8rem 0.6rem 1rem;
-      border-radius: 0.25rem;
-      img {
-        width: 1.5rem;
-        height: 1.75rem;
-        flex-shrink: 0;
-        color: #78716c;
-      }
-      span {
-        color: #78716c;
-        @include mixins.text-style($size: 0.875rem, $weight: 500, $lh: 143%);
-      }
-    }
-    li:not(li:last-child) {
-      margin-bottom: 0.5rem;
+  &__nav-item {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 4.8rem 0.6rem 1rem;
+    border-radius: 0.25rem;
+    color: #78716c;
+    @include mixins.text-style($size: 0.875rem, $weight: 500, $lh: 143%);
+  }
+  &__nav-item--active {
+    border-radius: 0.25rem;
+    border-right: 2px solid #d95d39;
+    background: rgba(245, 245, 244, 0.3);
+    .profile__icon,
+    span {
+      color: #d95d39;
+      font-weight: 700;
     }
   }
-
+  &__nav-item:not(li:last-child) {
+    margin-bottom: 0.5rem;
+  }
   &__icon {
     width: 1.5rem;
     height: 1.75rem;

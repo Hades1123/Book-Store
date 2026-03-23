@@ -16,6 +16,6 @@ $font-heading: 'Newsreader', serif;
   font-style: $style;
 
   @if $family != $font-main {
-    font-family: $family;
+    font-family: $family, sans-serif;
   }
 }

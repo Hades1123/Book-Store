@@ -3,6 +3,7 @@ import UserIcon from '@/assets/user.svg?react';
 import EditIcon from '@/assets/edit-profile.svg?react';
 import avatar from '@/assets/avatar.png';
 import './info.scss';
+import { useAuthContext } from '@/contexts/auth.context';
 
 const ORDER_ITEMS = [
   {
@@ -29,6 +30,7 @@ const ORDER_ITEMS = [
 ];
 
 export const ProfileInfo = () => {
+  const { user } = useAuthContext();
   return (
     <>
       <div className="profile-info-page">
@@ -44,8 +46,8 @@ export const ProfileInfo = () => {
             <input type="file" id="profile-upload-avatar" />
           </div>
           <div className="user-profile__info">
-            <h1 className="user-profile__name">Julian Thorne</h1>
-            <div className="user-profile__position">Customer</div>
+            <h1 className="user-profile__name">{user?.fullName}</h1>
+            <div className="user-profile__position">{user?.role}</div>
             <p className="user-profile__desc">
               Curating the world's most evocative literature since 2018. Specializing in rare first
               editions and modernist prose.
@@ -66,15 +68,15 @@ export const ProfileInfo = () => {
           <div className="contact-info__main profile-card__main">
             <div className="contact-info__field">
               <div className="contact-info__label">Full Name</div>
-              <div className="contact-info__value">Julian Thorne</div>
+              <div className="contact-info__value">{user?.fullName}</div>
             </div>
             <div className="contact-info__field">
               <div className="contact-info__label">Email Address</div>
-              <div className="contact-info__value">j.thorne@curator.archive</div>
+              <div className="contact-info__value">{user?.email}</div>
             </div>
             <div className="contact-info__field">
               <div className="contact-info__label">Phone Number</div>
-              <div className="contact-info__value">+44 20 7946 0123</div>
+              <div className="contact-info__value">{user?.phone}</div>
             </div>
             <div className="contact-info__field">
               <div className="contact-info__label">Location</div>

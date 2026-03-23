@@ -2,7 +2,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  header {
+  .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -26,18 +26,25 @@
         font-size: 1.5rem;
       }
     }
+    &__nav-item {
+      text-decoration: none;
+      color: #1d1b1b;
+      font-size: 0.875rem;
+      &:hover {
+        cursor: pointer;
+        color: #d95d39;
+      }
+    }
+    &__nav-item--active {
+      color: #d95d39;
+      font-weight: 700;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid #d95d39;
+    }
     ul {
       display: flex;
       justify-content: space-between;
       gap: 50px;
-      li {
-        color: #1d1b1b;
-        font-size: 0.875rem;
-        &:hover {
-          cursor: pointer;
-          color: #d95d39;
-        }
-      }
     }
     .header__right {
       display: flex;

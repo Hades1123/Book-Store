@@ -5,9 +5,13 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>The Architecture of Modern Solitude | The Literary Curator</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Manrope:wght@200..800&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
@@ -18,53 +22,53 @@
             theme: {
                 extend: {
                     colors: {
-                        "secondary": "#456461",
+                        "on-surface-variant": "#58423c",
+                        "primary-fixed-dim": "#ffb5a0",
+                        "secondary-fixed": "#c7e9e5",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#3b0900",
+                        "surface-dim": "#ded9d8",
+                        "primary": "#a43716",
+                        "inverse-on-surface": "#f6efef",
+                        "secondary-container": "#c4e7e2",
+                        "on-primary-fixed-variant": "#862201",
+                        "surface": "#fef8f7",
+                        "secondary-fixed-dim": "#accdc9",
                         "error": "#ba1a1a",
-                        "on-secondary-fixed-variant": "#2d4c49",
+                        "surface-container-highest": "#e7e1e1",
+                        "tertiary-fixed-dim": "#feb965",
+                        "error-container": "#ffdad6",
+                        "secondary": "#456461",
+                        "on-error-container": "#93000a",
+                        "outline-variant": "#dfc0b7",
+                        "inverse-surface": "#323030",
+                        "surface-tint": "#a73918",
+                        "surface-container-high": "#ede7e6",
+                        "on-primary": "#ffffff",
                         "surface-container": "#f3ecec",
                         "outline": "#8b716a",
-                        "primary-fixed": "#ffdbd1",
-                        "surface-variant": "#e7e1e1",
-                        "inverse-primary": "#ffb5a0",
-                        "surface-dim": "#ded9d8",
-                        "secondary-fixed": "#c7e9e5",
-                        "secondary-container": "#c4e7e2",
-                        "tertiary": "#835100",
-                        "on-background": "#1d1b1b",
-                        "on-primary-fixed": "#3b0900",
-                        "on-secondary": "#ffffff",
-                        "inverse-surface": "#323030",
-                        "primary-fixed-dim": "#ffb5a0",
-                        "background": "#fef8f7",
-                        "on-tertiary": "#ffffff",
-                        "on-surface": "#1d1b1b",
-                        "on-primary-container": "#fffbff",
-                        "tertiary-fixed-dim": "#feb965",
-                        "on-tertiary-fixed-variant": "#663e00",
-                        "on-primary": "#ffffff",
-                        "surface-container-low": "#f8f2f2",
-                        "primary-container": "#c54f2c",
-                        "on-error": "#ffffff",
-                        "surface-container-lowest": "#ffffff",
-                        "outline-variant": "#dfc0b7",
-                        "surface-container-high": "#ede7e6",
-                        "on-tertiary-fixed": "#2b1700",
-                        "surface-tint": "#a73918",
-                        "surface-container-highest": "#e7e1e1",
-                        "on-primary-fixed-variant": "#862201",
-                        "on-error-container": "#93000a",
-                        "surface-bright": "#fef8f7",
-                        "primary": "#a43716",
-                        "on-secondary-fixed": "#00201e",
-                        "tertiary-fixed": "#ffddb9",
-                        "on-surface-variant": "#58423c",
-                        "surface": "#fef8f7",
-                        "tertiary-container": "#a0691b",
-                        "error-container": "#ffdad6",
                         "on-secondary-container": "#496865",
-                        "secondary-fixed-dim": "#accdc9",
+                        "surface-container-low": "#f8f2f2",
+                        "tertiary-fixed": "#ffddb9",
+                        "on-surface": "#1d1b1b",
+                        "tertiary": "#835100",
+                        "on-secondary-fixed": "#00201e",
+                        "primary-container": "#c54f2c",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed": "#2b1700",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#a0691b",
                         "on-tertiary-container": "#fffbff",
-                        "inverse-on-surface": "#f6efef"
+                        "on-background": "#1d1b1b",
+                        "inverse-primary": "#ffb5a0",
+                        "on-error": "#ffffff",
+                        "background": "#fef8f7",
+                        "surface-variant": "#e7e1e1",
+                        "surface-bright": "#fef8f7",
+                        "on-primary-container": "#fffbff",
+                        "primary-fixed": "#ffdbd1",
+                        "on-secondary-fixed-variant": "#2d4c49",
+                        "on-tertiary-fixed-variant": "#663e00"
                     },
                     fontFamily: {
                         "headline": ["Newsreader"],
@@ -81,227 +85,212 @@
             font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
         }
 
-        .tonal-shift-bg-surface-container-low {
-            background-color: #f8f2f2;
+        .book-shadow {
+            box-shadow: 20px 20px 40px rgba(29, 27, 27, 0.05);
         }
 
-        .scale-98-active-transition-ease-out:active {
-            transform: scale(0.98);
-            transition: transform 0.1s ease-out;
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        .serif-font {
+            font-family: 'Newsreader', serif;
         }
     </style>
 </head>
 
-<body
-    class="bg-background text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed-variant">
-    <div class="flex min-h-screen">
-        <!-- Side Navigation Bar -->
-        <aside
-            class="h-screen w-72 border-r border-stone-200/30 dark:border-stone-800/30 flex flex-col py-8 px-6 sticky top-0 bg-[#fef8f7] dark:bg-stone-950">
-            <div class="mb-12">
-                <h1 class="text-2xl font-serif italic text-[#1d1b1b] dark:text-stone-100">The Literary Curator</h1>
-                <p class="font-['Manrope'] uppercase tracking-widest text-[10px] mt-1 text-on-surface-variant">Modern
-                    Archivist Edition</p>
-            </div>
-            <nav class="flex-1 space-y-2">
-                <!-- Profile Info (Active) -->
-                <a class="flex items-center gap-4 py-3 px-4 rounded-lg transition-colors duration-300 text-[#D95D39] dark:text-[#e07b5e] font-bold border-r-2 border-[#D95D39] bg-stone-100/30 scale-98-active-transition-ease-out"
-                    href="#">
-                    <span class="material-symbols-outlined" data-icon="person">person</span>
-                    <span class="text-sm font-label">Profile Info</span>
-                </a>
-                <a class="flex items-center gap-4 py-3 px-4 rounded-lg transition-colors duration-300 text-stone-500 dark:text-stone-400 font-medium hover:text-[#1d1b1b] dark:hover:text-stone-100 hover:bg-stone-100/50 scale-98-active-transition-ease-out"
-                    href="#">
-                    <span class="material-symbols-outlined" data-icon="location_on">location_on</span>
-                    <span class="text-sm font-label">Addresses</span>
-                </a>
-                <a class="flex items-center gap-4 py-3 px-4 rounded-lg transition-colors duration-300 text-stone-500 dark:text-stone-400 font-medium hover:text-[#1d1b1b] dark:hover:text-stone-100 hover:bg-stone-100/50 scale-98-active-transition-ease-out"
-                    href="#">
-                    <span class="material-symbols-outlined" data-icon="lock_reset">lock_reset</span>
-                    <span class="text-sm font-label">Reset Password</span>
-                </a>
-                <a class="flex items-center gap-4 py-3 px-4 rounded-lg transition-colors duration-300 text-stone-500 dark:text-stone-400 font-medium hover:text-[#1d1b1b] dark:hover:text-stone-100 hover:bg-stone-100/50 scale-98-active-transition-ease-out"
-                    href="#">
-                    <span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
-                    <span class="text-sm font-label">Order History</span>
-                </a>
+<body class="bg-surface text-on-surface antialiased">
+    <!-- TopNavBar -->
+    <header class="fixed top-0 z-50 w-full bg-[#fef8f7]/80 dark:bg-stone-950/80 backdrop-blur-md">
+        <div class="flex justify-between items-center w-full px-8 py-4 max-w-[1440px] mx-auto">
+            <div class="text-2xl font-serif italic text-[#1d1b1b] dark:text-[#fef8f7] tracking-tight">The Literary
+                Curator</div>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a class="text-[#1d1b1b]/70 dark:text-[#fef8f7]/70 font-medium hover:text-[#D95D39] transition-colors duration-300"
+                    href="#">Collections</a>
+                <a class="text-[#1d1b1b]/70 dark:text-[#fef8f7]/70 font-medium hover:text-[#D95D39] transition-colors duration-300"
+                    href="#">Curator's Picks</a>
+                <a class="text-[#1d1b1b]/70 dark:text-[#fef8f7]/70 font-medium hover:text-[#D95D39] transition-colors duration-300"
+                    href="#">Archives</a>
+                <a class="text-[#1d1b1b]/70 dark:text-[#fef8f7]/70 font-medium hover:text-[#D95D39] transition-colors duration-300"
+                    href="#">About</a>
             </nav>
-            <div class="pt-8 mt-8 border-t border-stone-100">
-                <a class="flex items-center gap-4 py-3 px-4 rounded-lg transition-colors duration-300 text-stone-500 hover:text-error hover:bg-error-container/20 scale-98-active-transition-ease-out"
-                    href="#">
-                    <span class="material-symbols-outlined" data-icon="logout">logout</span>
-                    <span class="text-sm font-label">Logout</span>
-                </a>
+            <div class="flex items-center space-x-6 text-[#1d1b1b]">
+                <button
+                    class="material-symbols-outlined scale-95 active:duration-100 hover:text-[#D95D39] transition-colors">shopping_bag</button>
+                <button
+                    class="material-symbols-outlined scale-95 active:duration-100 hover:text-[#D95D39] transition-colors">person</button>
             </div>
-        </aside>
-        <!-- Main Content Area -->
-        <main class="flex-1 bg-surface-container-low/30 min-h-screen">
-            <!-- Top App Bar -->
-            <header
-                class="flex justify-between items-center w-full px-12 py-8 bg-[#fef8f7]/80 backdrop-blur-md sticky top-0 z-40">
-                <div class="flex items-center gap-4">
-                    <h2 class="font-headline italic text-3xl text-on-surface">Profile Settings</h2>
+        </div>
+    </header>
+    <main class="pt-32 pb-24 max-w-[1440px] mx-auto px-8">
+        <!-- Product Detail Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            <!-- Book Cover - Asymmetric Left Placement -->
+            <div class="lg:col-span-5 flex justify-center lg:justify-start">
+                <div class="relative group">
+                    <img alt="The Architecture of Modern Solitude Book Cover"
+                        class="w-full max-w-[500px] aspect-[2/3] object-cover book-shadow rounded-sm grayscale-[0.2] hover:grayscale-0 transition-all duration-700"
+                        data-alt="Minimalist book cover featuring architectural shadows"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6vujOYfWbyGOqtGAukFL9l3y8XxPRir7WxUB95QzuwsJoBBZ9h9x6uVGUtir3dK3vsup0BlsbIvADpqqZDqkiYVDYzNwZU4FHBStKUXVzQ0rxl3IY5GL1m70IX9vUjAcPIRWEfvpb2XjSO2bE1qDSW1ek-S5slSBMhFd47xKTzPLBR7B82H5btM9IrR_GuYTy-TsIRmhlClGBCdymu1gxJjTg_ZBi5iUfxYcEDfdnQy9mRy7xgHT74cI8VRTJ3XCA7V4P6kyFZ0WX" />
+                    <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-surface-container-low -z-10"></div>
                 </div>
-                <div class="flex items-center gap-6">
-                    <div class="relative group">
-                        <span
-                            class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors cursor-pointer"
-                            data-icon="notifications">notifications</span>
+            </div>
+            <!-- Product Details - Elegant Right Column -->
+            <div class="lg:col-span-7 flex flex-col pt-4">
+                <nav
+                    class="flex items-center space-x-2 text-on-surface-variant/60 text-xs uppercase tracking-[0.2em] mb-8">
+                    <a class="hover:text-primary transition-colors" href="#">Lumina Library</a>
+                    <span>/</span>
+                    <a class="hover:text-primary transition-colors" href="#">Essays &amp; Thought</a>
+                </nav>
+                <h1
+                    class="text-6xl md:text-7xl font-serif italic font-light leading-tight text-on-surface tracking-tighter mb-4">
+                    The Architecture of <br />Modern Solitude
+                </h1>
+                <p class="text-on-surface-variant font-body uppercase tracking-[0.3em] text-sm mb-12">
+                    By Elena V. Sterling
+                </p>
+                <div class="flex items-center space-x-4 mb-12">
+                    <span class="text-3xl font-serif text-on-surface">$45.00</span>
+                    <span
+                        class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full text-[10px] uppercase tracking-widest font-bold">Limited
+                        Edition</span>
+                </div>
+                <!-- Curator's Note -->
+                <div
+                    class="bg-tertiary-container/5 border-l-2 border-tertiary-container/30 p-8 mb-12 relative overflow-hidden">
+                    <span
+                        class="absolute top-4 right-6 text-tertiary-container/10 font-serif text-8xl italic select-none">“</span>
+                    <h3 class="font-serif italic text-xl text-tertiary mb-4">The Curator's Note</h3>
+                    <p class="font-serif italic text-on-surface-variant leading-relaxed text-lg max-w-2xl">
+                        "Sterling's meditation on the spaces we inhabit alone is a masterwork of quiet observation. It
+                        treats the home not just as a structure, but as a vessel for the internal life. A vital volume
+                        for the contemporary thinker's shelf."
+                    </p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-4 mb-16">
+                    <button
+                        class="flex-1 bg-gradient-to-br from-primary to-primary-container text-on-primary py-5 rounded-md font-label font-bold text-sm tracking-widest uppercase hover:brightness-110 active:scale-[0.98] transition-all">
+                        Add to Registry
+                    </button>
+                    <button
+                        class="flex-1 border border-outline-variant text-primary py-5 rounded-md font-label font-bold text-sm tracking-widest uppercase hover:bg-surface-container-low active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined text-lg">favorite</span>
+                        Wishlist
+                    </button>
+                </div>
+                <!-- Product Specifications -->
+                <div class="grid grid-cols-2 gap-y-8 pt-8 border-t border-outline-variant/20">
+                    <div>
+                        <h4 class="text-[10px] uppercase tracking-[0.2em] text-on-surface-variant/60 mb-2">Publisher
+                        </h4>
+                        <p class="text-sm font-medium">Lumina Press, Zurich</p>
                     </div>
-                    <div class="relative group">
-                        <span
-                            class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors cursor-pointer"
-                            data-icon="settings">settings</span>
+                    <div>
+                        <h4 class="text-[10px] uppercase tracking-[0.2em] text-on-surface-variant/60 mb-2">ISBN-13</h4>
+                        <p class="text-sm font-medium">978-3-16-148410-0</p>
+                    </div>
+                    <div>
+                        <h4 class="text-[10px] uppercase tracking-[0.2em] text-on-surface-variant/60 mb-2">Publication
+                            Date</h4>
+                        <p class="text-sm font-medium">October 2023</p>
+                    </div>
+                    <div>
+                        <h4 class="text-[10px] uppercase tracking-[0.2em] text-on-surface-variant/60 mb-2">Binding</h4>
+                        <p class="text-sm font-medium">Cloth-bound Hardcover</p>
                     </div>
                 </div>
-            </header>
-            <div class="px-12 py-12 max-w-5xl mx-auto space-y-8">
-                <!-- Profile Header/Avatar Card -->
-                <section
-                    class="bg-surface-container-lowest rounded-xl p-10 flex flex-col md:flex-row items-center md:items-start gap-10 border border-stone-100 shadow-sm">
-                    <div class="relative group">
-                        <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-surface-container-high">
-                            <img alt="User profile portrait" class="w-full h-full object-cover"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4scfgdxNytKNGF4N3L82f4mkrwn5lsu-34gZJ4O3yaZANhedaUJMzYS_AWTIjrYanY2Y3vZFC2RZUuIf3smBPirUEcvw08jUunZg4yITofN0F3HnSkRKmwnxgU1gar7FVWfVXh4g0EkR_3WgR_LD7QXA5bEoEWrrGjI_66Uh5uk2G7iT9oEtOiTLoLtHZiO-kQHQdeHDjpOJGUcSLsZ6e86S0hYdOt-VN5s9BGQSVpmZDRxYWCHp4iMkgSYvtrGNKNWLfCd3ZbQet" />
-                        </div>
-                        <button
-                            class="absolute bottom-2 right-2 bg-primary text-white p-2 rounded-full shadow-lg hover:bg-primary-container transition-all">
-                            <span class="material-symbols-outlined text-sm" data-icon="photo_camera">photo_camera</span>
-                        </button>
+            </div>
+        </div>
+        <!-- Section Transition - Tonal Shift -->
+        <div class="my-32 py-24 bg-surface-container-low -mx-8 px-8">
+            <div class="max-w-[1440px] mx-auto">
+                <div class="flex justify-between items-end mb-16">
+                    <div>
+                        <span class="text-primary font-bold tracking-widest text-xs uppercase mb-4 block">Archive
+                            Spotlight</span>
+                        <h2 class="text-4xl md:text-5xl font-serif italic text-on-surface">Related Volumes</h2>
                     </div>
-                    <div class="flex-1 space-y-4 text-center md:text-left">
-                        <div>
-                            <h3 class="font-headline text-4xl font-medium tracking-tight text-on-surface">Julian Thorne
-                            </h3>
-                            <p class="font-label uppercase tracking-[0.2em] text-[11px] text-on-surface-variant mt-1">
-                                Lead Archivist &amp; Curator</p>
+                    <a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-bold uppercase tracking-widest border-b border-primary/20 pb-1"
+                        href="#">View Full Collection</a>
+                </div>
+                <!-- Bento-style Grid for Related Volumes -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Card 1 -->
+                    <div class="group cursor-pointer">
+                        <div
+                            class="aspect-[3/4] overflow-hidden mb-6 bg-surface-container-lowest flex items-center justify-center p-8 transition-colors duration-300 group-hover:bg-surface-container-highest">
+                            <img alt="Related Book 1"
+                                class="w-full h-full object-cover book-shadow group-hover:scale-105 transition-transform duration-500"
+                                data-alt="Modernist book design with bold typography"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMe_6WnjD7CCqBUPF9eup2oJxV3_xTqu0YKC10x2-JFdLcr-5AOmISzDxSHb_EMF7Tahvo7zSggn2OX_clIc2lG8LPo-h1WR4CTue4PSbHX7wl_1WPqy3yOjAU_2lsqNjP0WiZZd2uyRziR4aKb2_CV3bwsZzo7489P1N4luTRrAuo97acf_q8Y0J3SFBitDED-hMUCUuq3hQ4wTYCPN0V1Ocuvw8BpfiAOoiUfTO5uXWxMA1dbzEBUfEMvtAmf-56zS1jEvmUNAjY" />
                         </div>
-                        <p class="font-body text-on-surface-variant max-w-md leading-relaxed">
-                            Curating the world's most evocative literature since 2018. Specializing in rare first
-                            editions and modernist prose.
+                        <h4 class="font-serif italic text-xl mb-1 text-on-surface">The Geometry of Silence</h4>
+                        <p class="text-[10px] uppercase tracking-widest text-on-surface-variant">Elena V. Sterling</p>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="group cursor-pointer mt-8 md:mt-0">
+                        <div
+                            class="aspect-[3/4] overflow-hidden mb-6 bg-surface-container-lowest flex items-center justify-center p-8 transition-colors duration-300 group-hover:bg-surface-container-highest">
+                            <img alt="Related Book 2"
+                                class="w-full h-full object-cover book-shadow group-hover:scale-105 transition-transform duration-500"
+                                data-alt="Minimalist book with natural textures"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_LBOCsmHbF7e1SX53_YB9ArraJyts8416fGORJYaKWTkt5r0bJSc7h2RRiAqsmSbZ4yIkQz6fQHKjofioCSkADNpWjkQ5ijXZT_7T5eECZ-yAHyR_zfERiPgyEGoSMmZzfJ_7m7oSKzPOcoREDEXgAQMGXf7GY8QHCWXHKa28p28ItSg6-DfXeJG0EfnJ6E0pEoI7fIus2ZtWgGl2lJQcxHDK0KBWig3lLpfXU6WVQkqiKZ9qo419w4-RAoZuMmn3BkGlB7YDAB6N" />
+                        </div>
+                        <h4 class="font-serif italic text-xl mb-1 text-on-surface">Material Landscapes</h4>
+                        <p class="text-[10px] uppercase tracking-widest text-on-surface-variant">Lumina Editions</p>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="group cursor-pointer">
+                        <div
+                            class="aspect-[3/4] overflow-hidden mb-6 bg-surface-container-lowest flex items-center justify-center p-8 transition-colors duration-300 group-hover:bg-surface-container-highest">
+                            <img alt="Related Book 3"
+                                class="w-full h-full object-cover book-shadow group-hover:scale-105 transition-transform duration-500"
+                                data-alt="Editorial book cover with abstract art"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgSNlS70ZeN3dBtvughu8fIdmeLcJ6G77_QlN53rvMUuLgBZdknPEgrPrAnhBSczOYJxlbuxaDUiRnD93ScL6r8GrTnYYeGMO-Y6JRzwnNyd438tjwe_7ciP-Zs8WEGPyoHPryUfN_mcJxYh-SyUPzhHXFNwyIuBqM3zfksG6Ijd2Mkcr1FdFQl1oTpzTmvfvNFpDHpr1MKF3N1DYv1NkBaxT0T_dnTbh8mZxo_bLdTk62LbmSzHp1TH2VEeEel-CXQKVcRk6fNnFu" />
+                        </div>
+                        <h4 class="font-serif italic text-xl mb-1 text-on-surface">The Interior Void</h4>
+                        <p class="text-[10px] uppercase tracking-widest text-on-surface-variant">Elena V. Sterling</p>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="group cursor-pointer mt-8 md:mt-0">
+                        <div
+                            class="aspect-[3/4] overflow-hidden mb-6 bg-surface-container-lowest flex items-center justify-center p-8 transition-colors duration-300 group-hover:bg-surface-container-highest">
+                            <img alt="Related Book 4"
+                                class="w-full h-full object-cover book-shadow group-hover:scale-105 transition-transform duration-500"
+                                data-alt="Book stack in a minimalist room"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0cqJ5gRIjeBkpFaHVlKwu9oGn7knFl7mJx_AH51lNpoKEeUHJmJCPbXBkLb_loVTbcQjL8z_k2tHa9ykicxGE1FZEeRVNYrxMc_yQwrzCWpU6ahLo60daIhT_eW6Lp7y-vFZZe-Nxhsm3p_LUK4zvxLze7Uo_FgQ5yTavkpXO_TPAGJa9eDkRL0R-cZTwtar106mIrTgFXHa99Qvqd1_zqaIhIhc4x8RBoW4AYrd6K_3LHLmgb0H4WFFEgIm-hHedK9cDxwW8ht5z" />
+                        </div>
+                        <h4 class="font-serif italic text-xl mb-1 text-on-surface">Structural Empathy</h4>
+                        <p class="text-[10px] uppercase tracking-widest text-on-surface-variant">Art &amp; Ethics Series
                         </p>
-                        <div class="pt-4 flex flex-wrap justify-center md:justify-start gap-3">
-                            <span
-                                class="px-4 py-1.5 rounded-full bg-secondary-container text-on-secondary-container text-xs font-medium font-label">PREMIUM
-                                MEMBER</span>
-                            <span
-                                class="px-4 py-1.5 rounded-full bg-surface-container text-on-surface-variant text-xs font-medium font-label">LONDON,
-                                UK</span>
-                        </div>
                     </div>
-                    <div class="flex items-start">
-                        <button
-                            class="px-6 py-3 bg-gradient-to-br from-primary to-primary-container text-white font-label text-sm font-bold rounded-md shadow-sm hover:opacity-90 transition-opacity flex items-center gap-2">
-                            <span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
-                            Edit Profile
-                        </button>
-                    </div>
-                </section>
-                <!-- Personal Details Section -->
-                <section class="bg-surface-container-lowest rounded-xl p-8 border border-stone-100 shadow-sm">
-                    <div class="flex items-center gap-2 mb-8 border-b border-stone-50 pb-4">
-                        <span class="material-symbols-outlined text-primary"
-                            data-icon="account_circle">account_circle</span>
-                        <h4 class="font-headline italic text-2xl">Contact Information</h4>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                        <div class="space-y-1">
-                            <label class="font-label uppercase tracking-widest text-[10px] text-on-surface-variant">Full
-                                Name</label>
-                            <p class="font-body text-on-surface font-medium border-b border-transparent py-1">Julian
-                                Thorne</p>
-                        </div>
-                        <div class="space-y-1">
-                            <label
-                                class="font-label uppercase tracking-widest text-[10px] text-on-surface-variant">Email
-                                Address</label>
-                            <p class="font-body text-on-surface font-medium border-b border-transparent py-1">
-                                j.thorne@curator.archive</p>
-                        </div>
-                        <div class="space-y-1">
-                            <label
-                                class="font-label uppercase tracking-widest text-[10px] text-on-surface-variant">Phone
-                                Number</label>
-                            <p class="font-body text-on-surface font-medium border-b border-transparent py-1">+44 20
-                                7946 0123</p>
-                        </div>
-                        <div class="space-y-1">
-                            <label
-                                class="font-label uppercase tracking-widest text-[10px] text-on-surface-variant">Location</label>
-                            <p class="font-body text-on-surface font-medium border-b border-transparent py-1">London,
-                                United Kingdom</p>
-                        </div>
-                    </div>
-                </section>
-                <!-- Recent Orders Section -->
-                <section class="bg-surface-container-lowest rounded-xl p-8 border border-stone-100 shadow-sm">
-                    <div class="flex items-center justify-between mb-8 border-b border-stone-50 pb-4">
-                        <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-primary"
-                                data-icon="receipt_long">receipt_long</span>
-                            <h4 class="font-headline italic text-2xl">Recent Orders</h4>
-                        </div>
-                        <a class="text-[10px] font-label uppercase tracking-widest text-primary hover:underline"
-                            href="#">View All History</a>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left">
-                            <thead>
-                                <tr class="border-b border-stone-100">
-                                    <th
-                                        class="pb-4 font-label uppercase tracking-widest text-[10px] text-on-surface-variant">
-                                        Book Title</th>
-                                    <th
-                                        class="pb-4 font-label uppercase tracking-widest text-[10px] text-on-surface-variant">
-                                        Date</th>
-                                    <th
-                                        class="pb-4 font-label uppercase tracking-widest text-[10px] text-on-surface-variant text-right">
-                                        Price</th>
-                                    <th
-                                        class="pb-4 font-label uppercase tracking-widest text-[10px] text-on-surface-variant text-right">
-                                        Status</th>
-                                </tr>
-                            </thead>
-                            <tbody class="font-body text-sm">
-                                <tr
-                                    class="border-b border-stone-50 hover:bg-surface-container-low/20 transition-colors">
-                                    <td class="py-4 font-medium italic font-headline text-lg">The Unbearable Lightness
-                                        of Being</td>
-                                    <td class="py-4 text-on-surface-variant">Oct 24, 2024</td>
-                                    <td class="py-4 text-right font-medium">£32.00</td>
-                                    <td class="py-4 text-right">
-                                        <span
-                                            class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase tracking-wider">Delivered</span>
-                                    </td>
-                                </tr>
-                                <tr
-                                    class="border-b border-stone-50 hover:bg-surface-container-low/20 transition-colors">
-                                    <td class="py-4 font-medium italic font-headline text-lg">In Search of Lost Time
-                                        (Box Set)</td>
-                                    <td class="py-4 text-on-surface-variant">Sep 12, 2024</td>
-                                    <td class="py-4 text-right font-medium">£145.50</td>
-                                    <td class="py-4 text-right">
-                                        <span
-                                            class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase tracking-wider">Delivered</span>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-surface-container-low/20 transition-colors">
-                                    <td class="py-4 font-medium italic font-headline text-lg">Ulysses (First Edition
-                                        Repr.)</td>
-                                    <td class="py-4 text-on-surface-variant">Aug 30, 2024</td>
-                                    <td class="py-4 text-right font-medium">£64.00</td>
-                                    <td class="py-4 text-right">
-                                        <span
-                                            class="px-3 py-1 rounded-full bg-surface-container text-on-surface-variant text-[10px] font-bold uppercase tracking-wider">Processing</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
+                </div>
             </div>
-        </main>
-    </div>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer
+        class="w-full py-12 px-8 flex flex-col md:flex-row justify-between items-center gap-6 bg-[#fef8f7] dark:bg-stone-950 border-t border-[#1d1b1b]/5 dark:border-[#fef8f7]/5">
+        <div class="text-lg font-serif text-[#1d1b1b] dark:text-[#fef8f7]">The Literary Curator</div>
+        <div class="flex flex-wrap justify-center gap-8">
+            <a class="font-sans text-xs uppercase tracking-widest text-[#1d1b1b]/50 dark:text-[#fef8f7]/50 hover:text-[#1d1b1b] dark:hover:text-[#fef8f7] underline transition-all duration-200"
+                href="#">Privacy Policy</a>
+            <a class="font-sans text-xs uppercase tracking-widest text-[#1d1b1b]/50 dark:text-[#fef8f7]/50 hover:text-[#1d1b1b] dark:hover:text-[#fef8f7] underline transition-all duration-200"
+                href="#">Shipping &amp; Returns</a>
+            <a class="font-sans text-xs uppercase tracking-widest text-[#1d1b1b]/50 dark:text-[#fef8f7]/50 hover:text-[#1d1b1b] dark:hover:text-[#fef8f7] underline transition-all duration-200"
+                href="#">Contact Us</a>
+            <a class="font-sans text-xs uppercase tracking-widest text-[#1d1b1b]/50 dark:text-[#fef8f7]/50 hover:text-[#1d1b1b] dark:hover:text-[#fef8f7] underline transition-all duration-200"
+                href="#">Wholesale</a>
+        </div>
+        <p class="font-sans text-[10px] uppercase tracking-widest text-[#1d1b1b]/50 dark:text-[#fef8f7]/50">
+            © 2024 The Literary Curator. An Archive of Modern Thought.
+        </p>
+    </footer>
 </body>
 
 </html>

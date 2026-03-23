@@ -2,18 +2,42 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import { useAuthContext } from '@/contexts/auth.context';
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router';
+import { NavLink, useLocation, useNavigate } from 'react-router';
 import { useState, type MouseEvent } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import bookIcon from '@/assets/book.svg';
 
+export const NAV_ITEMS = [
+  {
+    id: 'home-header-nav-item',
+    label: 'HOME',
+    path: '/',
+  },
+  {
+    id: 'books-header-nav-item',
+    label: 'BOOKS',
+    path: '/book',
+  },
+  {
+    id: 'best-header-nav-item',
+    label: 'BEST SELLERS',
+    path: '/sellers',
+  },
+  {
+    id: 'about-header-nav-item',
+    label: 'ABOUT',
+    path: '/about',
+  },
+];
 export const HeaderComponent = () => {
   const { user, logout } = useAuthContext();
+  const location = useLocation();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  console.log(location);
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -33,7 +57,7 @@ export const HeaderComponent = () => {
   };
 
   return (
-    <header>
+    <header className="header">
       <div className="header__left" onClick={() => navigate('/')}>
         <div className="wrapper">
           <img src={bookIcon} alt="logo" />
@@ -41,10 +65,15 @@ export const HeaderComponent = () => {
         <h1>Book Store</h1>
       </div>
       <ul>
-        <li>HOME</li>
-        <li>CATEGORIES</li>
-        <li>BEST SELLERS</li>
-        <li>ABOUT</li>
+        {NAV_ITEMS.map((item) => (
+          <NavLink
+            key={item.id}
+            className={`header__nav-item ${location.pathname === item.path && 'header__nav-item--active'}`}
+            to={item.path}
+          >
+            {item.label}
+          </NavLink>
+        ))}
       </ul>
       <div className="header__right">
         <ShoppingCartOutlinedIcon

@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router';
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router';
 import './layout.scss';
 import BookIcon from '@/assets/book.svg?react';
 import UserIcon from '@/assets/user.svg?react';
@@ -7,21 +7,31 @@ import ResetPassIcon from '@/assets/auth/confirm-pass.svg?react';
 import LogoutIcon from '@/assets/auth/logout.svg?react';
 import NotifyIcon from '@/assets/notify.svg?react';
 import SettingIcon from '@/assets/setting.svg?react';
+import { useAuthContext } from '@/contexts/auth.context';
 
 const MENU_ITEMS = [
-  { id: 'info', label: 'Profile Info', icon: UserIcon, path: '/' },
-  { id: 'address', label: 'Addresses', icon: LocationIcon, path: '/' },
+  { id: 'info', label: 'Profile Info', icon: UserIcon, path: '/user' },
+  { id: 'address', label: 'Addresses', icon: LocationIcon, path: '/user/address' },
   { id: 'password', label: 'Reset Password', icon: ResetPassIcon, path: '/' },
   { id: 'order', label: 'Order History', icon: BookIcon, path: '/' },
 ];
 
 export const ProfileLayout = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { logout } = useAuthContext();
+
+  const onLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   return (
     <>
       <div className="profile">
         {/* Sidebar  */}
         <aside className="profile__sidebar">
-          <div className="profile__brand">
+          <div className="profile__brand" onClick={() => navigate('/')}>
             <h1 className="profile__title">The Literary Curator</h1>
             <span className="profile__subtitle">Modern Archivist Edition</span>
           </div>
@@ -30,15 +40,20 @@ export const ProfileLayout = () => {
               {MENU_ITEMS.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <li key={item.id}>
+                  <NavLink
+                    style={{ textDecoration: 'none' }}
+                    to={item.path}
+                    className={`profile__nav-item ${location.pathname === item.path && 'profile__nav-item--active'}`}
+                    key={item.id}
+                  >
                     <Icon className="profile__icon" />
                     <span>{item.label}</span>
-                  </li>
+                  </NavLink>
                 );
               })}
             </ul>
           </nav>
-          <div className="profile__logout">
+          <div className="profile__logout" onClick={onLogout}>
             <LogoutIcon className="profile__icon" />
             <span>Logout</span>
           </div>

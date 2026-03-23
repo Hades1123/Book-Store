@@ -17,12 +17,23 @@ import { HomePage } from './pages/home.page';
 import { ProfileLayout } from './pages/user/layout';
 import { ProfileInfo } from './pages/user/info';
 import { ProtectedRoute } from '@/components/routes/protected.route';
+import { BookPage } from '@/pages/book/book.page';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <MainLayout />,
-    children: [{ index: true, element: <HomePage /> }],
+    children: [
+      { index: true, element: <HomePage /> },
+      {
+        path: 'about',
+        element: <div>Hello I am a coder</div>,
+      },
+      {
+        path: 'book',
+        element: <BookPage />,
+      },
+    ],
   },
   {
     path: 'admin',
@@ -44,11 +55,19 @@ export const router = createBrowserRouter([
   },
   {
     path: '/user',
-    element: <ProfileLayout />,
+    element: (
+      <ProtectedRoute roles={['ADMIN', 'CUSTOMER']}>
+        <ProfileLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         index: true,
         element: <ProfileInfo />,
+      },
+      {
+        path: 'address',
+        element: <div>This is address routes</div>,
       },
     ],
   },
@@ -81,6 +100,7 @@ export const router = createBrowserRouter([
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AuthProvider>
+      {/* <ScrollTop /> */}
       <RouterProvider router={router} />
     </AuthProvider>
   </StrictMode>
