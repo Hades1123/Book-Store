@@ -89,7 +89,6 @@ CREATE TABLE "verification_tokens" (
     "type" "VerificationType" NOT NULL,
     "expiresAt" TIMESTAMP(3) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "userId" TEXT NOT NULL,
 
     CONSTRAINT "verification_tokens_pkey" PRIMARY KEY ("id")
 );
@@ -105,6 +104,3 @@ ALTER TABLE "categories" ADD CONSTRAINT "categories_parentId_fkey" FOREIGN KEY (
 
 -- AddForeignKey
 ALTER TABLE "products" ADD CONSTRAINT "products_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "categories"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "verification_tokens" ADD CONSTRAINT "verification_tokens_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

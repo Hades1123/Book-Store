@@ -13,6 +13,10 @@ async function bootstrap() {
 
   const reflactor = app.get(Reflector);
 
+  BigInt.prototype['toJSON'] = function () {
+    return this.toString();
+  };
+
   app.enableCors({
     origin: [configService.get<string>('FE_URL')],
     credentials: true,

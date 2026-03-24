@@ -8,6 +8,8 @@ import { AuthModule } from './modules/auth/auth.module';
 import { PrismaModule } from './database/prisma.module';
 import { UserModule } from './modules/user/user.module';
 import { UploadModule } from './modules/upload/upload.module';
+import { BookModule } from './modules/book/book.module';
+import { CategoryModule } from './modules/category/category.module';
 
 @Module({
   imports: [
@@ -21,6 +23,8 @@ import { UploadModule } from './modules/upload/upload.module';
     PrismaModule,
     UserModule,
     UploadModule,
+    BookModule,
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

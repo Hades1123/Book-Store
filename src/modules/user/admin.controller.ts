@@ -10,7 +10,7 @@ import { RoleDto } from './dto/role.dto';
 
 @Controller('admin')
 @UseGuards(JwtGuard, RolesGuard)
-@Roles('SUPER_ADMIN')
+@Roles('ADMIN')
 export class AdminController {
   constructor(private readonly userService: UserService) {}
 

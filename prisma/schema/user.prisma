@@ -28,7 +28,6 @@ model User{
 
   // relation
   address Address[]
-  verificationTokens VerificationToken[]
 
   @@map("users") // make database table name -> users
 }

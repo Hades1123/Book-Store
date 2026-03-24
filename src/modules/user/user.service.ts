@@ -21,6 +21,7 @@ export class UserService {
       email: user.email,
       avatarPublicId: user.avatarPublicId,
       phone: user.phone,
+      role: user.role,
     };
   }
 
@@ -43,6 +44,7 @@ export class UserService {
       email: user.email,
       fullName: user.fullName,
       phone: user.phone,
+      role: user.role,
     };
   }
 
@@ -63,6 +65,7 @@ export class UserService {
       avatarPublicId: user.avatarPublicId,
       email: user.email,
       phone: user.phone,
+      role: user.role,
     }));
 
     return {
@@ -88,9 +91,9 @@ export class UserService {
      * only one super_admin in our system and the number must be = 1
      * number of admin is flexible :D
      */
-    if (role == 'SUPER_ADMIN') {
-      // const superAdmin = await this.prismaService.user.findUnique({ where: {} });
-      throw new ForbiddenException('Must be one Super Admin !!!');
-    }
+    // if (role == 'SUPER_ADMIN') {
+    //   // const superAdmin = await this.prismaService.user.findUnique({ where: {} });
+    //   throw new ForbiddenException('Must be one Super Admin !!!');
+    // }
   }
 }
