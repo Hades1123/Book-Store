@@ -18,6 +18,7 @@ import { ProfileLayout } from './pages/user/layout';
 import { ProfileInfo } from './pages/user/info';
 import { ProtectedRoute } from '@/components/routes/protected.route';
 import { BookPage } from '@/pages/book/book.page';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 export const router = createBrowserRouter([
   {
@@ -96,12 +97,15 @@ export const router = createBrowserRouter([
     ),
   },
 ]);
+const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <AuthProvider>
-      {/* <ScrollTop /> */}
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        {/* <ScrollTop /> */}
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </QueryClientProvider>
   </StrictMode>
 );

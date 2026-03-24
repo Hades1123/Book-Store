@@ -1,40 +1,17 @@
 import thumbnail from '@/assets/book1.png';
 import './book.page.scss';
 import Slider from '@mui/material/Slider';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ChangeEvent } from 'react';
 import { MAX_PRICE, MIN_PRICE } from '@/constants/common';
 import { formatCurrency } from '@/utils/helper';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import SortByMenu from '@/components/books/sortby.menu';
-import { getCategoryStructure } from '@/api/book.api';
+import { fetchBooks, getCategoryStructure } from '@/api/book.api';
 import type { ICategoryRes } from '@/types/book';
-
-interface ICategory {
-  id: string;
-  label: string;
-  children?: { id: string; label: string }[];
-}
-
-const CATEGORIES: ICategory[] = [
-  {
-    id: 'fsdfdsfdsfsdfd',
-    label: 'Philosophy',
-    children: [
-      { id: 'sdddd', label: 'Existentialism' },
-      { id: 'zzzzzzsadsa', label: 'Ethics & Morality' },
-    ],
-  },
-  {
-    id: 'dfdsfdsfds',
-    label: 'Comic',
-    children: [
-      { id: '123232', label: 'copilot' },
-      { id: '123d3232', label: 'Claude code' },
-    ],
-  },
-];
+import { useBookFilters } from '@/hooks/book-filter';
+import { useQuery } from '@tanstack/react-query';
 
 function valuetext(value: number) {
   return `${value}°C`;
@@ -48,16 +25,39 @@ const marks = [
 export const BookPage = () => {
   const [price, setPrice] = useState<number[]>([10000, 2000000]);
   const [currentCategory, setCurrentCategory] = useState<string | null>(null);
-  const [categoryStructure, setCategoryStructure] = useState<ICategoryRes[] | null>(null);
+  const [categoryStructure, setCategoryStructure] = useState<ICategoryRes[]>([]);
+  const { setFilter, setFilters, filters, resetFilters } = useBookFilters();
+  const { data, isLoading } = useQuery({
+    queryKey: ['books', filters],
+    queryFn: async () => {
+      const result = await fetchBooks(filters);
+      return result.data.data;
+    },
+  });
 
   const handleChange = (event: Event, newValue: number[]) => {
-    console.log(newValue);
+    setFilters({ maxPrice: newValue[1], minPrice: newValue[0] });
     setPrice(newValue);
   };
 
-  const handleClickCategory = (value: string) => {
-    setCurrentCategory(value);
-    console.log('[Category] : ' + value);
+  const handleChangePage = (page: number) => {
+    setFilter('page', page);
+  };
+
+  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
+    setFilter('search', event.target.value);
+  };
+
+  const handleClickCategory = (value: { id: string; label: string }) => {
+    const current = categoryStructure.find((item) => value.label === item.name);
+    if (current && current.children) {
+      const result = current.children.map((item) => item.id);
+      result.push(value.id);
+      setFilter('categoryIds', result.join(','));
+    } else {
+      setFilter('categoryIds', value.id);
+    }
+    setCurrentCategory(value.label);
   };
 
   const CategoryNode = ({
@@ -71,7 +71,7 @@ export const BookPage = () => {
       <div className={`${isChild ? 'book__category-child' : 'book__category-parent'} `}>
         <span
           className={`${category.name === currentCategory ? 'book__category--active' : ''}`}
-          onClick={() => handleClickCategory(category.name)}
+          onClick={() => handleClickCategory({ id: category.id, label: category.name })}
         >
           {category.name}
         </span>
@@ -93,9 +93,8 @@ export const BookPage = () => {
         if (result.data.data) {
           setCategoryStructure(result.data.data);
         }
-        console.log(result);
       } catch (err: unknown) {
-        setCategoryStructure(null);
+        setCategoryStructure([]);
         console.error(err);
       }
     };
@@ -116,7 +115,12 @@ export const BookPage = () => {
           <aside className="book__sidebar">
             <div className="book__search">
               <label htmlFor="book-search">Search</label>
-              <input id="book-search" type="text" placeholder="Search authors or books" />
+              <input
+                id="book-search"
+                type="text"
+                placeholder="Search authors or books"
+                onChange={handleSearch}
+              />
             </div>
             <div className="book__price">
               <h2>Price Range</h2>
@@ -148,22 +152,30 @@ export const BookPage = () => {
           </aside>
           <main className="book__main">
             <div className="book__sortbar">
-              <div className="book__stat">Showing 12 of 84 Titles</div>
+              <div className="book__stat">
+                Showing{' '}
+                {(data?.pagination.limit ?? 0) * (data?.pagination.page ?? 0) >
+                (data?.pagination.total ?? 0)
+                  ? (data?.pagination.total ?? 0) % (data?.pagination.limit ?? 1)
+                  : data?.pagination.limit}{' '}
+                of {data?.pagination.total} Titles
+              </div>
               <div className="book__sortmenu">
                 <SortByMenu />
+                <button onClick={resetFilters}>Reset filter</button>
               </div>
             </div>
             <div className="book__grid">
-              {new Array(9).fill(0).map((item) => (
+              {data?.bookList.map((item) => (
                 <div className="book__card">
                   <div className="book__img-wrapper">
                     <img className="book__thumbnail" src={thumbnail} alt="thumbnail" />
                   </div>
                   <div className="book__content">
                     <div className="book__card-category">Philosophy</div>
-                    <div className="book__card-title">The Myth of Sisyphus</div>
-                    <div className="book__card-author">Albert Camus</div>
-                    <div className="book__card-price">$42.00</div>
+                    <div className="book__card-title">{item.name}</div>
+                    <div className="book__card-author">{item.author}</div>
+                    <div className="book__card-price">{formatCurrency(Number(item.price))}</div>
                   </div>
                 </div>
               ))}
@@ -173,7 +185,9 @@ export const BookPage = () => {
                 display: 'flex',
                 justifyContent: 'center',
               }}
-              count={10}
+              onChange={(e, page) => handleChangePage(page)}
+              count={data?.pagination.totalPages}
+              page={filters.page}
               color="primary"
             />
           </main>
