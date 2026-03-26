@@ -1,5 +1,10 @@
-import { DEFAULT_LIMIT, DEFAULT_PAGE } from '@/constants/common';
-import type { IBooksParams } from '@/types/book';
+import {
+  DEFAULT_LIMIT,
+  DEFAULT_PAGE,
+  DEFAULT_SORT_BY,
+  DEFAULT_SORT_ORDER,
+} from '@/constants/common';
+import type { IBooksParams, TSortBy, TSortOrder } from '@/types/book';
 import { useSearchParams } from 'react-router';
 
 export const useBookFilters = () => {
@@ -7,9 +12,13 @@ export const useBookFilters = () => {
 
   const filters: IBooksParams = {
     page: Number(searchParams.get('page')) || DEFAULT_PAGE,
-    limit: Number(searchParams.get('limit')) || 5,
+    limit: Number(searchParams.get('limit')) || DEFAULT_LIMIT,
     categoryIds: searchParams.get('categoryIds') || undefined,
     search: searchParams.get('search') || undefined,
+    maxPrice: Number(searchParams.get('maxPrice')) || undefined,
+    minPrice: Number(searchParams.get('minPrice')) || undefined,
+    sortBy: (searchParams.get('sortBy') as TSortBy) || DEFAULT_SORT_BY,
+    sortOrder: (searchParams.get('sortOrder') as TSortOrder) || DEFAULT_SORT_ORDER,
   };
 
   const setFilter = <K extends keyof IBooksParams>(key: K, value: IBooksParams[K]) => {
@@ -36,9 +45,11 @@ export const useBookFilters = () => {
           prev.set(key, String(value));
         }
       });
+      prev.delete('page');
       return prev;
     });
   };
+
   const resetFilters = () => {
     setSearchParams(new URLSearchParams());
   };

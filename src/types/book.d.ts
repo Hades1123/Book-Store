@@ -31,6 +31,12 @@ export interface IBooksRes {
   pagination: IPagination;
 }
 
+export type TSortOrder = 'asc' | 'desc';
+
+export type TSortBy = 'price' | 'name' | 'createdAt';
+
+export type TSortKey = 'price-asc' | 'price-desc';
+
 export interface IBooksParams {
   page: number;
 
@@ -46,5 +52,5 @@ export interface IBooksParams {
 
   sortBy?: ESortBy;
 
-  sortOrder?: 'asc' | 'desc';
+  sortOrder?: ESortOrder;
 }

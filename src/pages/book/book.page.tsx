@@ -9,9 +9,16 @@ import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import SortByMenu from '@/components/books/sortby.menu';
 import { fetchBooks, getCategoryStructure } from '@/api/book.api';
-import type { ICategoryRes } from '@/types/book';
-import { useBookFilters } from '@/hooks/book-filter';
+import { useBookFilters } from '@/hooks/use-bookFilter';
 import { useQuery } from '@tanstack/react-query';
+import { useDebounce } from '@/hooks/use-debounce';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import type { TSortBy, TSortOrder, ICategoryRes, TSortKey } from '@/types/book';
+import { Link, useNavigate } from 'react-router';
 
 function valuetext(value: number) {
   return `${value}°C`;
@@ -22,11 +29,24 @@ const marks = [
   { value: MAX_PRICE, label: '' },
 ];
 
+const SORT_OPTIONS: Record<TSortKey, { sortBy: TSortBy; sortOrder: TSortOrder; label: string }> = {
+  'price-asc': { sortBy: 'price', sortOrder: 'asc', label: 'Price: Low to High' },
+  'price-desc': { sortBy: 'price', sortOrder: 'desc', label: 'Price: High to Low' },
+  // 'name-asc': { sortBy: ESortBy.name, sortOrder: ESortOrder.asc, label: 'Name: A to Z' },
+  // 'name-desc': { sortBy: ESortBy.name, sortOrder: ESortOrder.desc, label: 'Name: Z to A' },
+  // newest: { sortBy: ESortBy.createdAt, sortOrder: ESortOrder.desc, label: 'Newest First' },
+};
+
 export const BookPage = () => {
-  const [price, setPrice] = useState<number[]>([10000, 2000000]);
+  const [price, setPrice] = useState<number[] | null>(null);
   const [currentCategory, setCurrentCategory] = useState<string | null>(null);
-  const [categoryStructure, setCategoryStructure] = useState<ICategoryRes[]>([]);
+  const [currentSearchValue, setCurrentSearchValue] = useState<string>('');
+  const [currentSort, setCurrentSort] = useState<TSortKey>('price-asc');
   const { setFilter, setFilters, filters, resetFilters } = useBookFilters();
+  const navigate = useNavigate();
+  const debounceSearch = useDebounce<string>(currentSearchValue, 1000);
+  const debouncePrice = useDebounce<number[] | null>(price, 1000);
+
   const { data, isLoading } = useQuery({
     queryKey: ['books', filters],
     queryFn: async () => {
@@ -35,8 +55,15 @@ export const BookPage = () => {
     },
   });
 
+  const { data: categoryStructure = [] } = useQuery({
+    queryKey: ['categoryStructure'],
+    queryFn: async () => {
+      const result = await getCategoryStructure();
+      return result.data.data;
+    },
+  });
+
   const handleChange = (event: Event, newValue: number[]) => {
-    setFilters({ maxPrice: newValue[1], minPrice: newValue[0] });
     setPrice(newValue);
   };
 
@@ -45,7 +72,7 @@ export const BookPage = () => {
   };
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
-    setFilter('search', event.target.value);
+    setCurrentSearchValue(event.target.value.trim());
   };
 
   const handleClickCategory = (value: { id: string; label: string }) => {
@@ -58,6 +85,13 @@ export const BookPage = () => {
       setFilter('categoryIds', value.id);
     }
     setCurrentCategory(value.label);
+  };
+
+  const handleResetInput = () => {
+    setCurrentSearchValue('');
+    setCurrentCategory(null);
+    setPrice(null);
+    setCurrentSort('price-asc');
   };
 
   const CategoryNode = ({
@@ -87,19 +121,18 @@ export const BookPage = () => {
   };
 
   useEffect(() => {
-    const fetchCategoryStructure = async () => {
-      try {
-        const result = await getCategoryStructure();
-        if (result.data.data) {
-          setCategoryStructure(result.data.data);
-        }
-      } catch (err: unknown) {
-        setCategoryStructure([]);
-        console.error(err);
-      }
-    };
-    fetchCategoryStructure();
-  }, []);
+    setFilter('search', debounceSearch);
+  }, [debounceSearch]);
+
+  useEffect(() => {
+    if (debouncePrice == null) {
+      return;
+    }
+    setFilters({
+      minPrice: debouncePrice[0],
+      maxPrice: debouncePrice[1],
+    });
+  }, [debouncePrice]);
 
   return (
     <>
@@ -120,6 +153,7 @@ export const BookPage = () => {
                 type="text"
                 placeholder="Search authors or books"
                 onChange={handleSearch}
+                value={currentSearchValue}
               />
             </div>
             <div className="book__price">
@@ -130,22 +164,36 @@ export const BookPage = () => {
                 marks={marks}
                 step={10000}
                 getAriaLabel={() => 'Temperature range'}
-                value={price}
+                value={price ?? [MIN_PRICE, MAX_PRICE]}
                 onChange={handleChange}
                 valueLabelDisplay="off"
                 getAriaValueText={valuetext}
               />
               <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Typography variant="body2" sx={{ cursor: 'pointer' }}>
-                  {formatCurrency(price[0])}
+                  {formatCurrency((price && price[0]) ?? MIN_PRICE)}
                 </Typography>
                 <Typography variant="body2" sx={{ cursor: 'pointer' }}>
-                  {formatCurrency(price[1])}
+                  {formatCurrency((price && price[1]) ?? MAX_PRICE)}
                 </Typography>
               </Box>
             </div>
             <div className="book__category">
-              <h2>Category</h2>
+              <h2 style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                Category{' '}
+                <RestartAltIcon
+                  onClick={() => {
+                    setCurrentCategory(null);
+                    setFilter('categoryIds', undefined);
+                  }}
+                  sx={{
+                    cursor: 'pointer',
+                    ':hover': {
+                      color: 'red',
+                    },
+                  }}
+                />{' '}
+              </h2>
               {categoryStructure &&
                 categoryStructure.map((item) => <CategoryNode category={item} key={item.id} />)}
             </div>
@@ -161,24 +209,57 @@ export const BookPage = () => {
                 of {data?.pagination.total} Titles
               </div>
               <div className="book__sortmenu">
-                <SortByMenu />
-                <button onClick={resetFilters}>Reset filter</button>
+                <SortByMenu
+                  currentSort={currentSort}
+                  setCurrentSort={setCurrentSort}
+                  setFilters={setFilters}
+                  SORT_OPTIONS={SORT_OPTIONS}
+                />
+                <Tooltip
+                  title={<span style={{ fontSize: '1rem' }}>Reset all filters</span>}
+                  placement="top"
+                >
+                  <IconButton>
+                    <RestartAltIcon
+                      sx={{ cursor: 'pointer', ':hover': { color: 'red' } }}
+                      onClick={() => {
+                        handleResetInput();
+                        resetFilters();
+                      }}
+                    />
+                  </IconButton>
+                </Tooltip>
               </div>
             </div>
             <div className="book__grid">
-              {data?.bookList.map((item) => (
-                <div className="book__card">
-                  <div className="book__img-wrapper">
-                    <img className="book__thumbnail" src={thumbnail} alt="thumbnail" />
-                  </div>
-                  <div className="book__content">
-                    <div className="book__card-category">Philosophy</div>
-                    <div className="book__card-title">{item.name}</div>
-                    <div className="book__card-author">{item.author}</div>
-                    <div className="book__card-price">{formatCurrency(Number(item.price))}</div>
-                  </div>
-                </div>
-              ))}
+              {data ? (
+                data?.bookList.map((item) => (
+                  <Link to={`${item.id}`} style={{ textDecoration: 'none' }}>
+                    <div className="book__card">
+                      <div className="book__img-wrapper">
+                        <img className="book__thumbnail" src={thumbnail} alt="thumbnail" />
+                      </div>
+                      <div className="book__content">
+                        <div className="book__card-category">Philosophy</div>
+                        <div className="book__card-title">{item.name}</div>
+                        <div className="book__card-author">{item.author}</div>
+                        <div className="book__card-price">{formatCurrency(Number(item.price))}</div>
+                      </div>
+                    </div>
+                  </Link>
+                ))
+              ) : (
+                <Backdrop
+                  sx={(theme) => ({
+                    color: '#fff',
+                    zIndex: theme.zIndex.drawer + 1,
+                    position: 'absolute',
+                  })}
+                  open={isLoading}
+                >
+                  <CircularProgress color="primary" />
+                </Backdrop>
+              )}
             </div>
             <Pagination
               sx={{

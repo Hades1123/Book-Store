@@ -1,0 +1,148 @@
+@use '../../styles/mixins';
+
+.detailbook {
+  padding: 4rem 6rem;
+  background: #fef8f7;
+
+  &__main {
+    display: grid;
+    grid-template-columns: 31.25rem 1fr;
+    gap: 6.25rem;
+    margin-bottom: 8rem;
+  }
+
+  &__img-wrapper {
+    width: 31.25rem;
+    height: auto;
+    aspect-ratio: 2/3;
+    border-radius: 0.125rem;
+    background: rgba(255, 255, 255, 0.2);
+    background-blend-mode: saturation;
+    box-shadow: 20px 20px 40px 0 rgba(29, 27, 27, 0.05);
+    overflow: hidden;
+    cursor: pointer;
+    img {
+      object-fit: cover;
+      object-position: center;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.5s ease-in-out;
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  &__nav {
+    color: rgba(88, 66, 60, 0.6);
+    @include mixins.text-style(0.75rem, null, 1rem, null, null);
+    letter-spacing: 0.15rem;
+    text-transform: uppercase;
+    margin-bottom: 1.7rem;
+  }
+
+  &__title {
+    color: #1d1b1b;
+    @include mixins.text-style(
+      $size: 4.2rem,
+      $weight: 300,
+      $lh: 4.5rem,
+      $family: Inter,
+      $style: italic
+    );
+    max-width: 34.3rem;
+    letter-spacing: -0.225rem;
+    margin-bottom: 0.7rem;
+  }
+
+  &__author {
+    color: #58423c;
+    font-family: Manrope;
+    @include mixins.text-style(0.875rem, null, 1.25rem, null, null);
+    letter-spacing: 0.2625rem;
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+    display: block;
+  }
+
+  &__price {
+    @include mixins.text-style(1.8rem, null, 2.25rem, Inter, null);
+    color: #1d1b1b;
+    margin-bottom: 3rem;
+  }
+
+  &__note {
+    position: relative;
+    padding: 2rem;
+    border-left: 2px solid rgba(160, 105, 27, 0.3);
+    background: rgba(160, 105, 27, 0.05);
+    margin-bottom: 3rem;
+    &-title {
+      color: #835100;
+      @include mixins.text-style(1.2rem, null, 1.75rem, Inter, italic);
+    }
+    &-desc {
+      color: #58423c;
+      @include mixins.text-style(1rem, null, 172%, Inter, italic);
+      max-width: 39.2rem;
+    }
+    &-quote {
+      position: absolute;
+      right: 1.5rem;
+      top: 1rem;
+      @include mixins.text-style(6rem, null, 6rem, Inter, italic);
+      color: rgba(160, 105, 27, 0.1);
+    }
+  }
+
+  button {
+    cursor: pointer;
+    display: flex;
+    height: 4.4rem;
+    padding: 0rem 7.4rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.375rem;
+    border: none;
+    @include mixins.text-style(0.875rem, 700, 1.25rem, null, null);
+    letter-spacing: 0.0875rem;
+    text-transform: uppercase;
+    width: 100%;
+  }
+
+  &__btn {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 4rem;
+  }
+  &__checkout {
+    color: #fff;
+    background: linear-gradient(135deg, #a43716 0%, #c54f2c 100%);
+    &:hover {
+      opacity: 80%;
+    }
+  }
+  &__cart {
+    color: #a43716;
+    background-color: #fff;
+    &:hover {
+      background-color: wheat;
+    }
+  }
+
+  &__spec {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    h4 {
+      color: rgba(88, 66, 60, 0.6);
+      @include mixins.text-style(0.8rem, null, 150%, null, null);
+    }
+    span {
+      color: #1d1b1b;
+      font-family: Manrope;
+      @include mixins.text-style(1rem, 500, 1.25rem, null, null);
+    }
+  }
+}

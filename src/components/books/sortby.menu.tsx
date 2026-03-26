@@ -1,15 +1,34 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { type SelectChangeEvent } from '@mui/material/Select';
+import type { IBooksParams, TSortBy, TSortKey, TSortOrder } from '@/types/book';
+interface IProps {
+  setFilters: (params: Partial<IBooksParams>) => void;
+  SORT_OPTIONS: Record<
+    TSortKey,
+    {
+      sortBy: TSortBy;
+      sortOrder: TSortOrder;
+      label: string;
+    }
+  >;
+  currentSort: TSortKey;
+  setCurrentSort: (value: TSortKey) => void;
+}
 
-export default function SortByMenu() {
-  const [sortBy, setSortBy] = React.useState('');
+export default function SortByMenu(props: IProps) {
+  const { setFilters, SORT_OPTIONS, currentSort, setCurrentSort } = props;
 
   const handleChange = (event: SelectChangeEvent) => {
-    setSortBy(event.target.value as string);
+    const value = event.target.value as TSortKey;
+    const { sortBy, sortOrder } = SORT_OPTIONS[value];
+    setCurrentSort(value);
+    setFilters({
+      sortBy,
+      sortOrder,
+    });
   };
 
   return (
@@ -19,13 +38,13 @@ export default function SortByMenu() {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={sortBy}
+          value={currentSort}
           label="Sort by"
           onChange={handleChange}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {Object.entries(SORT_OPTIONS).map(([key, value]) => (
+            <MenuItem value={key}>{value.label}</MenuItem>
+          ))}
         </Select>
       </FormControl>
     </Box>

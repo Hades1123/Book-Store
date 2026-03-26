@@ -1,3 +1,3 @@
 **Contrainst**
 
-- Do edit my file, just give me code
+- Don't edit my file, just give me code
