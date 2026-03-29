@@ -20,7 +20,8 @@ import { ProtectedRoute } from '@/components/routes/protected.route';
 import { BookPage } from '@/pages/book/book.page';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { DetailBookPage } from '@/pages/book/detail.page';
-import { ScrollTop } from './components/layouts/scroll-top';
+import { ScrollTop } from '@/components/layouts/scroll-top';
+import { CartProvider } from '@/contexts/cart.context';
 
 export const router = createBrowserRouter([
   {
@@ -114,7 +115,9 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <RouterProvider router={router} />
+        <CartProvider>
+          <RouterProvider router={router} />
+        </CartProvider>
       </AuthProvider>
     </QueryClientProvider>
   </StrictMode>

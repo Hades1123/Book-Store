@@ -75,7 +75,12 @@
   }
 
   &__price {
+    font-size: 0.875rem;
+  }
+
+  &__input {
     font-size: 0.8rem;
+    color: red;
   }
 
   &__img-wrapper {

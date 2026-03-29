@@ -1,125 +1,53 @@
 import thumbnail from '@/assets/book1.png';
 import './book.page.scss';
 import Slider from '@mui/material/Slider';
-import { useEffect, useState, type ChangeEvent } from 'react';
+import { useEffect } from 'react';
 import { MAX_PRICE, MIN_PRICE } from '@/constants/common';
 import { formatCurrency } from '@/utils/helper';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import SortByMenu from '@/components/books/sortby.menu';
-import { fetchBooks, getCategoryStructure } from '@/api/book.api';
-import { useBookFilters } from '@/hooks/use-bookFilter';
-import { useQuery } from '@tanstack/react-query';
-import { useDebounce } from '@/hooks/use-debounce';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import type { TSortBy, TSortOrder, ICategoryRes, TSortKey } from '@/types/book';
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import CartIcon from '@/assets/cart.svg?react';
-
-function valuetext(value: number) {
-  return `${value}°C`;
-}
-
-const marks = [
-  { value: MIN_PRICE, label: '' },
-  { value: MAX_PRICE, label: '' },
-];
-
-const SORT_OPTIONS: Record<TSortKey, { sortBy: TSortBy; sortOrder: TSortOrder; label: string }> = {
-  'price-asc': { sortBy: 'price', sortOrder: 'asc', label: 'Price: Low to High' },
-  'price-desc': { sortBy: 'price', sortOrder: 'desc', label: 'Price: High to Low' },
-  // 'name-asc': { sortBy: ESortBy.name, sortOrder: ESortOrder.asc, label: 'Name: A to Z' },
-  // 'name-desc': { sortBy: ESortBy.name, sortOrder: ESortOrder.desc, label: 'Name: Z to A' },
-  // newest: { sortBy: ESortBy.createdAt, sortOrder: ESortOrder.desc, label: 'Newest First' },
-};
+import { AlertComponent } from '@/components/ui/toast';
+import { UseBookPage } from './hooks/use-book-page';
+import { CategoryNode } from '@/components/books/category.node';
 
 export const BookPage = () => {
-  const [price, setPrice] = useState<number[] | null>(null);
-  const [currentCategory, setCurrentCategory] = useState<string | null>(null);
-  const [currentSearchValue, setCurrentSearchValue] = useState<string>('');
-  const [currentSort, setCurrentSort] = useState<TSortKey>('price-asc');
-  const { setFilter, setFilters, filters, resetFilters } = useBookFilters();
-  const navigate = useNavigate();
-  const debounceSearch = useDebounce<string>(currentSearchValue, 1000);
-  const debouncePrice = useDebounce<number[] | null>(price, 1000);
-
-  const { data, isLoading } = useQuery({
-    queryKey: ['books', filters],
-    queryFn: async () => {
-      const result = await fetchBooks(filters);
-      return result.data.data;
-    },
-  });
-
-  const { data: categoryStructure = [] } = useQuery({
-    queryKey: ['categoryStructure'],
-    queryFn: async () => {
-      const result = await getCategoryStructure();
-      return result.data.data;
-    },
-  });
-
-  const handleChange = (event: Event, newValue: number[]) => {
-    setPrice(newValue);
-  };
-
-  const handleChangePage = (page: number) => {
-    setFilter('page', page);
-  };
-
-  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
-    setCurrentSearchValue(event.target.value.trim());
-  };
-
-  const handleClickCategory = (value: { id: string; label: string }) => {
-    const current = categoryStructure.find((item) => value.label === item.name);
-    if (current && current.children) {
-      const result = current.children.map((item) => item.id);
-      result.push(value.id);
-      setFilter('categoryIds', result.join(','));
-    } else {
-      setFilter('categoryIds', value.id);
-    }
-    setCurrentCategory(value.label);
-  };
-
-  const handleResetInput = () => {
-    setCurrentSearchValue('');
-    setCurrentCategory(null);
-    setPrice(null);
-    setCurrentSort('price-asc');
-  };
-
-  const CategoryNode = ({
-    category,
-    isChild = false,
-  }: {
-    category: ICategoryRes;
-    isChild?: boolean;
-  }) => {
-    return (
-      <div className={`${isChild ? 'book__category-child' : 'book__category-parent'} `}>
-        <span
-          className={`${category.name === currentCategory ? 'book__category--active' : ''}`}
-          onClick={() => handleClickCategory({ id: category.id, label: category.name })}
-        >
-          {category.name}
-        </span>
-        {category.children && (
-          <div className="book__subcategory-list">
-            {category.children.map((item) => (
-              <CategoryNode category={item} key={item.id} isChild={true} />
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  };
+  const {
+    SORT_OPTIONS,
+    currentSort,
+    data,
+    debouncePrice,
+    debounceSearch,
+    handleAddToCart,
+    handleChange,
+    handleChangePage,
+    handleResetInput,
+    handleSearch,
+    isLoading,
+    marks,
+    open,
+    resetFilters,
+    setFilter,
+    setFilters,
+    setIsOpen,
+    currentSearchValue,
+    price,
+    filters,
+    categoryStructure,
+    setCurrentCategory,
+    setCurrentSort,
+    currentCategory,
+    handleClickCategory,
+    valuetext,
+  } = UseBookPage();
 
   useEffect(() => {
     setFilter('search', debounceSearch);
@@ -196,7 +124,14 @@ export const BookPage = () => {
                 />{' '}
               </h2>
               {categoryStructure &&
-                categoryStructure.map((item) => <CategoryNode category={item} key={item.id} />)}
+                categoryStructure.map((item) => (
+                  <CategoryNode
+                    currentCategory={currentCategory}
+                    handleClickCategory={handleClickCategory}
+                    category={item}
+                    key={item.id}
+                  />
+                ))}
             </div>
           </aside>
           <main className="book__main">
@@ -241,9 +176,7 @@ export const BookPage = () => {
                         <img className="book__thumbnail" src={thumbnail} alt="thumbnail" />
                         <button
                           className="book__btn-cart"
-                          onClick={(e) => {
-                            e.preventDefault();
-                          }}
+                          onClick={(e) => handleAddToCart(e, item)}
                         >
                           <CartIcon /> Add to cart
                         </button>
@@ -283,6 +216,10 @@ export const BookPage = () => {
           </main>
         </div>
       </div>
+      <AlertComponent
+        handleClose={() => setIsOpen(false)}
+        status={{ message: 'Thêm vào giỏ hàng thành công', success: true, open, duration: 800 }}
+      />
     </>
   );
 };
