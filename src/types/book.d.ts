@@ -1,9 +1,9 @@
 import type { IPagination } from './api';
 
 export interface ICategoryRes {
-  id: string;
+  id: numb;
   name: string;
-  children?: { id: string; name: string }[];
+  children?: { id: numb; name: string }[];
 }
 
 export interface IBook {
@@ -14,7 +14,7 @@ export interface IBook {
   createdAt: Date;
   updatedAt: Date;
   author: string;
-  categoryId: string;
+  categoryId: numb;
   price: bigint;
   publisher: string;
   isbn: string | null;
