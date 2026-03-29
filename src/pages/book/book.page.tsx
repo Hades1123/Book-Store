@@ -29,12 +29,12 @@ export const BookPage = () => {
     handleAddToCart,
     handleChange,
     handleChangePage,
-    handleResetInput,
+    handleResetAll,
     handleSearch,
     isLoading,
+    isResettingRef,
     marks,
     open,
-    resetFilters,
     setFilter,
     setFilters,
     setIsOpen,
@@ -50,10 +50,13 @@ export const BookPage = () => {
   } = UseBookPage();
 
   useEffect(() => {
+    // Skip if we just reset — don't write empty/default values back to URL
+    if (isResettingRef.current) return;
     setFilter('search', debounceSearch);
   }, [debounceSearch]);
 
   useEffect(() => {
+    if (isResettingRef.current) return;
     if (debouncePrice == null) {
       return;
     }
@@ -158,10 +161,7 @@ export const BookPage = () => {
                   <IconButton>
                     <RestartAltIcon
                       sx={{ cursor: 'pointer', ':hover': { color: 'red' } }}
-                      onClick={() => {
-                        handleResetInput();
-                        resetFilters();
-                      }}
+                      onClick={handleResetAll}
                     />
                   </IconButton>
                 </Tooltip>

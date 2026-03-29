@@ -50,7 +50,7 @@ export interface IBooksParams {
 
   categoryIds?: string;
 
-  sortBy?: ESortBy;
+  sortBy?: TSortBy;
 
-  sortOrder?: ESortOrder;
+  sortOrder?: TSortOrder;
 }

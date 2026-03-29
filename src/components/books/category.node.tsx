@@ -15,7 +15,7 @@ export const CategoryNode = ({
   return (
     <div className={`${isChild ? 'book__category-child' : 'book__category-parent'} `}>
       <span
-        className={`${category.name === currentCategory ? 'book__category--active' : ''}`}
+        className={`${category.id === currentCategory ? 'book__category--active' : ''}`}
         onClick={() => handleClickCategory({ id: category.id, label: category.name })}
       >
         {category.name}

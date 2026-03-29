@@ -5,19 +5,39 @@ import { useBookFilters } from '@/hooks/use-bookFilter';
 import { useDebounce } from '@/hooks/use-debounce';
 import type { IBook, TSortBy, TSortKey, TSortOrder } from '@/types/book';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState, type ChangeEvent, type MouseEvent } from 'react';
+import { useRef, useState, type ChangeEvent, type MouseEvent } from 'react';
+
+const SORT_OPTIONS: Record<TSortKey, { sortBy: TSortBy; sortOrder: TSortOrder; label: string }> = {
+  'price-asc': { sortBy: 'price', sortOrder: 'asc', label: 'Price: Low to High' },
+  'price-desc': { sortBy: 'price', sortOrder: 'desc', label: 'Price: High to Low' },
+};
 
 export const UseBookPage = () => {
-  const [price, setPrice] = useState<number[] | null>(null);
-  const [currentCategory, setCurrentCategory] = useState<string | null>(null);
-  const [currentSearchValue, setCurrentSearchValue] = useState<string>('');
-  const [currentSort, setCurrentSort] = useState<TSortKey>('price-asc');
+  const { setFilter, setFilters, filters, resetFilters } = useBookFilters();
+  const { addToCart } = useCartContext();
+
+  // Derive initial local state from URL params (single source of truth = URL)
+  const [price, setPrice] = useState<number[] | null>(() => {
+    if (filters.minPrice || filters.maxPrice) {
+      return [filters.minPrice ?? MIN_PRICE, filters.maxPrice ?? MAX_PRICE];
+    }
+    return null;
+  });
+  const [currentCategory, setCurrentCategory] = useState<string | null>(
+    () => filters.categoryIds ?? null
+  );
+  const [currentSearchValue, setCurrentSearchValue] = useState<string>(() => filters.search ?? '');
+  const [currentSort, setCurrentSort] = useState<TSortKey>(() => {
+    const key = `${filters.sortBy ?? 'price'}-${filters.sortOrder ?? 'asc'}` as TSortKey;
+    return !SORT_OPTIONS[key] ? 'price-asc' : key;
+  });
+
   const debounceSearch = useDebounce<string>(currentSearchValue, 1000);
   const debouncePrice = useDebounce<number[] | null>(price, 1000);
   const [open, setIsOpen] = useState<boolean>(false);
 
-  const { setFilter, setFilters, filters, resetFilters } = useBookFilters();
-  const { addToCart } = useCartContext();
+  // Guard: skip debounce effects right after reset
+  const isResettingRef = useRef(false);
 
   const { data, isLoading } = useQuery({
     queryKey: ['books', filters],
@@ -40,16 +60,8 @@ export const UseBookPage = () => {
     { value: MAX_PRICE, label: '' },
   ];
 
-  const SORT_OPTIONS: Record<TSortKey, { sortBy: TSortBy; sortOrder: TSortOrder; label: string }> =
-    {
-      'price-asc': { sortBy: 'price', sortOrder: 'asc', label: 'Price: Low to High' },
-      'price-desc': { sortBy: 'price', sortOrder: 'desc', label: 'Price: High to Low' },
-      // 'name-asc': { sortBy: ESortBy.name, sortOrder: ESortOrder.asc, label: 'Name: A to Z' },
-      // 'name-desc': { sortBy: ESortBy.name, sortOrder: ESortOrder.desc, label: 'Name: Z to A' },
-      // newest: { sortBy: ESortBy.createdAt, sortOrder: ESortOrder.desc, label: 'Newest First' },
-    };
-
   const handleChange = (event: Event, newValue: number[]) => {
+    isResettingRef.current = false;
     setPrice(newValue);
   };
 
@@ -58,6 +70,7 @@ export const UseBookPage = () => {
   };
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
+    isResettingRef.current = false;
     setCurrentSearchValue(event.target.value.trim());
   };
 
@@ -80,14 +93,21 @@ export const UseBookPage = () => {
     } else {
       setFilter('categoryIds', value.id);
     }
-    setCurrentCategory(value.label);
+    setCurrentCategory(value.id);
   };
 
-  const handleResetInput = () => {
+  const handleResetAll = () => {
+    // Set flag to prevent debounce effects from writing back to URL
+    isResettingRef.current = true;
+
+    // Reset local state
     setCurrentSearchValue('');
     setCurrentCategory(null);
     setPrice(null);
     setCurrentSort('price-asc');
+
+    // Reset URL params
+    resetFilters();
   };
 
   return {
@@ -111,7 +131,8 @@ export const UseBookPage = () => {
     handleSearch,
     handleAddToCart,
     handleClickCategory,
-    handleResetInput,
+    handleResetAll,
+    isResettingRef,
     setIsOpen,
     filters,
     setCurrentCategory,

@@ -23,30 +23,32 @@ export const useBookFilters = () => {
 
   const setFilter = <K extends keyof IBooksParams>(key: K, value: IBooksParams[K]) => {
     setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
       if (value === null || value === undefined || value === '') {
-        prev.delete(key);
+        next.delete(key);
       } else {
-        prev.set(key, String(value));
+        next.set(key, String(value));
       }
 
       if (key !== 'page') {
-        prev.delete('page');
+        next.delete('page');
       }
-      return prev;
+      return next;
     });
   };
 
   const setFilters = (params: Partial<IBooksParams>) => {
     setSearchParams((prev) => {
-      Object.entries(params).map(([key, value]) => {
+      const next = new URLSearchParams(prev);
+      Object.entries(params).forEach(([key, value]) => {
         if (value === null || value === undefined || value === '') {
-          prev.delete(key);
+          next.delete(key);
         } else {
-          prev.set(key, String(value));
+          next.set(key, String(value));
         }
       });
-      prev.delete('page');
-      return prev;
+      next.delete('page');
+      return next;
     });
   };
 
