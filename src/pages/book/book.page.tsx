@@ -19,6 +19,7 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import type { TSortBy, TSortOrder, ICategoryRes, TSortKey } from '@/types/book';
 import { Link, useNavigate } from 'react-router';
+import CartIcon from '@/assets/cart.svg?react';
 
 function valuetext(value: number) {
   return `${value}°C`;
@@ -238,6 +239,14 @@ export const BookPage = () => {
                     <div className="book__card">
                       <div className="book__img-wrapper">
                         <img className="book__thumbnail" src={thumbnail} alt="thumbnail" />
+                        <button
+                          className="book__btn-cart"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                        >
+                          <CartIcon /> Add to cart
+                        </button>
                       </div>
                       <div className="book__content">
                         <div className="book__card-category">Philosophy</div>

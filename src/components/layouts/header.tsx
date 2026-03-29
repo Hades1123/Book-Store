@@ -1,4 +1,3 @@
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import { useAuthContext } from '@/contexts/auth.context';
 import Button from '@mui/material/Button';
@@ -8,6 +7,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import bookIcon from '@/assets/book.svg';
+import { CartPopover } from '@/components/books/cart.popover';
 
 export const NAV_ITEMS = [
   {
@@ -76,14 +76,7 @@ export const HeaderComponent = () => {
         ))}
       </ul>
       <div className="header__right">
-        <ShoppingCartOutlinedIcon
-          sx={{
-            ':hover': {
-              color: '#d95d39',
-              cursor: 'pointer',
-            },
-          }}
-        />
+        <CartPopover />
         {user ? (
           <>
             <IconButton
