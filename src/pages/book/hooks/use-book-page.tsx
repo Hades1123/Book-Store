@@ -81,7 +81,7 @@ export const UseBookPage = () => {
   };
 
   const valuetext = (value: number) => {
-    return `${value}°C`;
+    return `${value}`;
   };
 
   const handleClickCategory = (value: { id: string; label: string }) => {
@@ -101,13 +101,12 @@ export const UseBookPage = () => {
     isResettingRef.current = true;
 
     // Reset local state
-    setCurrentSearchValue('');
-    setCurrentCategory(null);
-    setPrice(null);
-    setCurrentSort('price-asc');
-
-    // Reset URL params
+    // setCurrentSearchValue('');
+    // setCurrentCategory(null);
+    // setPrice(null);
+    // setCurrentSort('price-asc');
     resetFilters();
+    window.location.reload();
   };
 
   return {

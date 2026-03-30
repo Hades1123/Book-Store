@@ -1,6 +1,7 @@
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { useEffect, useState } from 'react';
+
 const DURATION = 5000;
 
 export type TStatus = {

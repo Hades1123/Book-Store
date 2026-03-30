@@ -1,4 +1,5 @@
 export type TRole = 'CUSTOMER' | 'ADMIN';
+
 export interface IUser {
   id: string;
   email: string;
