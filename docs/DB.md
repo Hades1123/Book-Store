@@ -89,23 +89,27 @@
 
 ### 6. Cart
 
-| Thuộc tính | Kiểu      | Ghi chú |
-| ---------- | --------- | ------- |
-| id         | UUID (PK) |         |
-| user_id    | UUID (FK) |         |
-| created_at | TIMESTAMP |         |
-| updated_at | TIMESTAMP |         |
+| Thuộc tính | Kiểu           | Ghi chú                    |
+| ---------- | -------------- | -------------------------- |
+| id         | INT (PK)       | Auto increment             |
+| user_id    | UUID (FK)      | **unique** — 1 user 1 cart |
+| created_at | TIMESTAMP      |                            |
+| updated_at | TIMESTAMP      |                            |
+
+> **Note**: `user_id` có unique constraint để enforce 1-1 relationship với User.
 
 ### 7. CartItem
 
-| Thuộc tính | Kiểu      | Ghi chú                |
-| ---------- | --------- | ---------------------- |
-| id         | UUID (PK) |                        |
-| cart_id    | UUID (FK) |                        |
-| product_id | UUID (FK) | Sách được thêm vào giỏ |
-| quantity   | INT       |                        |
-| created_at | TIMESTAMP |                        |
-| updated_at | TIMESTAMP |                        |
+| Thuộc tính | Kiểu      | Ghi chú                                  |
+| ---------- | --------- | ---------------------------------------- |
+| id         | INT (PK)  | Auto increment                           |
+| cart_id    | INT (FK)  |                                          |
+| product_id | UUID (FK) | Sách được thêm vào giỏ                   |
+| quantity   | INT       |                                          |
+| created_at | TIMESTAMP |                                          |
+| updated_at | TIMESTAMP |                                          |
+
+> **Note**: `cart_id` + `product_id` có **unique constraint** (`@@unique([cart_id, product_id])`) để prevent duplicate rows — 1 cart chỉ có 1 row cho 1 product.
 
 ### 8. Order
 

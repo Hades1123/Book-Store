@@ -19,6 +19,7 @@ model Product{
     // relation
     categoryId Int
     category Category @relation(fields: [categoryId], references: [id])
+    cartItems CartItem[]
     
     @@map("products")
 }

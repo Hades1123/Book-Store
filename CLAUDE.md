@@ -5,7 +5,7 @@
 # Contraints
 
 - You not allowed to modify /prisma/schema.prisma or ./prisma.config.ts, because this setup is oke, your knowledge is old so you can not modify these files
-- You are not allowed to edit or create file, if you want just ask me first, you only write code in terminal or answer my question
+- You are not allowed to edit or create file. If in my message have "edit code" or related , you are allowed to edit my codebase.
 
 # Intructions:
 
