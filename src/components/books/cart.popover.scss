@@ -1,3 +1,5 @@
+@use '../../styles/mixins';
+
 .cartpopover {
   position: relative;
 
@@ -54,21 +56,32 @@
     opacity: 10%;
   }
 
-  &__item {
+  &__main {
     display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
     margin-bottom: 10px;
+    text-decoration: none;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   &__content {
     width: 100%;
     text-align: start;
+    align-self: flex-start;
   }
 
   &__name {
     font-size: 1rem;
-    text-decoration: none;
     color: black;
+    @include mixins.line-clamp(1);
+    margin-bottom: 0.5rem;
     &:hover {
       color: red;
     }
@@ -76,17 +89,14 @@
 
   &__price {
     font-size: 0.875rem;
-  }
-
-  &__input {
-    font-size: 0.8rem;
     color: red;
   }
 
   &__img-wrapper {
     width: 64px;
     aspect-ratio: 2/3;
-    height: auto;
+    // height: auto;
+    flex-shrink: 0;
     overflow: hidden;
 
     img {
@@ -97,9 +107,14 @@
     }
   }
 
+  &__input {
+    font-size: 1rem;
+  }
+
   &__subtotal {
     display: flex;
     justify-content: space-between;
+    font-size: 1.2rem;
 
     &-price {
       color: red;

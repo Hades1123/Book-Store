@@ -69,9 +69,9 @@ export const UseBookPage = () => {
     setCurrentSearchValue(event.target.value.trim());
   };
 
-  const handleAddToCart = (e: MouseEvent<HTMLButtonElement>, book: IBook) => {
+  const handleAddToCart = (e: MouseEvent<HTMLButtonElement>, productId: string) => {
     e.preventDefault();
-    addToCart(book, 1);
+    addToCart(productId, 1);
     setIsOpen(true);
   };
 

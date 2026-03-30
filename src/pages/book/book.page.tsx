@@ -190,7 +190,10 @@ export const BookPage = () => {
                       </div>
                     </Link>
                     <div className="book__btn">
-                      <button className="book__btn-cart" onClick={(e) => handleAddToCart(e, item)}>
+                      <button
+                        className="book__btn-cart"
+                        onClick={(e) => handleAddToCart(e, item.id)}
+                      >
                         <CartIcon />
                       </button>
                       <button className="book__btn-buy">Buy now</button>

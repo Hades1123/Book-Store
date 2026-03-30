@@ -7,13 +7,13 @@ import thumbnail from '@/assets/book1.png';
 import { formatCurrency } from '@/utils/helper';
 
 export const DetailBookPage = () => {
-  const params = useParams();
+  const { id } = useParams();
   const [currentBook, setCurrentBook] = useState<IBook>();
 
   useEffect(() => {
     const fetchDetailBook = async () => {
       try {
-        const result = await fetchBookById(params.id ?? '');
+        const result = await fetchBookById(id ?? '');
         if (result.data.data) {
           setCurrentBook(result.data.data);
         }
@@ -22,7 +22,7 @@ export const DetailBookPage = () => {
       }
     };
     fetchDetailBook();
-  }, []);
+  }, [id]);
 
   return (
     <>

@@ -5,3 +5,24 @@ interface ICart {
   quantity: number;
   totalPrice: number;
 }
+
+type TCartItemProductResponse = {
+  name: string;
+  price: bigint;
+  discountPrice: bigint | null;
+  coverPublicId: string | null;
+  stockQuantity: number;
+};
+
+type TCartItemResponse = {
+  id: number;
+  productId: string;
+  quantity: number;
+  product: TCartItemProductResponse;
+};
+
+type TCartResponse = {
+  id: number;
+  items: TCartItemResponse[];
+  totalItems: number;
+};

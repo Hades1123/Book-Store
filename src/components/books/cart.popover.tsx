@@ -5,9 +5,16 @@ import { Link } from 'react-router';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { useCartContext } from '@/contexts/cart.context';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import type { MouseEvent } from 'react';
 
 export const CartPopover = () => {
-  const { cart, totalPrice } = useCartContext();
+  const { cart, totalPrice, deleteCartItem } = useCartContext();
+
+  const handleDeleteCartItem = (e: MouseEvent<SVGSVGElement>, productId: string) => {
+    e.preventDefault();
+    deleteCartItem(productId);
+  };
   return (
     <IconButton className="cartpopover">
       <ShoppingCartOutlinedIcon />
@@ -15,21 +22,27 @@ export const CartPopover = () => {
         <div className={`cartpopover__container`}>
           <h2 className="cartpopover__title">Your collection</h2>
           <div className="cartpopover__hr" />
-          {cart.map((item) => (
-            <div className="cartpopover__item" key={item.book.id}>
-              <div className="cartpopover__img-wrapper">
-                <img src={thumbnail} alt="thumbnail" />
-              </div>
-              <div className="cartpopover__content">
-                <Link to={'/'} className="cartpopover__name">
-                  {item.book.name}
-                </Link>
-                <div className="cartpopover__price">{formatCurrency(Number(item.book.price))}</div>
-                <div className="cartpopover__input">Quantity: {item.quantity}</div>
-              </div>
+          {cart?.items.map((item) => (
+            <div className="cartpopover__item" key={item.id}>
+              <Link to={`/book/${item.productId}`} className="cartpopover__main">
+                <div className="cartpopover__img-wrapper">
+                  <img src={thumbnail} alt="thumbnail" />
+                </div>
+                <div className="cartpopover__content">
+                  <div className="cartpopover__name">{item.product.name}</div>
+                  <div className="cartpopover__price">
+                    {formatCurrency(Number(item.product.price))}
+                  </div>
+                  <div className="cartpopover__input">{item.quantity}</div>
+                </div>
+              </Link>
+              <DeleteOutlineOutlinedIcon
+                sx={{ alignSelf: 'start', ':hover': { color: 'red' } }}
+                onClick={(e) => handleDeleteCartItem(e, item.productId)}
+              />
             </div>
           ))}
-          {cart.length == 0 && <div>No available books</div>}
+          {cart?.items.length == 0 && <div>No available books</div>}
           <div className="cartpopover__hr" />
           <div className="cartpopover__subtotal">
             <span className="cartpopover__subtotal-title">Subtotal</span>

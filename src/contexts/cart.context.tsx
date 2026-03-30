@@ -1,11 +1,13 @@
-import type { IBook } from '@/types/book';
-import type { ICart } from '@/types/cart';
+import { addToCartApi, deleteCartItemApi, getCartApi } from '@/api/cart.api';
+import type { TCartResponse } from '@/types/cart';
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
+import { useAuthContext } from './auth.context';
 
 interface ICartContext {
-  cart: ICart[];
-  setCart: (value: ICart[]) => void;
-  addToCart: (value: IBook, quantity: number) => void;
+  cart: TCartResponse | null;
+  setCart: (value: TCartResponse) => void;
+  addToCart: (productId: string, quantity: number) => void;
+  deleteCartItem: (productId: string) => void;
   totalQuantity: number;
   totalPrice: number;
 }
@@ -13,30 +15,45 @@ interface ICartContext {
 const CartContext = createContext<ICartContext | null>(null);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [cart, setCart] = useState<ICart[]>([]);
+  const { user } = useAuthContext();
+  const [cart, setCart] = useState<TCartResponse | null>(null);
   const [totalQuantity, setTotalQuantity] = useState<number>(0);
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
-  const addToCart = (book: IBook, quantity: number) => {
-    const existingBook = cart.findIndex((item) => item.book.id === book.id);
-    if (existingBook != -1) {
-      const newCart = cart.map((item) => {
-        if (item.book.id === book.id) {
-          item.quantity += quantity;
-          item.totalPrice += Number(item.book.price) * quantity;
-        }
-        return item;
-      });
-      setCart(newCart);
-    } else {
-      setCart([...cart, { book, quantity, totalPrice: Number(book.price) * quantity }]);
+  const addToCart = async (productId: string, quantity: number) => {
+    const result = await addToCartApi(productId, quantity);
+    if (result && result.data) {
+      const newCart = await getCartApi();
+      if (newCart && newCart.data) {
+        setCart(newCart.data);
+      }
+    }
+  };
+
+  const deleteCartItem = async (productId: string) => {
+    const result = await deleteCartItemApi(productId);
+    if (result && result.data) {
+      console.log(result.data);
+      setCart(result.data);
     }
   };
 
   useEffect(() => {
-    setTotalPrice(cart.reduce((acc, curr) => acc + curr.totalPrice, 0));
-    setTotalQuantity(cart.reduce((acc, curr) => acc + curr.quantity, 0));
-  }, [cart]);
+    const fetchCart = async () => {
+      const result = await getCartApi();
+      if (result && result.data) {
+        setCart(result.data);
+      }
+    };
+    if (user) {
+      fetchCart();
+    } else {
+      const localCart = localStorage.getItem('cart');
+      if (localCart) {
+        const parseLocalCart = JSON.parse(localCart) as TCartResponse;
+      }
+    }
+  }, []);
 
   return (
     <CartContext
@@ -44,6 +61,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         cart,
         setCart,
         addToCart,
+        deleteCartItem,
         totalPrice,
         totalQuantity,
       }}
