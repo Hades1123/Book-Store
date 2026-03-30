@@ -1,5 +1,5 @@
 model Category{
-    id String @id @default(uuid())
+    id Int @id @default(autoincrement())
     name String 
     description String
     imagePublicId String?
@@ -9,7 +9,7 @@ model Category{
 
     // relation
     products Product[]
-    parentId String?
+    parentId Int?
     parent Category? @relation("parentChildren", fields: [parentId], references: [id])
     children Category[] @relation("parentChildren")
 

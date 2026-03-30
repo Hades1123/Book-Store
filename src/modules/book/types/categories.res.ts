@@ -1,5 +1,5 @@
 export interface ICategoryRes {
-  id: string;
+  id: number;
   name: string;
-  children?: { id: string; name: string }[];
+  children?: { id: number; name: string }[];
 }

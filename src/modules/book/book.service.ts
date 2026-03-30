@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
-import { Category } from 'src/generated/prisma/client';
+import { Category, Product } from 'src/generated/prisma/client';
 import { ICategoryRes } from './types/categories.res';
 import { QueryDto } from './dto/query.dto';
 import { ProductFindManyArgs, ProductWhereInput } from 'src/generated/prisma/models';
 import { IBookListRes } from './types/books.res';
+import { ProductException } from 'src/common/exceptions/product.exception';
 
 type ProductSortableField = 'name' | 'price';
 
@@ -12,7 +13,7 @@ type ProductSortableField = 'name' | 'price';
 export class BookService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async getChildrenCategory(parentId: string): Promise<Category[]> {
+  async getChildrenCategory(parentId: number): Promise<Category[]> {
     const result = await this.prismaService.category.findMany({
       where: { parentId },
     });
@@ -35,7 +36,7 @@ export class BookService {
     try {
       const { limit, page, maxPrice, minPrice, search, categoryIds, sortBy, sortOrder } = query;
       const skip = (page - 1) * limit;
-      const categoryList = categoryIds?.split(',') ?? [];
+      const categoryList = categoryIds?.split(',').map((item) => Number(item)) ?? [];
       const whereClause: ProductWhereInput = {
         AND: [
           { price: { gte: minPrice } },
@@ -80,6 +81,18 @@ export class BookService {
     } catch (err) {
       console.log(err);
       throw err;
+    }
+  }
+
+  async getBookById(id: string): Promise<Product | undefined> {
+    try {
+      const book = await this.prismaService.product.findUnique({ where: { id } });
+      if (!book) {
+        throw ProductException.invalidBookID();
+      }
+      return book;
+    } catch (error: unknown) {
+      console.log(error);
     }
   }
 }

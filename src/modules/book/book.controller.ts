@@ -14,12 +14,17 @@ export class BookController {
   }
 
   @Get('categories/:id')
-  async getCategoriesChildren(@Param('id') id: string): Promise<Category[]> {
+  async getCategoriesChildren(@Param('id') id: number): Promise<Category[]> {
     return this.bookService.getChildrenCategory(id);
   }
 
   @Get('books')
   async getBooks(@Query() query: QueryDto) {
     return this.bookService.getBooks(query);
+  }
+
+  @Get('books/:id')
+  async getBookById(@Param('id') id: string) {
+    return this.bookService.getBookById(id);
   }
 }

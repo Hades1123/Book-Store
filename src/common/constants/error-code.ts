@@ -21,4 +21,7 @@ export enum ErrorCode {
   NOT_FOUND = 'NOT_FOUND',
   BAD_REQUEST = 'BAD_REQUEST',
   INTERNAL_ERROR = 'INTERNAL_ERROR',
+
+  // Product errors
+  PRODUCT_INVALID_ID = 'PRODUCT_INVALID_ID',
 }
