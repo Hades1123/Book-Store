@@ -32,7 +32,6 @@ export const BookPage = () => {
     handleResetAll,
     handleSearch,
     isLoading,
-    isResettingRef,
     marks,
     open,
     setFilter,
@@ -50,16 +49,11 @@ export const BookPage = () => {
   } = UseBookPage();
 
   useEffect(() => {
-    // Skip if we just reset — don't write empty/default values back to URL
-    if (isResettingRef.current) return;
     setFilter('search', debounceSearch);
   }, [debounceSearch]);
 
   useEffect(() => {
-    if (isResettingRef.current) return;
-    if (debouncePrice == null) {
-      return;
-    }
+    if (debouncePrice == null) return;
     setFilters({
       minPrice: debouncePrice[0],
       maxPrice: debouncePrice[1],

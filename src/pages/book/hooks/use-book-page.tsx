@@ -5,7 +5,7 @@ import { useBookFilters } from '@/hooks/use-bookFilter';
 import { useDebounce } from '@/hooks/use-debounce';
 import type { IBook, TSortBy, TSortKey, TSortOrder } from '@/types/book';
 import { useQuery } from '@tanstack/react-query';
-import { useRef, useState, type ChangeEvent, type MouseEvent } from 'react';
+import { useState, type ChangeEvent, type MouseEvent } from 'react';
 
 const SORT_OPTIONS: Record<TSortKey, { sortBy: TSortBy; sortOrder: TSortOrder; label: string }> = {
   'price-asc': { sortBy: 'price', sortOrder: 'asc', label: 'Price: Low to High' },
@@ -36,9 +36,6 @@ export const UseBookPage = () => {
   const debouncePrice = useDebounce<number[] | null>(price, 1000);
   const [open, setIsOpen] = useState<boolean>(false);
 
-  // Guard: skip debounce effects right after reset
-  const isResettingRef = useRef(false);
-
   const { data, isLoading } = useQuery({
     queryKey: ['books', filters],
     queryFn: async () => {
@@ -61,7 +58,6 @@ export const UseBookPage = () => {
   ];
 
   const handleChange = (event: Event, newValue: number[]) => {
-    isResettingRef.current = false;
     setPrice(newValue);
   };
 
@@ -70,7 +66,6 @@ export const UseBookPage = () => {
   };
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
-    isResettingRef.current = false;
     setCurrentSearchValue(event.target.value.trim());
   };
 
@@ -97,14 +92,6 @@ export const UseBookPage = () => {
   };
 
   const handleResetAll = () => {
-    // Set flag to prevent debounce effects from writing back to URL
-    isResettingRef.current = true;
-
-    // Reset local state
-    // setCurrentSearchValue('');
-    // setCurrentCategory(null);
-    // setPrice(null);
-    // setCurrentSort('price-asc');
     resetFilters();
     window.location.reload();
   };
@@ -131,7 +118,6 @@ export const UseBookPage = () => {
     handleAddToCart,
     handleClickCategory,
     handleResetAll,
-    isResettingRef,
     setIsOpen,
     filters,
     setCurrentCategory,
