@@ -4,22 +4,6 @@
   background: #fef8f7;
   padding: 3rem 6rem;
 
-  &__header {
-    margin-bottom: 6rem;
-    h1 {
-      color: #1d1b1b;
-      @include mixins.text-style($family: Newsreader, $size: 4.5rem, $weight: 300, $lh: 4.5rem);
-      letter-spacing: -0.1125rem;
-      margin-bottom: 1rem;
-    }
-    p {
-      color: #58423c;
-      @include mixins.text-style($size: 1.125rem, $lh: 162.5%);
-      @include mixins.line-clamp(3);
-      max-width: 35.6rem;
-    }
-  }
-
   &__sidebar {
     display: flex;
     flex-direction: column;
@@ -116,6 +100,13 @@
     margin-bottom: 2rem;
   }
 
+  &__item-container {
+    max-width: 17rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
   &__img-wrapper {
     width: 17rem;
     height: 22.7rem;
@@ -126,13 +117,13 @@
     margin-bottom: 1.7rem;
     position: relative;
 
-    &:hover .book__btn-cart {
+    &:hover .book__detail {
       opacity: 0.8;
       transform: translate(-50%, -50%) scale(1);
     }
   }
 
-  &__btn-cart {
+  &__detail {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -146,8 +137,7 @@
     opacity: 0;
     cursor: pointer;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
     gap: 10px;
     transition: all 0.3s ease;
   }
@@ -197,5 +187,40 @@
   &__card-price {
     color: #d95d39;
     @include mixins.text-style($size: 0.875rem, $weight: 500, $lh: 1.25rem);
+  }
+
+  &__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    button {
+      width: 100%;
+      height: 2rem;
+      cursor: pointer;
+    }
+    margin-top: auto;
+  }
+
+  &__btn-cart {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 1px #a43716 solid;
+    border-radius: 4px;
+  }
+
+  &__btn-buy {
+    flex: 2;
+    background-color: #d95d39;
+    border: none;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 5px;
+    &:hover {
+      opacity: 80%;
+    }
   }
 }

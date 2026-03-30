@@ -63,13 +63,6 @@ export const BookPage = () => {
   return (
     <>
       <div className="book">
-        <div className="book__header">
-          <h1>The Archive</h1>
-          <p>
-            Explore our curated selection of timeless literature, art books, and philosophical
-            treatises. Each volume is chosen for its physical beauty and intellectual depth.
-          </p>
-        </div>
         <div className="book__container">
           <aside className="book__sidebar">
             <div className="book__search">
@@ -164,25 +157,45 @@ export const BookPage = () => {
             <div className="book__grid">
               {data ? (
                 data?.bookList.map((item) => (
-                  <Link to={`${item.id}`} style={{ textDecoration: 'none' }}>
-                    <div className="book__card">
-                      <div className="book__img-wrapper">
-                        <img className="book__thumbnail" src={thumbnail} alt="thumbnail" />
-                        <button
-                          className="book__btn-cart"
-                          onClick={(e) => handleAddToCart(e, item)}
-                        >
-                          <CartIcon /> Add to cart
-                        </button>
+                  <div className="book__item-container">
+                    <Link to={`${item.id}`} style={{ textDecoration: 'none' }}>
+                      <div className="book__card">
+                        <div className="book__img-wrapper">
+                          <img className="book__thumbnail" src={thumbnail} alt="thumbnail" />
+                          <div className="book__detail">
+                            <div className="book__detail-publisher">
+                              {' '}
+                              <span>Publisher: </span>
+                              {item.publisher}
+                            </div>
+                            <div className="book__detail-page">
+                              <span>Pages: </span>
+                              {item.pages}
+                            </div>
+                            <div className="book__detail-language">
+                              {' '}
+                              <span>Language: </span>
+                              {item.language}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="book__content">
+                          <div className="book__card-category">Philosophy</div>
+                          <div className="book__card-title">{item.name}</div>
+                          <div className="book__card-author">{item.author}</div>
+                          <div className="book__card-price">
+                            {formatCurrency(Number(item.price))}
+                          </div>
+                        </div>
                       </div>
-                      <div className="book__content">
-                        <div className="book__card-category">Philosophy</div>
-                        <div className="book__card-title">{item.name}</div>
-                        <div className="book__card-author">{item.author}</div>
-                        <div className="book__card-price">{formatCurrency(Number(item.price))}</div>
-                      </div>
+                    </Link>
+                    <div className="book__btn">
+                      <button className="book__btn-cart" onClick={(e) => handleAddToCart(e, item)}>
+                        <CartIcon />
+                      </button>
+                      <button className="book__btn-buy">Buy now</button>
                     </div>
-                  </Link>
+                  </div>
                 ))
               ) : (
                 <Backdrop
