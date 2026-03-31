@@ -6,3 +6,4 @@ export const DEFAULT_PAGE = 1;
 export const DEFAULT_LIMIT = 12;
 export const DEFAULT_SORT_BY: TSortBy = 'price';
 export const DEFAULT_SORT_ORDER: TSortOrder = 'asc';
+export const GUEST_CART = 'guest_cart';

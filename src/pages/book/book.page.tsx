@@ -195,7 +195,15 @@ export const BookPage = () => {
                     <div className="book__btn">
                       <button
                         className="book__btn-cart"
-                        onClick={(e) => handleAddToCart(e, item.id)}
+                        onClick={(e) =>
+                          handleAddToCart(e, item.id, {
+                            coverPublicId: item.coverPublicId,
+                            discountPrice: item.discountPrice,
+                            name: item.name,
+                            price: item.price,
+                            stockQuantity: item.stockQuantity,
+                          })
+                        }
                       >
                         <CartIcon />
                       </button>

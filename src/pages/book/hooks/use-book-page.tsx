@@ -4,6 +4,7 @@ import { useCartContext } from '@/contexts/cart.context';
 import { useBookFilters } from '@/hooks/use-bookFilter';
 import { useDebounce } from '@/hooks/use-debounce';
 import type { IBook, TSortBy, TSortKey, TSortOrder } from '@/types/book';
+import type { TProductInfo } from '@/types/cart';
 import { useQuery } from '@tanstack/react-query';
 import { useState, type ChangeEvent, type MouseEvent } from 'react';
 
@@ -69,9 +70,13 @@ export const UseBookPage = () => {
     setCurrentSearchValue(event.target.value.trim());
   };
 
-  const handleAddToCart = (e: MouseEvent<HTMLButtonElement>, productId: string) => {
+  const handleAddToCart = (
+    e: MouseEvent<HTMLButtonElement>,
+    productId: string,
+    productInfo: TProductInfo
+  ) => {
     e.preventDefault();
-    addToCart(productId, 1);
+    addToCart(productId, 1, productInfo);
     setIsOpen(true);
   };
 

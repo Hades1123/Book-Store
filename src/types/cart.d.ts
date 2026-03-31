@@ -26,3 +26,17 @@ type TCartResponse = {
   items: TCartItemResponse[];
   totalItems: number;
 };
+
+type TProductInfo = {
+  name: string;
+  price: bigint;
+  discountPrice: bigint | null;
+  coverPublicId: string | null;
+  stockQuantity: number;
+};
+
+type TLocalCartItem = {
+  productId: string;
+  quantity: number;
+  product: TProductInfo;
+};
