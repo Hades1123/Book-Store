@@ -1,0 +1,28 @@
+.cart-input {
+  &__input {
+    font-size: 1rem;
+    border: 1px #ffd814 solid;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100px;
+    height: 30px;
+    border-radius: 20px;
+  }
+
+  &__minus {
+    color: red;
+    padding: 0.4rem;
+    &:hover {
+      border-right: 2px orange solid;
+    }
+  }
+
+  &__plus {
+    color: red;
+    padding: 0.4rem;
+    &:hover {
+      border-left: 2px orange solid;
+    }
+  }
+}

@@ -31,3 +31,14 @@ export const deleteCartItemApi = async (productId: string) => {
     console.error(err);
   }
 };
+
+export const patchCartItemApi = async (productId: string, quantity: number = 1) => {
+  try {
+    const result = await axios.patch<ApiResponse<TCartItemResponse>>(`/cart/items/${productId}`, {
+      quantity,
+    });
+    return result.data;
+  } catch (err: unknown) {
+    console.error(err);
+  }
+};

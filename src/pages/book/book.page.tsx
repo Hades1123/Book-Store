@@ -18,6 +18,7 @@ import CartIcon from '@/assets/cart.svg?react';
 import { AlertComponent } from '@/components/ui/toast';
 import { UseBookPage } from './hooks/use-book-page';
 import { CategoryNode } from '@/components/books/category.node';
+import { useCartContext } from '@/contexts/cart.context';
 
 export const BookPage = () => {
   const {
@@ -47,6 +48,8 @@ export const BookPage = () => {
     handleClickCategory,
     valuetext,
   } = UseBookPage();
+
+  const { cart } = useCartContext();
 
   useEffect(() => {
     setFilter('search', debounceSearch);
