@@ -9,7 +9,6 @@ interface IAuthContext {
   user: IUser | null;
   isLoading: boolean;
   fetchUser: () => void;
-  login: () => void;
   logout: () => void;
 }
 
@@ -18,16 +17,6 @@ const AuthContext = createContext<IAuthContext | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<IUser | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const login = async () => {
-    try {
-      setIsLoading(true);
-      await fetchUser();
-    } catch (err: unknown) {
-      console.error(err);
-    }
-    setIsLoading(false);
-  };
 
   const fetchUser = async () => {
     try {
@@ -66,7 +55,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         fetchUser,
         isLoading,
         user,
-        login,
         logout,
       }}
     >

@@ -40,3 +40,12 @@ type TLocalCartItem = {
   quantity: number;
   product: TProductInfo;
 };
+
+type TCartItemInput = {
+  productId: string;
+  quantity: number;
+};
+
+type TMergeCart = {
+  items: TCartItemInput[];
+};

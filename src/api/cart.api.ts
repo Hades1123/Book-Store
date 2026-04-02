@@ -1,6 +1,6 @@
 import type { ApiResponse } from '@/types/api';
 import axios from './axios.customize';
-import type { TCartItemResponse, TCartResponse } from '@/types/cart';
+import type { TCartItemResponse, TCartResponse, TMergeCart } from '@/types/cart';
 
 export const getCartApi = async () => {
   try {
@@ -40,5 +40,14 @@ export const patchCartItemApi = async (productId: string, quantity: number = 1) 
     return result.data;
   } catch (err: unknown) {
     console.error(err);
+  }
+};
+
+export const mergeCartApi = async (mergeCart: TMergeCart) => {
+  try {
+    const result = await axios.post<ApiResponse<TCartResponse>>('/cart/merge', mergeCart);
+    return result.data;
+  } catch (err: unknown) {
+    console.log(err);
   }
 };

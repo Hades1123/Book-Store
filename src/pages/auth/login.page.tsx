@@ -17,7 +17,9 @@ import { postLogin } from '@/api/auth.api';
 import { isAxiosError } from '@/api/axios.customize';
 import type { ApiError } from '@/types/api';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useAuthContext } from '@/contexts/auth.context';
+import type { TCartItemInput, TLocalCartItem } from '@/types/cart';
+import { mergeCartApi } from '@/api/cart.api';
+import { GUEST_CART } from '@/constants/common';
 
 const schema = z.object({
   email: z.email({ error: 'Invalid email format' }),
@@ -40,21 +42,33 @@ export const LoginPage = () => {
   } = useForm({
     resolver: zodResolver(schema),
   });
-  const { login } = useAuthContext();
+
+  const handleMergeCart = async (): Promise<boolean> => {
+    const localCart = JSON.parse(localStorage.getItem(GUEST_CART) ?? '[]') as TLocalCartItem[];
+    const cartItemInputs: TCartItemInput[] = localCart.map((item) => ({
+      productId: item.productId,
+      quantity: item.quantity,
+    }));
+    const result = await mergeCartApi({
+      items: cartItemInputs,
+    });
+    if (result && result.data) {
+      localStorage.removeItem(GUEST_CART);
+      return true;
+    }
+    return false;
+  };
 
   const onLogin = async (req: ReqLogin) => {
     try {
       setLoading(true);
       const result = await postLogin(req);
       if (result.data && result.data.data) {
-        const data = result.data;
-        setAlertStatus({
-          message: data.message,
-          success: data.success,
-        });
+        const mergeCartSuccess = await handleMergeCart();
+        if (mergeCartSuccess) {
+          window.location.href = '/';
+        }
       }
-      login();
-      navigate('/');
     } catch (err: unknown) {
       if (isAxiosError<ApiError>(err) && err.response && err.response.data) {
         const data = err.response.data;
@@ -63,6 +77,7 @@ export const LoginPage = () => {
     }
     setLoading(false);
   };
+
   const onTogglePassword = () => {
     setPassVisible(!passVisible);
   };
