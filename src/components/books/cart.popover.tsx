@@ -11,7 +11,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { CartInput } from './cart.input';
 
 export const CartPopover = () => {
-  const { cart, totalPrice, deleteCartItem, updateCartItem, loadingItems } = useCartContext();
+  const { cart, totalPrice, deleteCartItem, updateCartItem, loadingItems, totalQuantity } =
+    useCartContext();
 
   const handleDeleteCartItem = (e: MouseEvent<SVGSVGElement>, productId: string) => {
     e.preventDefault();
@@ -23,8 +24,9 @@ export const CartPopover = () => {
   };
 
   return (
-    <IconButton className="cartpopover">
+    <IconButton className="cartpopover" sx={{ position: 'relative' }}>
       <ShoppingCartOutlinedIcon />
+      <div className="cartpopover__badge">{totalQuantity > 99 ? '99+' : totalQuantity}</div>
       <div className="cartpopover__dropdown">
         <div className={`cartpopover__container`}>
           <h2 className="cartpopover__title">Your collection</h2>

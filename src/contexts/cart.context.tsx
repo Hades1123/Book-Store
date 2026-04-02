@@ -153,6 +153,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setTotalPrice(
       cart?.items.reduce((acc, cur) => acc + Number(cur.product.price) * cur.quantity, 0) ?? 0
     );
+    setTotalQuantity(cart?.items.reduce((acc, cur) => acc + cur.quantity, 0) ?? 0);
   }, [cart]);
 
   return (
