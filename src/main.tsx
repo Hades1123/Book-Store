@@ -22,6 +22,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { DetailBookPage } from '@/pages/book/detail.page';
 import { ScrollTop } from '@/components/layouts/scroll-top';
 import { CartProvider } from '@/contexts/cart.context';
+import { CartPage } from '@/pages/book/cart.page';
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ export const router = createBrowserRouter([
       {
         path: 'book/:id',
         element: <DetailBookPage />,
+      },
+      {
+        path: 'cart',
+        element: <CartPage />,
       },
     ],
   },

@@ -1,7 +1,7 @@
 import type { TCartItemResponse } from '@/types/cart';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import './cart.input.scss';
-import type { MouseEvent } from 'react';
+import { type MouseEvent } from 'react';
 
 interface IProps {
   item: TCartItemResponse;
@@ -15,10 +15,17 @@ interface IProps {
 export const CartInput = (props: IProps) => {
   const { item, handleDeleteCartItem, handleUpdateCartItem } = props;
   return (
-    <div className="cart-input__input">
+    <div className="cart-input__btn">
       {item.quantity === 1 ? (
         <DeleteOutlineOutlinedIcon
-          sx={{ fontSize: '16px', height: 'auto' }}
+          sx={{
+            fontSize: '16px',
+            height: 'auto',
+            ':hover': {
+              cursor: 'pointer',
+              color: 'red',
+            },
+          }}
           onClick={(e) => handleDeleteCartItem(e, item.productId)}
         />
       ) : (

@@ -1,5 +1,5 @@
 .cart-input {
-  &__input {
+  &__btn {
     font-size: 1rem;
     border: 1px #ffd814 solid;
     display: flex;
@@ -13,16 +13,22 @@
   &__minus {
     color: red;
     padding: 0.4rem;
+    cursor: pointer;
+    user-select: none;
     &:hover {
-      border-right: 2px orange solid;
+      // border-right: 2px orange solid;
+      box-shadow: 1px 0 0 0 red;
     }
   }
 
   &__plus {
     color: red;
     padding: 0.4rem;
+    cursor: pointer;
+    user-select: none;
     &:hover {
-      border-left: 2px orange solid;
+      // border-left: 2px orange solid;
+      box-shadow: -1px 0 0 red;
     }
   }
 }

@@ -1,7 +1,7 @@
 import { formatCurrency } from '@/utils/helper';
 import './cart.popover.scss';
 import thumbnail from '@/assets/book1.png';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { useCartContext } from '@/contexts/cart.context';
@@ -11,6 +11,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { CartInput } from './cart.input';
 
 export const CartPopover = () => {
+  const navigate = useNavigate();
   const { cart, totalPrice, deleteCartItem, updateCartItem, loadingItems, totalQuantity } =
     useCartContext();
 
@@ -24,10 +25,14 @@ export const CartPopover = () => {
   };
 
   return (
-    <IconButton className="cartpopover" sx={{ position: 'relative' }}>
+    <IconButton
+      className="cartpopover"
+      sx={{ position: 'relative' }}
+      onClick={() => navigate('/cart')}
+    >
       <ShoppingCartOutlinedIcon />
       <div className="cartpopover__badge">{totalQuantity > 99 ? '99+' : totalQuantity}</div>
-      <div className="cartpopover__dropdown">
+      <div className="cartpopover__dropdown" onClick={(e) => e.stopPropagation()}>
         <div className={`cartpopover__container`}>
           <h2 className="cartpopover__title">Your collection</h2>
           <div className="cartpopover__hr" />
@@ -60,7 +65,7 @@ export const CartPopover = () => {
                 </div>
               </div>
               <DeleteOutlineOutlinedIcon
-                sx={{ alignSelf: 'start', ':hover': { color: 'red' } }}
+                sx={{ alignSelf: 'start', ':hover': { color: 'red', cursor: 'pointer' } }}
                 onClick={(e) => handleDeleteCartItem(e, item.productId)}
               />
             </div>
@@ -71,7 +76,9 @@ export const CartPopover = () => {
             <span className="cartpopover__subtotal-title">Subtotal</span>
             <span className="cartpopover__subtotal-price">{formatCurrency(totalPrice)}</span>
           </div>
-          <div className="cartpopover__btn">View Cart</div>
+          <div className="cartpopover__btn" onClick={() => navigate('/cart')}>
+            View Cart
+          </div>
         </div>
       </div>
     </IconButton>
