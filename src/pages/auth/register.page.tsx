@@ -17,12 +17,20 @@ import { postRegister } from '@/api/auth.api';
 import { useNavigate } from 'react-router';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
+import { isAxiosError } from '@/api/axios.customize';
+import type { ApiError } from '@/types/api';
+import { AlertComponent, type TStatus } from '@/components/ui/toast';
 
 export const RegisterPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const [passwordVision, setPasswordVision] = useState<boolean>(false);
   const [confirmPassVision, setConfirmPassVision] = useState<boolean>(false);
+  const [alertStatus, setAlertStatus] = useState<TStatus>({
+    message: '',
+    success: true,
+    open: false,
+  });
   const {
     handleSubmit,
     register,
@@ -41,16 +49,21 @@ export const RegisterPage = () => {
     try {
       setLoading(true);
       const result = await postRegister(req);
-      if (result.data && result.data.data) {
-        const data = result.data.data;
+      if (result.data) {
+        const data = result.data;
         const successData: RegisterResponse = {
           email: data.email,
           otpExpireTime: data.otpExpireTime / 1000,
         };
         navigate('/otp', { state: successData });
       }
-    } catch (error: any) {
-      console.log(error);
+    } catch (error: unknown) {
+      if (isAxiosError<ApiError>(error) && error.response && error.response.data) {
+        setAlertStatus({
+          message: error.response.data.error.message,
+          success: error.response.data.success,
+        });
+      }
     }
     setLoading(false);
   };
@@ -158,6 +171,14 @@ export const RegisterPage = () => {
           </div>
         </div>
       </div>
+      <AlertComponent
+        handleClose={() => setAlertStatus({ open: false, message: '', success: true })}
+        status={{
+          success: alertStatus.success,
+          message: alertStatus.message,
+          open: alertStatus.open,
+        }}
+      />
     </>
   );
 };

@@ -9,22 +9,27 @@ import type {
 import axios from './axios.customize';
 import type { ApiResponse } from '@/types/api';
 
-export const postRegister = (req: ReqRegister) => {
-  return axios.post<ApiResponse<RegisterResponse>>('/auth/register', req);
+export const postRegister = async (req: ReqRegister) => {
+  const result = await axios.post<ApiResponse<RegisterResponse>>('/auth/register', req);
+  return result.data;
 };
 
-export const postVerifyEmail = (req: ReqVerifyEmail) => {
-  return axios.post<ApiResponse<any>>('/auth/verify-email', req);
+export const postVerifyEmail = async (req: ReqVerifyEmail) => {
+  const result = await axios.post<ApiResponse<any>>('/auth/verify-email', req);
+  return result.data;
 };
 
-export const postResendOtp = (req: ReqResendOtp) => {
-  return axios.post<ApiResponse<RegisterResponse>>('/auth/resend-otp', req);
+export const postResendOtp = async (req: ReqResendOtp) => {
+  const result = await axios.post<ApiResponse<RegisterResponse>>('/auth/resend-otp', req);
+  return result.data;
 };
 
-export const postLogin = (req: ReqLogin) => {
-  return axios.post<ApiResponse<LoginResponse>>('/auth/login', req);
+export const postLogin = async (req: ReqLogin) => {
+  const result = await axios.post<ApiResponse<LoginResponse>>('/auth/login', req);
+  return result.data;
 };
 
-export const postLogout = () => {
-  return axios.post<ApiResponse<LoginResponse>>('/auth/logout');
+export const postLogout = async () => {
+  const result = await axios.post<ApiResponse<LoginResponse>>('/auth/logout');
+  return result.data;
 };

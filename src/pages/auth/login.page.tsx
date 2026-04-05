@@ -63,16 +63,20 @@ export const LoginPage = () => {
     try {
       setLoading(true);
       const result = await postLogin(req);
-      if (result.data && result.data.data) {
+      if (result.data) {
         const mergeCartSuccess = await handleMergeCart();
         if (mergeCartSuccess) {
           window.location.href = '/';
         }
       }
-    } catch (err: unknown) {
-      if (isAxiosError<ApiError>(err) && err.response && err.response.data) {
-        const data = err.response.data;
-        setAlertStatus({ message: data.error.message, success: data.success, open: true });
+    } catch (err) {
+      if (isAxiosError<ApiError>(err)) {
+        const data = err?.response?.data;
+        setAlertStatus({
+          message: data?.error.message ?? '',
+          success: data?.success ?? false,
+          open: true,
+        });
       }
     }
     setLoading(false);

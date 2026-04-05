@@ -22,14 +22,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       setIsLoading(true);
       const result = await getUserProfile();
-      if (result.data.data) {
-        const data = result.data.data;
-        setUser(data);
+      if (result.data) {
+        setUser(result.data);
       } else {
         setUser(null);
       }
     } catch (err: unknown) {
-      console.error(err);
+      console.error('Error catch in page');
     }
     setIsLoading(false);
   };

@@ -21,6 +21,7 @@ const schema = z.object({
 
 export const OtpPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [resendLoading, setResendLoading] = useState<boolean>(false);
   const [alertStatus, setAlertStatus] = useState<TAlertStatus>({
     message: 'Success',
     success: true,
@@ -44,11 +45,10 @@ export const OtpPage = () => {
     try {
       setLoading(true);
       const result = await postVerifyEmail(req);
-      if (result.data) {
-        const data = result.data;
+      if (result.success) {
         setAlertStatus({
           message: 'Register successfully, redirect to login after ',
-          success: data.success,
+          success: result.success,
           displayCooldown: true,
           duration: 3000,
         });
@@ -70,16 +70,16 @@ export const OtpPage = () => {
 
   const onResendOtp = async () => {
     try {
-      setLoading(true);
+      setResendLoading(true);
       const result = await postResendOtp({
         email: state.email,
         otpType: 'EMAIL_VERIFICATION',
       });
-      if (result.data && result.data.success && result.data.data) {
+      if (result?.success) {
         setTime(state.otpExpireTime);
         setAlertStatus({
-          message: result.data.message,
-          success: result.data.success,
+          message: result.message,
+          success: result.success,
         });
       }
     } catch (error: any) {
@@ -90,7 +90,7 @@ export const OtpPage = () => {
         });
       }
     }
-    setLoading(false);
+    setResendLoading(false);
   };
 
   useEffect(() => {
@@ -147,6 +147,7 @@ export const OtpPage = () => {
             loadingIndicator={<CircularProgress style={{ color: 'blue', fontSize: 12 }} />}
             onClick={onResendOtp}
             disabled={time > 0}
+            loading={resendLoading}
           >
             Resend Otp
           </Button>
