@@ -23,6 +23,7 @@ import { DetailBookPage } from '@/pages/book/detail.page';
 import { ScrollTop } from '@/components/layouts/scroll-top';
 import { CartProvider } from '@/contexts/cart.context';
 import { CartPage } from '@/pages/book/cart.page';
+import { ToastContainer } from './components/ui/toast.container';
 
 export const router = createBrowserRouter([
   {
@@ -123,6 +124,7 @@ createRoot(document.getElementById('root')!).render(
       <AuthProvider>
         <CartProvider>
           <RouterProvider router={router} />
+          <ToastContainer />
         </CartProvider>
       </AuthProvider>
     </QueryClientProvider>

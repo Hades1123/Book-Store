@@ -19,6 +19,7 @@ import { AlertComponent } from '@/components/ui/toast';
 import { UseBookPage } from './hooks/use-book-page';
 import { CategoryNode } from '@/components/books/category.node';
 import { useCartContext } from '@/contexts/cart.context';
+import { toast } from '@/stores/toast.store';
 
 export const BookPage = () => {
   const {
@@ -195,19 +196,27 @@ export const BookPage = () => {
                     <div className="book__btn">
                       <button
                         className="book__btn-cart"
-                        onClick={(e) =>
+                        onClick={(e) => {
                           handleAddToCart(e, item.id, {
                             coverPublicId: item.coverPublicId,
                             discountPrice: item.discountPrice,
                             name: item.name,
                             price: item.price,
                             stockQuantity: item.stockQuantity,
-                          })
-                        }
+                          });
+                          toast.success('Thêm vào giỏ hàng thành công !');
+                        }}
                       >
                         <CartIcon />
                       </button>
-                      <button className="book__btn-buy">Buy now</button>
+                      <button
+                        className="book__btn-buy"
+                        onClick={() => {
+                          toast.error('Con me may');
+                        }}
+                      >
+                        Buy now
+                      </button>
                     </div>
                   </div>
                 ))
@@ -237,10 +246,6 @@ export const BookPage = () => {
           </main>
         </div>
       </div>
-      <AlertComponent
-        handleClose={() => setIsOpen(false)}
-        status={{ message: 'Thêm vào giỏ hàng thành công', success: true, open, duration: 800 }}
-      />
     </>
   );
 };
