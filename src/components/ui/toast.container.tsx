@@ -12,7 +12,7 @@ export const ToastContainer = () => {
   const toast = useToastStore((state) => state.toast);
   const removeToast = useToastStore((state) => state.removeToast);
 
-  return toast.map((item) => (
+  return toast.map((item, index) => (
     <Snackbar
       key={item.id}
       anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
@@ -21,7 +21,7 @@ export const ToastContainer = () => {
         transition: SlideTransitions,
       }}
       sx={{
-        bottom: { xs: 90, sm: 16 },
+        bottom: { xs: 90, sm: 16 + index * 60 },
       }}
     >
       <Alert

@@ -1,5 +1,5 @@
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import { useAuthContext } from '@/contexts/auth.context';
+import { useAuthStore } from '@/stores/auth.store';
 import Button from '@mui/material/Button';
 import { NavLink, useLocation, useNavigate } from 'react-router';
 import { useState, type MouseEvent } from 'react';
@@ -32,12 +32,12 @@ export const NAV_ITEMS = [
   },
 ];
 export const HeaderComponent = () => {
-  const { user, logout } = useAuthContext();
+  const user = useAuthStore((state) => state.user);
+  const logout = useAuthStore((state) => state.logout);
   const location = useLocation();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  // console.log(location);
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);

@@ -7,7 +7,7 @@ import ResetPassIcon from '@/assets/auth/confirm-pass.svg?react';
 import LogoutIcon from '@/assets/auth/logout.svg?react';
 import NotifyIcon from '@/assets/notify.svg?react';
 import SettingIcon from '@/assets/setting.svg?react';
-import { useAuthContext } from '@/contexts/auth.context';
+import { useAuthStore } from '@/stores/auth.store';
 
 const MENU_ITEMS = [
   { id: 'info', label: 'Profile Info', icon: UserIcon, path: '/user' },
@@ -19,7 +19,7 @@ const MENU_ITEMS = [
 export const ProfileLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { logout } = useAuthContext();
+  const logout = useAuthStore((state) => state.logout);
 
   const onLogout = () => {
     logout();

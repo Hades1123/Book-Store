@@ -1,4 +1,4 @@
-import { useCartContext } from '@/contexts/cart.context';
+import { useCartStore, useTotalPrice } from '@/stores/cart.store';
 import './cart.page.scss';
 import thumbnail from '@/assets/book1.png';
 import { formatCurrency } from '@/utils/helper';
@@ -8,7 +8,10 @@ import type { MouseEvent } from 'react';
 import { Link } from 'react-router';
 
 export const CartPage = () => {
-  const { cart, deleteCartItem, updateCartItem, totalPrice } = useCartContext();
+  const cart = useCartStore((state) => state.cart);
+  const deleteCartItem = useCartStore((state) => state.deleteCartItem);
+  const updateCartItem = useCartStore((state) => state.updateCartItem);
+  const totalPrice = useTotalPrice();
 
   const handleDeleteCartItem = (e: MouseEvent<SVGSVGElement>, productId: string) => {
     e.preventDefault();

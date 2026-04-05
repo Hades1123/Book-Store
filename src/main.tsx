@@ -7,7 +7,6 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { StrictMode } from 'react';
-import { AuthProvider } from '@/contexts/auth.context';
 import { createBrowserRouter } from 'react-router';
 import { LoginPage } from '@/pages/auth/login.page';
 import { RegisterPage } from '@/pages/auth/register.page';
@@ -21,9 +20,10 @@ import { BookPage } from '@/pages/book/book.page';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { DetailBookPage } from '@/pages/book/detail.page';
 import { ScrollTop } from '@/components/layouts/scroll-top';
-import { CartProvider } from '@/contexts/cart.context';
 import { CartPage } from '@/pages/book/cart.page';
 import { ToastContainer } from './components/ui/toast.container';
+import { AuthLoadingBackdrop } from './components/ui/AuthLoadingBackdrop';
+import { useInitStores } from './hooks/useInitStores';
 
 export const router = createBrowserRouter([
   {
@@ -118,15 +118,22 @@ export const router = createBrowserRouter([
 
 const queryClient = new QueryClient();
 
+const App = () => {
+  useInitStores(); // Initialize auth & cart stores
+
+  return (
+    <>
+      {/* <AuthLoadingBackdrop /> */}
+      <RouterProvider router={router} />
+      <ToastContainer />
+    </>
+  );
+};
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <CartProvider>
-          <RouterProvider router={router} />
-          <ToastContainer />
-        </CartProvider>
-      </AuthProvider>
+      <App />
     </QueryClientProvider>
   </StrictMode>
 );

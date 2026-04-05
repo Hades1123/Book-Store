@@ -1,6 +1,8 @@
 import type { AlertColor } from '@mui/material/Alert';
 import { create } from 'zustand';
 
+const MAX_TOAST = 2;
+
 interface ToastOptions {
   duration?: number;
 }
@@ -23,7 +25,9 @@ export const useToastStore = create<ToastType>()((set) => ({
 
   addToast: (message, type, options) => {
     const id = Date.now().toString();
-    set((state) => ({ toast: [...state.toast, { id, message, type, options }] }));
+    set((state) => ({
+      toast: [...state.toast.slice(0, MAX_TOAST - 1), { id, message, type, options }],
+    }));
 
     setTimeout(() => {
       set((state) => ({ toast: state.toast.filter((item) => item.id != id) }));

@@ -1,4 +1,4 @@
-import { useAuthContext } from '@/contexts/auth.context';
+import { useAuthStore } from '@/stores/auth.store';
 import { ErrorPage } from '@/pages/error.page';
 import type { TRole } from '@/types/user';
 import type { ReactNode } from 'react';
@@ -11,7 +11,7 @@ interface IProps {
 }
 export const ProtectedRoute = (props: IProps) => {
   const { children, roles = [], loginProtect = false } = props;
-  const { user } = useAuthContext();
+  const user = useAuthStore((state) => state.user);
   // User have just login
   if (user && loginProtect) {
     return <Navigate to={'/'} replace />;

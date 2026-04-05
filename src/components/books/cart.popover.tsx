@@ -4,7 +4,7 @@ import thumbnail from '@/assets/book1.png';
 import { Link, useNavigate } from 'react-router';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { useCartContext } from '@/contexts/cart.context';
+import { useCartStore, useTotalQuantity, useTotalPrice } from '@/stores/cart.store';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { type MouseEvent } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -12,8 +12,12 @@ import { CartInput } from './cart.input';
 
 export const CartPopover = () => {
   const navigate = useNavigate();
-  const { cart, totalPrice, deleteCartItem, updateCartItem, loadingItems, totalQuantity } =
-    useCartContext();
+  const cart = useCartStore((state) => state.cart);
+  const deleteCartItem = useCartStore((state) => state.deleteCartItem);
+  const updateCartItem = useCartStore((state) => state.updateCartItem);
+  const loadingItems = useCartStore((state) => state.loadingItems);
+  const totalPrice = useTotalPrice();
+  const totalQuantity = useTotalQuantity();
 
   const handleDeleteCartItem = (e: MouseEvent<SVGSVGElement>, productId: string) => {
     e.preventDefault();

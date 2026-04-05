@@ -15,10 +15,8 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { Link } from 'react-router';
 import CartIcon from '@/assets/cart.svg?react';
-import { AlertComponent } from '@/components/ui/toast';
 import { UseBookPage } from './hooks/use-book-page';
 import { CategoryNode } from '@/components/books/category.node';
-import { useCartContext } from '@/contexts/cart.context';
 import { toast } from '@/stores/toast.store';
 
 export const BookPage = () => {
@@ -35,10 +33,8 @@ export const BookPage = () => {
     handleSearch,
     isLoading,
     marks,
-    open,
     setFilter,
     setFilters,
-    setIsOpen,
     currentSearchValue,
     price,
     filters,
@@ -49,8 +45,6 @@ export const BookPage = () => {
     handleClickCategory,
     valuetext,
   } = UseBookPage();
-
-  const { cart } = useCartContext();
 
   useEffect(() => {
     setFilter('search', debounceSearch);

@@ -3,7 +3,7 @@ import UserIcon from '@/assets/user.svg?react';
 import EditIcon from '@/assets/edit-profile.svg?react';
 import avatar from '@/assets/avatar.png';
 import './info.scss';
-import { useAuthContext } from '@/contexts/auth.context';
+import { useAuthStore } from '@/stores/auth.store';
 
 const ORDER_ITEMS = [
   {
@@ -30,7 +30,7 @@ const ORDER_ITEMS = [
 ];
 
 export const ProfileInfo = () => {
-  const { user } = useAuthContext();
+  const user = useAuthStore((state) => state.user);
   return (
     <>
       <div className="profile-info-page">

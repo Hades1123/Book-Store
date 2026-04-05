@@ -1,9 +1,9 @@
 import { fetchBooks, getCategoryStructure } from '@/api/book.api';
 import { MAX_PRICE, MIN_PRICE } from '@/constants/common';
-import { useCartContext } from '@/contexts/cart.context';
+import { useCartStore } from '@/stores/cart.store';
 import { useBookFilters } from '@/hooks/use-bookFilter';
 import { useDebounce } from '@/hooks/use-debounce';
-import type { IBook, TSortBy, TSortKey, TSortOrder } from '@/types/book';
+import type { TSortBy, TSortKey, TSortOrder } from '@/types/book';
 import type { TProductInfo } from '@/types/cart';
 import { useQuery } from '@tanstack/react-query';
 import { useState, type ChangeEvent, type MouseEvent } from 'react';
@@ -15,7 +15,7 @@ const SORT_OPTIONS: Record<TSortKey, { sortBy: TSortBy; sortOrder: TSortOrder; l
 
 export const UseBookPage = () => {
   const { setFilter, setFilters, filters, resetFilters } = useBookFilters();
-  const { addToCart } = useCartContext();
+  const addToCart = useCartStore((state) => state.addToCart);
 
   // Derive initial local state from URL params (single source of truth = URL)
   const [price, setPrice] = useState<number[] | null>(() => {
