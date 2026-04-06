@@ -1,0 +1,15 @@
+enum VerificationType{
+    EMAIL_VERIFICATION
+    PASSWORD_RESET
+}
+
+model VerificationToken{
+    id String @id @default(uuid())
+    email String 
+    token String 
+    type VerificationType
+    expiresAt DateTime
+    createdAt DateTime @default(now())
+
+    @@map("verification_tokens")
+}
