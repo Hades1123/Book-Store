@@ -215,4 +215,13 @@
     cursor: pointer;
     text-decoration: none;
   }
+
+  &__empty {
+    min-height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 2rem;
+  }
 }

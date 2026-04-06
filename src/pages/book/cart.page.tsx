@@ -4,6 +4,7 @@ import thumbnail from '@/assets/book1.png';
 import { formatCurrency } from '@/utils/helper';
 import { CartInput } from '@/components/books/cart.input';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import CartIcon from '@/assets/cart.svg?react';
 import type { MouseEvent } from 'react';
 import { Link } from 'react-router';
 
@@ -28,63 +29,70 @@ export const CartPage = () => {
         <h1>Your Collection</h1>
         <span>Review your selected volumes</span>
       </div>
-      <div className="collections__container">
-        <div className="collections__main">
-          {cart?.items.map((item) => (
-            <div className="collections__item">
-              <div className="collections__item-container">
-                <div className="collections__img-wrapper">
-                  <img src={thumbnail} alt="img" />
-                </div>
-                <div className="collections__content">
-                  <div className="collections__first">
-                    <h3 className="collections__name">{item.product.name}</h3>
-                    <span className="collections__price">
-                      {formatCurrency(Number(item.product.price))}
-                    </span>
+      {cart && cart.items.length > 0 ? (
+        <div className="collections__container">
+          <div className="collections__main">
+            {cart?.items.map((item) => (
+              <div className="collections__item">
+                <div className="collections__item-container">
+                  <div className="collections__img-wrapper">
+                    <img src={thumbnail} alt="img" />
                   </div>
-                  <div className="collections__second">
-                    <div className="collections__second--left">
-                      <CartInput
-                        item={item}
-                        handleDeleteCartItem={handleDeleteCartItem}
-                        handleUpdateCartItem={handleUpdateCartItem}
-                      />
-                      <div className="collections__remove">
-                        <DeleteOutlineOutlinedIcon />
-                        <span>Remove</span>
-                      </div>
+                  <div className="collections__content">
+                    <div className="collections__first">
+                      <h3 className="collections__name">{item.product.name}</h3>
+                      <span className="collections__price">
+                        {formatCurrency(Number(item.product.price))}
+                      </span>
                     </div>
-                    <div className="collections__second--right">
-                      <div className="collections__total-price">
-                        {formatCurrency(item.quantity * Number(item.product.price))}
+                    <div className="collections__second">
+                      <div className="collections__second--left">
+                        <CartInput
+                          item={item}
+                          handleDeleteCartItem={handleDeleteCartItem}
+                          handleUpdateCartItem={handleUpdateCartItem}
+                        />
+                        <div className="collections__remove">
+                          <DeleteOutlineOutlinedIcon />
+                          <span>Remove</span>
+                        </div>
+                      </div>
+                      <div className="collections__second--right">
+                        <div className="collections__total-price">
+                          {formatCurrency(item.quantity * Number(item.product.price))}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-        <div className="collections__checkout">
-          <div className="collections__summary">Order Summary</div>
-          <div className="collections__fee">
-            <div className="collections__subtotal">
-              <div className="collections__subtotal-title">Subtotal (3 items)</div>
-              <div className="collections__subtotal-price">$61.00</div>
-            </div>
-            <div className="collections__grand">
-              <div className="collections__grand-title">Tax</div>
-              <div className="collections__grand-price">$0</div>
-            </div>
+            ))}
           </div>
-          <div className="collections__final">
-            <h6>Grand total</h6>
-            <span>{formatCurrency(Number(totalPrice))}</span>
+          <div className="collections__checkout">
+            <div className="collections__summary">Order Summary</div>
+            <div className="collections__fee">
+              <div className="collections__subtotal">
+                <div className="collections__subtotal-title">Subtotal (3 items)</div>
+                <div className="collections__subtotal-price">$61.00</div>
+              </div>
+              <div className="collections__grand">
+                <div className="collections__grand-title">Tax</div>
+                <div className="collections__grand-price">$0</div>
+              </div>
+            </div>
+            <div className="collections__final">
+              <h6>Grand total</h6>
+              <span>{formatCurrency(Number(totalPrice))}</span>
+            </div>
+            <button className="collections__btn">Proceed to Checkout</button>
           </div>
-          <button className="collections__btn">Proceed to Checkout</button>
         </div>
-      </div>
+      ) : (
+        <div className="collections__empty">
+          <CartIcon className="collections_empty-icon" />
+          <span>No availble items</span>
+        </div>
+      )}
       <Link to={'/book'} className="collections__continue">
         <svg
           xmlns="http://www.w3.org/2000/svg"

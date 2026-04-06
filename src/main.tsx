@@ -24,6 +24,7 @@ import { CartPage } from '@/pages/book/cart.page';
 import { ToastContainer } from './components/ui/toast.container';
 import { AuthLoadingBackdrop } from './components/ui/AuthLoadingBackdrop';
 import { useInitStores } from './hooks/useInitStores';
+import { CheckoutPage } from '@/pages/checkout/checkout.page';
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
       {
         path: 'cart',
         element: <CartPage />,
+      },
+      {
+        path: 'checkout',
+        element: <CheckoutPage />,
       },
     ],
   },

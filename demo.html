@@ -5,10 +5,10 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>The Verdant Editorial - Notifications</title>
+    <title>Checkout | The Literary Curator</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap"
         rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
@@ -21,393 +21,304 @@
             darkMode: "class",
             theme: {
                 extend: {
-                    "colors": {
-                        "on-primary-container": "#f5fff7",
-                        "tertiary-fixed": "#e2dfff",
-                        "on-secondary-container": "#596372",
-                        "on-secondary-fixed-variant": "#3e4755",
-                        "surface-bright": "#f5fbf5",
-                        "secondary-container": "#d6e0f1",
-                        "primary-fixed": "#85f8c4",
-                        "on-primary-fixed-variant": "#005137",
-                        "surface-container-lowest": "#ffffff",
-                        "on-surface-variant": "#3d4a42",
-                        "surface-dim": "#d5dcd6",
-                        "surface": "#f5fbf5",
-                        "inverse-primary": "#68dba9",
-                        "on-tertiary": "#ffffff",
-                        "inverse-on-surface": "#ecf2ec",
-                        "on-secondary": "#ffffff",
-                        "on-tertiary-fixed-variant": "#3e3b92",
-                        "primary-fixed-dim": "#68dba9",
-                        "surface-tint": "#006c4a",
-                        "on-tertiary-fixed": "#0f0168",
-                        "surface-container-low": "#eff5ef",
-                        "on-background": "#171d19",
-                        "secondary-fixed-dim": "#bdc7d8",
-                        "surface-container-high": "#e4eae4",
-                        "error-container": "#ffdad6",
-                        "surface-container-highest": "#dee4de",
-                        "on-secondary-fixed": "#121c28",
-                        "inverse-surface": "#2c322e",
-                        "outline-variant": "#bccac0",
-                        "on-primary": "#ffffff",
-                        "on-error": "#ffffff",
-                        "tertiary-fixed-dim": "#c3c0ff",
-                        "surface-variant": "#dee4de",
-                        "on-primary-fixed": "#002114",
-                        "outline": "#6d7a72",
-                        "on-surface": "#171d19",
-                        "on-error-container": "#93000a",
+                    colors: {
+                        "surface-container-high": "#ede7e6",
+                        "surface": "#fef8f7",
+                        "secondary-container": "#c4e7e2",
+                        "on-tertiary-fixed-variant": "#663e00",
+                        "on-primary-container": "#fffbff",
+                        "secondary-fixed-dim": "#accdc9",
+                        "on-surface-variant": "#58423c",
+                        "primary-container": "#c54f2c",
+                        "on-secondary-container": "#496865",
+                        "on-background": "#1d1b1b",
+                        "tertiary-container": "#a0691b",
                         "error": "#ba1a1a",
-                        "tertiary": "#5451a9",
+                        "tertiary-fixed-dim": "#feb965",
+                        "surface-dim": "#ded9d8",
+                        "secondary": "#456461",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "primary": "#a43716",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#862201",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#c7e9e5",
+                        "primary-fixed-dim": "#ffb5a0",
                         "on-tertiary-container": "#fffbff",
-                        "tertiary-container": "#6c6ac4",
-                        "primary-container": "#00855d",
-                        "background": "#f5fbf5",
-                        "surface-container": "#e9efe9",
-                        "secondary-fixed": "#d9e3f4",
-                        "primary": "#006948",
-                        "secondary": "#555f6d"
+                        "outline": "#8b716a",
+                        "inverse-surface": "#323030",
+                        "background": "#fef8f7",
+                        "primary-fixed": "#ffdbd1",
+                        "on-surface": "#1d1b1b",
+                        "tertiary": "#835100",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed-variant": "#2d4c49",
+                        "surface-tint": "#a73918",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e7e1e1",
+                        "surface-container-low": "#f8f2f2",
+                        "surface-container-highest": "#e7e1e1",
+                        "outline-variant": "#dfc0b7",
+                        "surface-container": "#f3ecec",
+                        "on-tertiary-fixed": "#2b1700",
+                        "on-secondary-fixed": "#00201e",
+                        "tertiary-fixed": "#ffddb9",
+                        "inverse-primary": "#ffb5a0",
+                        "surface-bright": "#fef8f7",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#3b0900",
+                        "inverse-on-surface": "#f6efef"
                     },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
+                    fontFamily: {
+                        "headline": ["Newsreader", "serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Manrope", "sans-serif"]
                     },
-                    "fontFamily": {
-                        "headline": ["Manrope"],
-                        "body": ["Inter"],
-                        "label": ["Inter"]
-                    }
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
                 },
             },
         }
     </script>
     <style>
         .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
         }
 
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-
-        h1,
-        h2,
-        h3 {
+        .form-input-minimal {
+            border: none;
+            border-bottom: 1px solid #dfc0b7;
+            background: transparent;
+            padding: 0.75rem 0;
+            width: 100%;
             font-family: 'Manrope', sans-serif;
+            transition: border-color 0.3s ease;
         }
 
-        .ambient-shadow {
-            box-shadow: 0 8px 32px -4px rgba(23, 29, 25, 0.06);
+        .form-input-minimal:focus {
+            outline: none;
+            border-bottom: 2px solid #a43716;
+            ring: 0;
         }
     </style>
 </head>
 
-<body class="bg-surface text-on-background min-h-screen flex">
-    <!-- SideNavBar -->
-    <aside
-        class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 border-r border-emerald-100/20 dark:border-emerald-900/20 bg-emerald-50 dark:bg-emerald-950 py-4 z-50">
-        <div class="px-6 mb-8 flex items-center gap-3">
-            <span class="material-symbols-outlined text-primary text-3xl" data-icon="eco">eco</span>
-            <div>
-                <h1 class="text-lg font-black text-emerald-900 dark:text-emerald-50 leading-tight">Verdant Farms</h1>
-                <p class="text-[10px] uppercase tracking-widest text-emerald-800/60 font-bold">Unit 04 - Sector G</p>
-            </div>
+<body class="bg-background text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+    <!-- TopAppBar -->
+    <header
+        class="fixed top-0 w-full z-50 bg-[#fef8f7] dark:bg-stone-950 opacity-80 backdrop-blur-xl flex justify-between items-center px-12 py-6 w-full max-w-none">
+        <div class="text-2xl font-serif italic text-[#1d1b1b] dark:text-stone-100">
+            The Literary Curator
         </div>
-        <nav class="flex-1 space-y-1">
-            <a class="flex items-center gap-3 py-3 px-4 mx-2 text-emerald-800/70 dark:text-emerald-200/70 hover:bg-emerald-100/30 dark:hover:bg-emerald-800/30 transition-all duration-300 rounded-lg"
-                href="#">
-                <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-                <span class="font-inter text-sm font-medium">Dashboard</span>
-            </a>
-            <a class="flex items-center gap-3 py-3 px-4 mx-2 text-emerald-800/70 dark:text-emerald-200/70 hover:bg-emerald-100/30 dark:hover:bg-emerald-800/30 transition-all duration-300 rounded-lg"
-                href="#">
-                <span class="material-symbols-outlined" data-icon="eco">eco</span>
-                <span class="font-inter text-sm font-medium">Crops</span>
-            </a>
-            <a class="flex items-center gap-3 py-3 px-4 mx-2 text-emerald-800/70 dark:text-emerald-200/70 hover:bg-emerald-100/30 dark:hover:bg-emerald-800/30 transition-all duration-300 rounded-lg"
-                href="#">
-                <span class="material-symbols-outlined" data-icon="sensors">sensors</span>
-                <span class="font-inter text-sm font-medium">IoT Sensors</span>
-            </a>
-            <a class="flex items-center gap-3 py-3 px-4 mx-2 text-emerald-800/70 dark:text-emerald-200/70 hover:bg-emerald-100/30 dark:hover:bg-emerald-800/30 transition-all duration-300 rounded-lg"
-                href="#">
-                <span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
-                <span class="font-inter text-sm font-medium">Inventory</span>
-            </a>
-            <a class="flex items-center gap-3 py-3 px-4 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-900 dark:text-emerald-50 rounded-lg mx-2 transition-all duration-300"
-                href="#">
-                <span class="material-symbols-outlined" data-icon="notifications"
-                    style="font-variation-settings: 'FILL' 1;">notifications</span>
-                <span class="font-inter text-sm font-medium">Notifications</span>
-            </a>
+        <nav class="hidden md:flex gap-12">
+            <a class="text-[#1d1b1b] dark:text-stone-400 opacity-70 hover:text-[#D95D39] transition-colors duration-300 font-label text-sm tracking-wide"
+                href="#">Curated Collections</a>
+            <a class="text-[#1d1b1b] dark:text-stone-400 opacity-70 hover:text-[#D95D39] transition-colors duration-300 font-label text-sm tracking-wide"
+                href="#">New Arrivals</a>
+            <a class="text-[#1d1b1b] dark:text-stone-400 opacity-70 hover:text-[#D95D39] transition-colors duration-300 font-label text-sm tracking-wide"
+                href="#">Staff Picks</a>
         </nav>
-        <div class="mt-auto px-4">
-            <button
-                class="w-full bg-primary hover:bg-primary-container text-on-primary py-3 px-4 rounded-xl flex items-center justify-center gap-2 mb-6 font-semibold transition-all shadow-lg shadow-primary/20">
-                <span class="material-symbols-outlined text-sm" data-icon="add">add</span>
-                <span class="text-sm">Log Harvest</span>
+        <div class="flex items-center gap-6">
+            <button class="text-[#1d1b1b] dark:text-stone-100 hover:text-[#D95D39] transition-colors duration-200">
+                <span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
             </button>
-            <div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-xl">
-                <img alt="John Farmer" class="w-10 h-10 rounded-full object-cover border-2 border-primary/20"
-                    data-alt="portrait of a mature farm manager with a kind expression, outdoor setting with soft natural light"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIGVAaJuKKoVMlQRwSVESPUewlS_GI0pG2GWbdoY_A99D5MeaaHrGNG4FezyT_-OjYvtBwAdHnNGzcWlXwokzc0lpmisIa4OoUmWRBFG-DVvoagnDKwlJHLNacQyWBPajvJVI0ONNySKiShbxe6D_MnWrsgXL6b8U-uco7fxt9oVYbI8_0pVB0b_pb2D5lA3Uew3_QhgJ9vDgYO7Uv49eK01sxmKSkfbbOGUVBCEqywfrI8a922RbXDtEndq9G_iUQhPXlYkUSOcrw" />
-                <div class="overflow-hidden">
-                    <p class="text-sm font-bold text-on-surface truncate">John Farmer</p>
-                    <p class="text-xs text-on-surface-variant">Senior Agronomist</p>
-                </div>
-            </div>
+            <button class="text-[#1d1b1b] dark:text-stone-100 hover:text-[#D95D39] transition-colors duration-200">
+                <span class="material-symbols-outlined" data-icon="person">person</span>
+            </button>
         </div>
-    </aside>
-    <!-- Main Content Area -->
-    <main class="flex-1 md:ml-64 min-h-screen flex flex-col">
-        <!-- TopNavBar -->
-        <header
-            class="w-full h-16 sticky top-0 z-40 flex justify-between items-center px-6 bg-emerald-50/80 dark:bg-emerald-950/80 backdrop-blur-md border-b border-emerald-100/20 dark:border-emerald-900/20">
-            <div class="flex items-center gap-4 flex-1">
-                <div class="relative w-full max-w-md">
-                    <span
-                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-emerald-700 dark:text-emerald-400 text-xl"
-                        data-icon="search">search</span>
-                    <input
-                        class="w-full bg-emerald-100/30 border-none rounded-full pl-10 pr-4 py-1.5 text-sm focus:ring-2 focus:ring-primary/20 placeholder:text-emerald-800/40"
-                        placeholder="Search farm logs..." type="text" />
-                </div>
+    </header>
+    <main class="pt-32 pb-24 px-6 md:px-12 max-w-7xl mx-auto min-h-screen">
+        <h1 class="font-headline text-5xl md:text-6xl text-on-surface mb-16 tracking-tight">Checkout</h1>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-24">
+            <!-- Left Column: Checkout Steps -->
+            <div class="lg:col-span-7 space-y-24">
+                <!-- 1. Shipping Address -->
+                <section>
+                    <div class="flex items-center gap-4 mb-10">
+                        <span class="font-headline text-2xl italic text-primary">01</span>
+                        <h2 class="font-headline text-3xl font-medium tracking-tight">Shipping Address</h2>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+                        <div class="md:col-span-2">
+                            <label
+                                class="block text-xs font-label uppercase tracking-widest text-on-surface-variant mb-1">Full
+                                Name</label>
+                            <input class="form-input-minimal" placeholder="Julian Thorne" type="text" />
+                        </div>
+                        <div class="md:col-span-2">
+                            <label
+                                class="block text-xs font-label uppercase tracking-widest text-on-surface-variant mb-1">Street
+                                Address</label>
+                            <input class="form-input-minimal" placeholder="1242 Archive Lane, Unit 4B" type="text" />
+                        </div>
+                        <div>
+                            <label
+                                class="block text-xs font-label uppercase tracking-widest text-on-surface-variant mb-1">City</label>
+                            <input class="form-input-minimal" placeholder="London" type="text" />
+                        </div>
+                        <div>
+                            <label
+                                class="block text-xs font-label uppercase tracking-widest text-on-surface-variant mb-1">ZIP
+                                / Postcode</label>
+                            <input class="form-input-minimal" placeholder="EC1A 1BB" type="text" />
+                        </div>
+                    </div>
+                </section>
+                <!-- 2. Delivery Method -->
+                <section>
+                    <div class="flex items-center gap-4 mb-10">
+                        <span class="font-headline text-2xl italic text-primary">02</span>
+                        <h2 class="font-headline text-3xl font-medium tracking-tight">Delivery Method</h2>
+                    </div>
+                    <div class="space-y-4">
+                        <label
+                            class="group relative flex items-center justify-between p-6 cursor-pointer bg-surface-container-low transition-colors hover:bg-surface-container border-l-4 border-transparent hover:border-primary">
+                            <input checked="" class="hidden" name="delivery" type="radio" />
+                            <div class="flex flex-col">
+                                <span class="font-label font-semibold text-on-surface">Standard Shipping</span>
+                                <span class="text-sm text-on-surface-variant">3-5 business days</span>
+                            </div>
+                            <span class="font-label font-medium text-on-surface">£4.50</span>
+                        </label>
+                        <label
+                            class="group relative flex items-center justify-between p-6 cursor-pointer bg-surface-container-low transition-colors hover:bg-surface-container border-l-4 border-transparent hover:border-primary">
+                            <input class="hidden" name="delivery" type="radio" />
+                            <div class="flex flex-col">
+                                <span class="font-label font-semibold text-on-surface">Express Courier</span>
+                                <span class="text-sm text-on-surface-variant">Next business day</span>
+                            </div>
+                            <span class="font-label font-medium text-on-surface">£12.00</span>
+                        </label>
+                    </div>
+                </section>
+                <!-- 3. Payment Information -->
+                <section>
+                    <div class="flex items-center gap-4 mb-10">
+                        <span class="font-headline text-2xl italic text-primary">03</span>
+                        <h2 class="font-headline text-3xl font-medium tracking-tight">Payment Information</h2>
+                    </div>
+                    <div class="flex gap-8 mb-12">
+                        <button
+                            class="flex items-center gap-2 pb-2 border-b-2 border-primary text-primary font-label text-sm font-semibold">
+                            Credit Card
+                        </button>
+                        <button
+                            class="flex items-center gap-2 pb-2 border-b-2 border-transparent text-on-surface-variant font-label text-sm hover:text-primary transition-colors">
+                            PayPal
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+                        <div class="md:col-span-2">
+                            <label
+                                class="block text-xs font-label uppercase tracking-widest text-on-surface-variant mb-1">Card
+                                Number</label>
+                            <input class="form-input-minimal" placeholder="0000 0000 0000 0000" type="text" />
+                        </div>
+                        <div>
+                            <label
+                                class="block text-xs font-label uppercase tracking-widest text-on-surface-variant mb-1">Expiry
+                                Date</label>
+                            <input class="form-input-minimal" placeholder="MM / YY" type="text" />
+                        </div>
+                        <div>
+                            <label
+                                class="block text-xs font-label uppercase tracking-widest text-on-surface-variant mb-1">CVV</label>
+                            <input class="form-input-minimal" placeholder="•••" type="text" />
+                        </div>
+                    </div>
+                </section>
             </div>
-            <div class="flex items-center gap-4">
-                <button
-                    class="p-2 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-100/50 transition-colors rounded-full relative">
-                    <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
-                    <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
-                </button>
-                <button
-                    class="p-2 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-100/50 transition-colors rounded-full">
-                    <span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
-                </button>
-            </div>
-        </header>
-        <!-- Content Canvas -->
-        <div class="p-6 md:p-10 max-w-6xl w-full mx-auto">
-            <!-- Header Section -->
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-                <div>
-                    <h2
-                        class="text-[3.5rem] font-light leading-none tracking-tight text-on-background mb-4 font-headline">
-                        Notifications</h2>
-                    <p class="text-on-surface-variant max-w-lg font-body">Manage your automated sensor alerts, system
-                        maintenance logs, and crop health updates for Sector G.</p>
-                </div>
-                <div class="flex items-center gap-3">
+            <!-- Right Column: Order Summary -->
+            <div class="lg:col-span-5">
+                <div class="sticky top-32 p-10 bg-surface-container-low">
+                    <h3 class="font-headline text-2xl font-medium mb-10 border-b border-outline-variant pb-6">Order
+                        Summary</h3>
+                    <!-- Item List -->
+                    <div class="space-y-8 mb-10">
+                        <div class="flex gap-6">
+                            <div class="w-16 h-24 bg-surface-container-highest overflow-hidden">
+                                <img alt="The Art of Stillness book cover" class="w-full h-full object-cover"
+                                    data-alt="Minimalist book cover of The Art of Stillness"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuClpTlGqdyTIVWCg149emJtld2RNmLz4NoQLPABBtRPPB2xnC0wmbn8SLUBbvZrgtRUVFix6tZLvB6ejOIINmRC_H5ySDdPMGUQYHlffB_jktIce5WOII4bWXqhEYUDLrDzGSP5IsF-ol3GT0X08dw_WeoqK-VmyKKuYTObd7xAggXJF18nuIopvHut4DlnjeS-0Zpzsa1BlKFqXOQse8UA4kWteT_srveQ5XS0tZhLPlLkUobKyqQxlgHflKdgPvdlV-XilHEh_SN5" />
+                            </div>
+                            <div class="flex-1 flex flex-col justify-between py-1">
+                                <div>
+                                    <h4 class="font-headline text-lg text-on-surface leading-tight">The Art of Stillness
+                                    </h4>
+                                    <p class="text-xs font-label text-on-surface-variant uppercase tracking-wider mt-1">
+                                        Pico Iyer</p>
+                                </div>
+                                <span class="font-label text-sm font-semibold">£18.00</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-6">
+                            <div class="w-16 h-24 bg-surface-container-highest overflow-hidden">
+                                <img alt="A Moveable Feast book cover" class="w-full h-full object-cover"
+                                    data-alt="Classic vintage book cover A Moveable Feast"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAsKNhSSiJb-xgpt96liryLI2EVFz68cNRIuHC4pLmKzIQHF8YWXo9nZulytO7gLR03Qqcoxtc1vuYyytIuks1Qejc2AUiZBJ6B0jsAT8BJ0ZRSUiGvE4_6KHHEa3f739360L5P2g5_uoOSKoJ8rENmK7YVLQbIi0eVYkpgqdKqIji1nC2oHJYpzXP1Wv5Q5r3Z85EQ7yzjUqP3_muH3ZoD0Thc9ftJ8mt0TDqhyHRAhFR7d4bNHpYXF6Z0X8kALqlzLgzcOxD_YEH" />
+                            </div>
+                            <div class="flex-1 flex flex-col justify-between py-1">
+                                <div>
+                                    <h4 class="font-headline text-lg text-on-surface leading-tight">A Moveable Feast
+                                    </h4>
+                                    <p class="text-xs font-label text-on-surface-variant uppercase tracking-wider mt-1">
+                                        Ernest Hemingway</p>
+                                </div>
+                                <span class="font-label text-sm font-semibold">£12.50</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Totals -->
+                    <div class="space-y-4 pt-8 border-t border-outline-variant">
+                        <div class="flex justify-between text-sm font-label">
+                            <span class="text-on-surface-variant uppercase tracking-widest">Subtotal</span>
+                            <span class="text-on-surface">£30.50</span>
+                        </div>
+                        <div class="flex justify-between text-sm font-label">
+                            <span class="text-on-surface-variant uppercase tracking-widest">Shipping</span>
+                            <span class="text-on-surface">£4.50</span>
+                        </div>
+                        <div class="flex justify-between text-sm font-label">
+                            <span class="text-on-surface-variant uppercase tracking-widest">Tax (VAT)</span>
+                            <span class="text-on-surface">£3.05</span>
+                        </div>
+                        <div class="flex justify-between pt-6 mt-4 border-t border-on-surface/10">
+                            <span class="font-headline text-2xl">Total</span>
+                            <span class="font-headline text-2xl font-semibold">£38.05</span>
+                        </div>
+                    </div>
+                    <!-- Checkout Action -->
                     <button
-                        class="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors">
-                        <span class="material-symbols-outlined text-lg" data-icon="done_all">done_all</span>
-                        Mark All as Read
+                        class="w-full mt-10 py-5 bg-gradient-to-br from-primary to-primary-container text-on-primary font-label font-bold tracking-widest uppercase rounded-md shadow-lg shadow-primary/20 hover:scale-[0.98] transition-transform duration-200">
+                        Complete Purchase
                     </button>
-                    <button
-                        class="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold bg-surface-container-low text-error hover:bg-error-container transition-colors">
-                        <span class="material-symbols-outlined text-lg" data-icon="delete_sweep">delete_sweep</span>
-                        Clear All
-                    </button>
-                </div>
-            </div>
-            <!-- Filter Bar -->
-            <div class="flex gap-2 mb-8 overflow-x-auto pb-2">
-                <button
-                    class="px-6 py-2 rounded-full text-sm font-bold bg-primary text-on-primary transition-all">All</button>
-                <button
-                    class="px-6 py-2 rounded-full text-sm font-medium bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-all">Unread</button>
-                <button
-                    class="px-6 py-2 rounded-full text-sm font-medium bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-all">Alerts</button>
-                <button
-                    class="px-6 py-2 rounded-full text-sm font-medium bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-all">System</button>
-                <button
-                    class="px-6 py-2 rounded-full text-sm font-medium bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-all">Yield
-                    reports</button>
-            </div>
-            <!-- Notifications List -->
-            <div class="space-y-4">
-                <!-- Entry 1: Unread / Alert -->
-                <div
-                    class="group flex flex-col md:flex-row md:items-center gap-4 p-5 bg-surface-container-lowest rounded-2xl ambient-shadow border-l-4 border-error transition-all hover:translate-x-1">
-                    <div class="flex items-center gap-4">
-                        <input
-                            class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary/20 bg-transparent"
-                            type="checkbox" />
-                        <div
-                            class="w-12 h-12 rounded-xl bg-error-container flex items-center justify-center text-error">
-                            <span class="material-symbols-outlined" data-icon="warning"
-                                style="font-variation-settings: 'FILL' 1;">warning</span>
-                        </div>
+                    <div
+                        class="mt-8 flex items-center justify-center gap-2 text-on-surface-variant/60 text-[10px] font-label uppercase tracking-[0.2em]">
+                        <span class="material-symbols-outlined text-sm" data-icon="lock">lock</span>
+                        Secure Checkout Guarantee
                     </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between gap-2 mb-1">
-                            <h3 class="text-base font-bold text-on-background">Low Soil Moisture Alert</h3>
-                            <span
-                                class="text-xs font-bold text-primary whitespace-nowrap bg-primary-fixed/30 px-2 py-0.5 rounded">10
-                                mins ago</span>
-                        </div>
-                        <p class="text-sm text-on-surface line-clamp-1">Sector A-12 soil moisture dropped below 30%
-                            threshold. Immediate irrigation recommended for young tomato grafts.</p>
-                    </div>
-                    <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button class="p-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant"><span
-                                class="material-symbols-outlined text-lg"
-                                data-icon="visibility">visibility</span></button>
-                        <button class="p-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant"><span
-                                class="material-symbols-outlined text-lg" data-icon="archive">archive</span></button>
-                    </div>
-                </div>
-                <!-- Entry 2: Unread / Info -->
-                <div
-                    class="group flex flex-col md:flex-row md:items-center gap-4 p-5 bg-surface-container-lowest rounded-2xl ambient-shadow border-l-4 border-tertiary transition-all hover:translate-x-1">
-                    <div class="flex items-center gap-4">
-                        <input
-                            class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary/20 bg-transparent"
-                            type="checkbox" />
-                        <div
-                            class="w-12 h-12 rounded-xl bg-tertiary-container/20 flex items-center justify-center text-tertiary">
-                            <span class="material-symbols-outlined" data-icon="info"
-                                style="font-variation-settings: 'FILL' 1;">info</span>
-                        </div>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between gap-2 mb-1">
-                            <h3 class="text-base font-bold text-on-background">Pump Maintenance Due</h3>
-                            <span
-                                class="text-xs font-bold text-primary whitespace-nowrap bg-primary-fixed/30 px-2 py-0.5 rounded">Today,
-                                08:30 AM</span>
-                        </div>
-                        <p class="text-sm text-on-surface line-clamp-1">Main pump station for North Sector has exceeded
-                            500 operating hours since last service.</p>
-                    </div>
-                    <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button class="p-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant"><span
-                                class="material-symbols-outlined text-lg"
-                                data-icon="visibility">visibility</span></button>
-                        <button class="p-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant"><span
-                                class="material-symbols-outlined text-lg" data-icon="archive">archive</span></button>
-                    </div>
-                </div>
-                <!-- Entry 3: Read / Success -->
-                <div
-                    class="group flex flex-col md:flex-row md:items-center gap-4 p-5 bg-surface-container-low/50 rounded-2xl opacity-60 transition-all">
-                    <div class="flex items-center gap-4">
-                        <input checked=""
-                            class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary/20 bg-transparent"
-                            type="checkbox" />
-                        <div
-                            class="w-12 h-12 rounded-xl bg-primary-fixed/30 flex items-center justify-center text-primary">
-                            <span class="material-symbols-outlined" data-icon="check_circle"
-                                style="font-variation-settings: 'FILL' 1;">check_circle</span>
-                        </div>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between gap-2 mb-1">
-                            <h3 class="text-base font-medium text-on-surface-variant">Weekly Harvest Report Ready</h3>
-                            <span class="text-xs font-medium text-on-surface-variant whitespace-nowrap">Yesterday, 18:45
-                                PM</span>
-                        </div>
-                        <p class="text-sm text-on-surface-variant line-clamp-1">Sector G yielded 15% above forecast for
-                            late-season organic greens. View full analytics.</p>
-                    </div>
-                    <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button class="p-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant"><span
-                                class="material-symbols-outlined text-lg" data-icon="restore">restore</span></button>
-                        <button class="p-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant"><span
-                                class="material-symbols-outlined text-lg" data-icon="delete">delete</span></button>
-                    </div>
-                </div>
-                <!-- Entry 4: Read / System -->
-                <div
-                    class="group flex flex-col md:flex-row md:items-center gap-4 p-5 bg-surface-container-low/50 rounded-2xl opacity-60 transition-all">
-                    <div class="flex items-center gap-4">
-                        <input checked=""
-                            class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary/20 bg-transparent"
-                            type="checkbox" />
-                        <div
-                            class="w-12 h-12 rounded-xl bg-secondary-container flex items-center justify-center text-secondary">
-                            <span class="material-symbols-outlined" data-icon="settings"
-                                style="font-variation-settings: 'FILL' 1;">settings</span>
-                        </div>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between gap-2 mb-1">
-                            <h3 class="text-base font-medium text-on-surface-variant">Firmware Update Successful</h3>
-                            <span class="text-xs font-medium text-on-surface-variant whitespace-nowrap">Aug 24, 10:15
-                                AM</span>
-                        </div>
-                        <p class="text-sm text-on-surface-variant line-clamp-1">IoT Gateway 4 (G-4) has been updated to
-                            v3.2.1. Network stability improved.</p>
-                    </div>
-                    <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button class="p-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant"><span
-                                class="material-symbols-outlined text-lg" data-icon="restore">restore</span></button>
-                        <button class="p-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant"><span
-                                class="material-symbols-outlined text-lg" data-icon="delete">delete</span></button>
-                    </div>
-                </div>
-                <!-- Entry 5: Unread / Alert -->
-                <div
-                    class="group flex flex-col md:flex-row md:items-center gap-4 p-5 bg-surface-container-lowest rounded-2xl ambient-shadow border-l-4 border-error transition-all hover:translate-x-1">
-                    <div class="flex items-center gap-4">
-                        <input
-                            class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary/20 bg-transparent"
-                            type="checkbox" />
-                        <div
-                            class="w-12 h-12 rounded-xl bg-error-container flex items-center justify-center text-error">
-                            <span class="material-symbols-outlined" data-icon="pest_control"
-                                style="font-variation-settings: 'FILL' 1;">pest_control</span>
-                        </div>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between gap-2 mb-1">
-                            <h3 class="text-base font-bold text-on-background">Pest Pressure Detected</h3>
-                            <span
-                                class="text-xs font-bold text-primary whitespace-nowrap bg-primary-fixed/30 px-2 py-0.5 rounded">Aug
-                                23, 05:00 AM</span>
-                        </div>
-                        <p class="text-sm text-on-surface line-clamp-1">Vision sensors in Row 4 detected early signs of
-                            aphid infestation. Biological control deploy suggested.</p>
-                    </div>
-                    <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button class="p-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant"><span
-                                class="material-symbols-outlined text-lg"
-                                data-icon="visibility">visibility</span></button>
-                        <button class="p-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant"><span
-                                class="material-symbols-outlined text-lg" data-icon="archive">archive</span></button>
-                    </div>
-                </div>
-            </div>
-            <!-- Footer Pagination/Meta -->
-            <div class="mt-12 flex items-center justify-between border-t border-outline-variant/10 pt-6">
-                <span class="text-sm text-on-surface-variant font-medium">Showing 5 of 128 notifications</span>
-                <div class="flex items-center gap-2">
-                    <button
-                        class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container-low text-on-surface-variant">
-                        <span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
-                    </button>
-                    <button
-                        class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold">1</button>
-                    <button
-                        class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container-low text-on-surface-variant font-medium">2</button>
-                    <button
-                        class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container-low text-on-surface-variant font-medium">3</button>
-                    <button
-                        class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container-low text-on-surface-variant">
-                        <span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
-                    </button>
                 </div>
             </div>
         </div>
     </main>
-    <!-- Contextual FAB - Only for Home/Dashboard logic, but providing for consistent shell visibility where applicable -->
-    <button
-        class="fixed bottom-8 right-8 w-14 h-14 rounded-2xl bg-primary text-on-primary flex items-center justify-center shadow-xl shadow-primary/30 z-50 md:hidden">
-        <span class="material-symbols-outlined" data-icon="add">add</span>
-    </button>
+    <!-- Footer -->
+    <footer
+        class="w-full border-t border-stone-200/20 bg-[#fef8f7] dark:bg-stone-950 flex flex-col md:flex-row justify-between items-center px-12 py-12 gap-6">
+        <div class="font-serif text-lg text-[#1d1b1b] dark:text-stone-100">The Literary Curator</div>
+        <div class="flex gap-8">
+            <a class="font-sans text-xs uppercase tracking-widest text-stone-500 hover:text-[#D95D39] transition-colors"
+                href="#">Shipping Policy</a>
+            <a class="font-sans text-xs uppercase tracking-widest text-stone-500 hover:text-[#D95D39] transition-colors"
+                href="#">Privacy</a>
+            <a class="font-sans text-xs uppercase tracking-widest text-stone-500 hover:text-[#D95D39] transition-colors"
+                href="#">Terms of Service</a>
+            <a class="font-sans text-xs uppercase tracking-widest text-stone-500 hover:text-[#D95D39] transition-colors"
+                href="#">Contact</a>
+        </div>
+        <div class="font-sans text-xs uppercase tracking-widest text-stone-500 opacity-80">
+            © 2024 The Literary Curator. Designed for the Modern Archivist.
+        </div>
+    </footer>
 </body>
 
 </html>
