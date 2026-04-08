@@ -4,6 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { type SelectChangeEvent } from '@mui/material/Select';
 import type { IBooksParams, TSortBy, TSortKey, TSortOrder } from '@/types/book';
+
 interface IProps {
   setFilters: (params: Partial<IBooksParams>) => void;
   SORT_OPTIONS: Record<
@@ -32,7 +33,7 @@ export default function SortByMenu(props: IProps) {
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ minWidth: 120, backgroundColor: 'white' }}>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Sort by</InputLabel>
         <Select

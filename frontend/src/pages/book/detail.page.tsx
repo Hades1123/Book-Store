@@ -14,8 +14,8 @@ export const DetailBookPage = () => {
     const fetchDetailBook = async () => {
       try {
         const result = await fetchBookById(id ?? '');
-        if (result.data.data) {
-          setCurrentBook(result.data.data);
+        if (result.data) {
+          setCurrentBook(result.data);
         }
       } catch (error: unknown) {
         console.log(error);

@@ -1,13 +1,25 @@
 @use '../../styles/mixins';
+@use 'sass:math';
+
+$item-width: 17rem;
 
 .book {
   background: #fef8f7;
   padding: 3rem 6rem;
 
+  &__container {
+    display: grid;
+    grid-template-columns: 20rem 1fr;
+    gap: 6rem;
+  }
+
   &__sidebar {
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    padding: 2rem;
+    height: fit-content;
+    background-color: white;
     h2 {
       margin-bottom: 1rem;
       color: #58423c;
@@ -68,12 +80,6 @@
     margin-top: 1.5rem;
   }
 
-  &__container {
-    display: grid;
-    grid-template-columns: 16rem 1fr;
-    gap: 6rem;
-  }
-
   &__sortbar {
     display: flex;
     justify-content: space-between;
@@ -101,14 +107,18 @@
   }
 
   &__item-container {
-    max-width: 17rem;
+    max-width: $item-width + 2rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding: 1rem;
+    border: 2px rgba(128, 128, 128, 0.18) solid;
+    background-color: white;
+    border-radius: 5px;
   }
 
   &__img-wrapper {
-    width: 17rem;
+    width: $item-width;
     height: 22.7rem;
     flex-shrink: 0;
     background: #f7f7f7;

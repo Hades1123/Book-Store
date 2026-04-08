@@ -41,7 +41,7 @@ export const UseBookPage = () => {
     queryKey: ['books', filters],
     queryFn: async () => {
       const result = await fetchBooks(filters);
-      return result.data.data;
+      return result.data;
     },
   });
 
@@ -49,7 +49,7 @@ export const UseBookPage = () => {
     queryKey: ['categoryStructure'],
     queryFn: async () => {
       const result = await getCategoryStructure();
-      return result.data.data;
+      return result.data;
     },
   });
 

@@ -17,6 +17,9 @@ export interface IResendAlertComponent {
   status: TStatus;
 }
 
+/**
+ * @deprecated
+ */
 export const AlertComponent = (prop: IResendAlertComponent) => {
   const { handleClose, status } = prop;
   const { displayCooldown = false, duration } = status;

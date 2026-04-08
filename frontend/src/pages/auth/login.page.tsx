@@ -8,7 +8,6 @@ import fbIcon from '@/assets/auth/facebook.svg';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import Button from '@mui/material/Button';
-import { AlertComponent, type TStatus as TAlertStatus } from '@/components/ui/toast';
 import type { ReqLogin } from '@/types/auth';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -20,6 +19,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import type { TCartItemInput, TLocalCartItem } from '@/types/cart';
 import { mergeCartApi } from '@/api/cart.api';
 import { GUEST_CART } from '@/constants/common';
+import { toast } from '@/stores/toast.store';
 
 const schema = z.object({
   email: z.email({ error: 'Invalid email format' }),
@@ -30,11 +30,6 @@ export const LoginPage = () => {
   const [passVisible, setPassVisible] = useState<boolean>(false);
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
-  const [alertStatus, setAlertStatus] = useState<TAlertStatus>({
-    message: 'success',
-    success: true,
-    open: false,
-  });
   const {
     handleSubmit,
     register,
@@ -72,11 +67,7 @@ export const LoginPage = () => {
     } catch (err) {
       if (isAxiosError<ApiError>(err)) {
         const data = err?.response?.data;
-        setAlertStatus({
-          message: data?.error.message ?? '',
-          success: data?.success ?? false,
-          open: true,
-        });
+        toast.error(data?.error.message ?? 'Internal server');
       }
     }
     setLoading(false);
@@ -169,10 +160,6 @@ export const LoginPage = () => {
           <span>© 2026 Book Store Inc. All rights reserved.</span>
         </div>
       </div>
-      <AlertComponent
-        status={alertStatus}
-        handleClose={() => setAlertStatus({ ...alertStatus, open: false })}
-      />
     </>
   );
 };
