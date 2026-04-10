@@ -11,6 +11,8 @@ import { UploadModule } from './modules/upload/upload.module';
 import { BookModule } from './modules/book/book.module';
 import { CategoryModule } from './modules/category/category.module';
 import { CartModule } from './modules/cart/cart.module';
+import { AddressModule } from './modules/address/address.module';
+import { OrderModule } from './modules/order/order.module';
 
 @Module({
   imports: [
@@ -27,6 +29,8 @@ import { CartModule } from './modules/cart/cart.module';
     BookModule,
     CategoryModule,
     CartModule,
+    AddressModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService],

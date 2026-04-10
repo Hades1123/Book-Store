@@ -1,0 +1,16 @@
+model OrderItem {
+  id String @id @default(uuid())
+  productName String
+  unitPrice BigInt
+  quantity Int
+  subtotal BigInt
+  createdAt DateTime @default(now())
+
+  // relation
+  orderId String
+  order Order @relation(fields: [orderId], references: [id])
+  productId String
+  product Product @relation(fields: [productId], references: [id])
+
+  @@map("order_items")
+}

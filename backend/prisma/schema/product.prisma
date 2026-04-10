@@ -20,6 +20,7 @@ model Product{
     categoryId Int
     category Category @relation(fields: [categoryId], references: [id])
     cartItems CartItem[]
-    
+    orderItems OrderItem[]
+
     @@map("products")
 }

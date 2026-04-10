@@ -29,6 +29,7 @@ model User{
   // relation
   address Address[]
   cart Cart?
+  orders Order[]
 
   @@map("users") // make database table name -> users
 }
