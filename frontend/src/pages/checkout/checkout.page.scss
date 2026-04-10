@@ -59,6 +59,11 @@
     }
   }
 
+  &__error {
+    color: red;
+    font-size: 0.875rem;
+  }
+
   &__address-item {
     display: flex;
     flex-direction: column;
@@ -164,10 +169,14 @@
       gap: 0.5rem;
     }
     &-name {
+      cursor: pointer;
       color: #1d1b1b;
       font-family: Newsreader;
       font-size: 1.125rem;
       line-height: 1.4rem; /* 125% */
+      &:hover {
+        color: red;
+      }
     }
     &-author {
       color: #58423c;
@@ -181,6 +190,19 @@
       font-weight: 600;
       line-height: 1.25rem; /* 142.857% */
     }
+    &-quantity {
+      span {
+        color: red;
+        font-weight: 700;
+      }
+    }
+  }
+
+  &__more {
+    color: blue;
+    text-decoration: underline;
+    padding: 0.5rem 0rem;
+    cursor: pointer;
   }
 
   &__totals {

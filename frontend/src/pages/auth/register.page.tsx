@@ -12,17 +12,14 @@ import { useState } from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { registerSchema } from '@/schemas/auth.schema';
-import type { RegisterResponse, ReqRegister } from '@/types/auth';
-import { postRegister } from '@/api/auth.api';
+import type { ReqRegister } from '@/types/auth';
 import { useNavigate } from 'react-router';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
-import { isAxiosError } from '@/api/axios.customize';
-import type { ApiError } from '@/types/api';
-import { toast } from '@/stores/toast.store';
+import { UseAuthMutation } from '@/hooks/mutations/useAuthMutation';
 
 export const RegisterPage = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const { register: registerMutation } = UseAuthMutation();
   const navigate = useNavigate();
   const [passwordVision, setPasswordVision] = useState<boolean>(false);
   const [confirmPassVision, setConfirmPassVision] = useState<boolean>(false);
@@ -35,29 +32,7 @@ export const RegisterPage = () => {
   });
 
   const onSubmit: SubmitHandler<ReqRegister> = async (data) => {
-    const req: ReqRegister = {
-      email: data.email,
-      fullName: data.fullName,
-      password: data.password,
-      phone: data.phone,
-    };
-    try {
-      setLoading(true);
-      const result = await postRegister(req);
-      if (result.data) {
-        const data = result.data;
-        const successData: RegisterResponse = {
-          email: data.email,
-          otpExpireTime: data.otpExpireTime / 1000,
-        };
-        navigate('/otp', { state: successData });
-      }
-    } catch (error: unknown) {
-      if (isAxiosError<ApiError>(error) && error.response && error.response.data) {
-        toast.error(error.response.data.error.message);
-      }
-    }
-    setLoading(false);
+    registerMutation.mutate(data);
   };
 
   return (
@@ -142,7 +117,7 @@ export const RegisterPage = () => {
               color="primary"
               variant="contained"
               type="submit"
-              loading={loading}
+              loading={registerMutation.isPending}
               loadingIndicator={<CircularProgress sx={{ color: 'blue', fontSize: 12 }} />}
             >
               Sign Up

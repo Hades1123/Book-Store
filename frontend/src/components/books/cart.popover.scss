@@ -29,7 +29,7 @@
     position: absolute;
     top: calc(100% + 15px);
     right: 0;
-    visibility: hidden;
+    display: none;
     pointer-events: none;
     opacity: 0;
     z-index: 999;
@@ -39,7 +39,7 @@
 
   &:hover &__dropdown {
     opacity: 1;
-    visibility: visible;
+    display: block;
     pointer-events: auto;
     transform: translateY(0) scale(1);
   }

@@ -44,19 +44,8 @@ export const BookPage = () => {
     currentCategory,
     handleClickCategory,
     valuetext,
+    handleBuyNow,
   } = UseBookPage();
-
-  useEffect(() => {
-    setFilter('search', debounceSearch);
-  }, [debounceSearch]);
-
-  useEffect(() => {
-    if (debouncePrice == null) return;
-    setFilters({
-      minPrice: debouncePrice[0],
-      maxPrice: debouncePrice[1],
-    });
-  }, [debouncePrice]);
 
   return (
     <>
@@ -216,7 +205,14 @@ export const BookPage = () => {
                     <button
                       className="book__btn-buy"
                       onClick={() => {
-                        toast.error('Con me may');
+                        handleBuyNow(item.id, 1, {
+                          author: item.author,
+                          coverPublicId: item.coverPublicId,
+                          discountPrice: item.discountPrice,
+                          name: item.name,
+                          price: item.price,
+                          stockQuantity: item.stockQuantity,
+                        });
                       }}
                     >
                       Buy now

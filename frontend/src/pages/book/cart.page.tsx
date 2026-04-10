@@ -55,7 +55,10 @@ export const CartPage = () => {
                           handleDeleteCartItem={handleDeleteCartItem}
                           handleUpdateCartItem={handleUpdateCartItem}
                         />
-                        <div className="collections__remove">
+                        <div
+                          className="collections__remove"
+                          onClick={() => deleteCartItem(item.productId)}
+                        >
                           <DeleteOutlineOutlinedIcon />
                           <span>Remove</span>
                         </div>
@@ -87,7 +90,9 @@ export const CartPage = () => {
               <h6>Grand total</h6>
               <span>{formatCurrency(Number(totalPrice))}</span>
             </div>
-            <button className="collections__btn">Proceed to Checkout</button>
+            <Link to={'/checkout'}>
+              <button className="collections__btn">Proceed to Checkout</button>
+            </Link>
           </div>
         </div>
       ) : (
