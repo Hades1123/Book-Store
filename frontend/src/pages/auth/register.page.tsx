@@ -19,18 +19,13 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import { isAxiosError } from '@/api/axios.customize';
 import type { ApiError } from '@/types/api';
-import { AlertComponent, type TStatus } from '@/components/ui/toast';
+import { toast } from '@/stores/toast.store';
 
 export const RegisterPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const [passwordVision, setPasswordVision] = useState<boolean>(false);
   const [confirmPassVision, setConfirmPassVision] = useState<boolean>(false);
-  const [alertStatus, setAlertStatus] = useState<TStatus>({
-    message: '',
-    success: true,
-    open: false,
-  });
   const {
     handleSubmit,
     register,
@@ -59,10 +54,7 @@ export const RegisterPage = () => {
       }
     } catch (error: unknown) {
       if (isAxiosError<ApiError>(error) && error.response && error.response.data) {
-        setAlertStatus({
-          message: error.response.data.error.message,
-          success: error.response.data.success,
-        });
+        toast.error(error.response.data.error.message);
       }
     }
     setLoading(false);
@@ -171,14 +163,6 @@ export const RegisterPage = () => {
           </div>
         </div>
       </div>
-      <AlertComponent
-        handleClose={() => setAlertStatus({ open: false, message: '', success: true })}
-        status={{
-          success: alertStatus.success,
-          message: alertStatus.message,
-          open: alertStatus.open,
-        }}
-      />
     </>
   );
 };

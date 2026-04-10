@@ -31,7 +31,7 @@ export const BookPage = () => {
     handleChangePage,
     handleResetAll,
     handleSearch,
-    isLoading,
+    isFetching,
     marks,
     setFilter,
     setFilters,
@@ -153,79 +153,76 @@ export const BookPage = () => {
               </div>
             </div>
             <div className="book__grid">
-              {data ? (
-                data?.bookList.map((item) => (
-                  <div className="book__item-container">
-                    <Link to={`${item.id}`} style={{ textDecoration: 'none' }}>
-                      <div className="book__card">
-                        <div className="book__img-wrapper">
-                          <img className="book__thumbnail" src={thumbnail} alt="thumbnail" />
-                          <div className="book__detail">
-                            <div className="book__detail-publisher">
-                              {' '}
-                              <span>Publisher: </span>
-                              {item.publisher}
-                            </div>
-                            <div className="book__detail-page">
-                              <span>Pages: </span>
-                              {item.pages}
-                            </div>
-                            <div className="book__detail-language">
-                              {' '}
-                              <span>Language: </span>
-                              {item.language}
-                            </div>
-                          </div>
-                        </div>
-                        <div className="book__content">
-                          <div className="book__card-category">Philosophy</div>
-                          <div className="book__card-title">{item.name}</div>
-                          <div className="book__card-author">{item.author}</div>
-                          <div className="book__card-price">
-                            {formatCurrency(Number(item.price))}
-                          </div>
-                        </div>
-                      </div>
-                    </Link>
-                    <div className="book__btn">
-                      <button
-                        className="book__btn-cart"
-                        onClick={(e) => {
-                          handleAddToCart(e, item.id, {
-                            coverPublicId: item.coverPublicId,
-                            discountPrice: item.discountPrice,
-                            name: item.name,
-                            price: item.price,
-                            stockQuantity: item.stockQuantity,
-                          });
-                          toast.success('Thêm vào giỏ hàng thành công !');
-                        }}
-                      >
-                        <CartIcon />
-                      </button>
-                      <button
-                        className="book__btn-buy"
-                        onClick={() => {
-                          toast.error('Con me may');
-                        }}
-                      >
-                        Buy now
-                      </button>
-                    </div>
-                  </div>
-                ))
-              ) : (
+              {isFetching && (
                 <Backdrop
                   sx={(theme) => ({
                     color: '#fff',
                     zIndex: theme.zIndex.drawer + 1,
                     position: 'absolute',
                   })}
-                  open={isLoading}
+                  open={isFetching}
                 >
                   <CircularProgress color="primary" />
                 </Backdrop>
               )}
+              {data?.bookList.map((item) => (
+                <div className="book__item-container">
+                  <Link to={`${item.id}`} style={{ textDecoration: 'none' }}>
+                    <div className="book__card">
+                      <div className="book__img-wrapper">
+                        <img className="book__thumbnail" src={thumbnail} alt="thumbnail" />
+                        <div className="book__detail">
+                          <div className="book__detail-publisher">
+                            {' '}
+                            <span>Publisher: </span>
+                            {item.publisher}
+                          </div>
+                          <div className="book__detail-page">
+                            <span>Pages: </span>
+                            {item.pages}
+                          </div>
+                          <div className="book__detail-language">
+                            {' '}
+                            <span>Language: </span>
+                            {item.language}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="book__content">
+                        <div className="book__card-category">Philosophy</div>
+                        <div className="book__card-title">{item.name}</div>
+                        <div className="book__card-author">{item.author}</div>
+                        <div className="book__card-price">{formatCurrency(Number(item.price))}</div>
+                      </div>
+                    </div>
+                  </Link>
+                  <div className="book__btn">
+                    <button
+                      className="book__btn-cart"
+                      onClick={(e) => {
+                        handleAddToCart(e, item.id, {
+                          coverPublicId: item.coverPublicId,
+                          discountPrice: item.discountPrice,
+                          name: item.name,
+                          price: item.price,
+                          stockQuantity: item.stockQuantity,
+                        });
+                        toast.success('Thêm vào giỏ hàng thành công !');
+                      }}
+                    >
+                      <CartIcon />
+                    </button>
+                    <button
+                      className="book__btn-buy"
+                      onClick={() => {
+                        toast.error('Con me may');
+                      }}
+                    >
+                      Buy now
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
             <Pagination
               sx={{

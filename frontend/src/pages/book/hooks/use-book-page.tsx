@@ -5,7 +5,7 @@ import { useBookFilters } from '@/hooks/use-bookFilter';
 import { useDebounce } from '@/hooks/use-debounce';
 import type { TSortBy, TSortKey, TSortOrder } from '@/types/book';
 import type { TProductInfo } from '@/types/cart';
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useState, type ChangeEvent, type MouseEvent } from 'react';
 
 const SORT_OPTIONS: Record<TSortKey, { sortBy: TSortBy; sortOrder: TSortOrder; label: string }> = {
@@ -13,9 +13,17 @@ const SORT_OPTIONS: Record<TSortKey, { sortBy: TSortBy; sortOrder: TSortOrder; l
   'price-desc': { sortBy: 'price', sortOrder: 'desc', label: 'Price: High to Low' },
 };
 
+const marks = [
+  { value: MIN_PRICE, label: '' },
+  { value: MAX_PRICE, label: '' },
+];
+
 export const UseBookPage = () => {
   const { setFilter, setFilters, filters, resetFilters } = useBookFilters();
   const addToCart = useCartStore((state) => state.addToCart);
+
+  // status of cart popover
+  const [open, setIsOpen] = useState<boolean>(false);
 
   // Derive initial local state from URL params (single source of truth = URL)
   const [price, setPrice] = useState<number[] | null>(() => {
@@ -33,16 +41,18 @@ export const UseBookPage = () => {
     return !SORT_OPTIONS[key] ? 'price-asc' : key;
   });
 
+  // Debounce value
   const debounceSearch = useDebounce<string>(currentSearchValue, 1000);
   const debouncePrice = useDebounce<number[] | null>(price, 1000);
-  const [open, setIsOpen] = useState<boolean>(false);
 
-  const { data, isLoading } = useQuery({
+  // tanstack query
+  const { data, isLoading, isPending, isError, isFetching } = useQuery({
     queryKey: ['books', filters],
     queryFn: async () => {
       const result = await fetchBooks(filters);
       return result.data;
     },
+    placeholderData: keepPreviousData,
   });
 
   const { data: categoryStructure = [] } = useQuery({
@@ -53,11 +63,6 @@ export const UseBookPage = () => {
     },
   });
 
-  const marks = [
-    { value: MIN_PRICE, label: '' },
-    { value: MAX_PRICE, label: '' },
-  ];
-
   const handleChange = (event: Event, newValue: number[]) => {
     setPrice(newValue);
   };
@@ -67,7 +72,7 @@ export const UseBookPage = () => {
   };
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
-    setCurrentSearchValue(event.target.value.trim());
+    setCurrentSearchValue(event.target.value);
   };
 
   const handleAddToCart = (
@@ -78,10 +83,6 @@ export const UseBookPage = () => {
     e.preventDefault();
     addToCart(productId, 1, productInfo);
     setIsOpen(true);
-  };
-
-  const valuetext = (value: number) => {
-    return `${value}`;
   };
 
   const handleClickCategory = (value: { id: string; label: string }) => {
@@ -101,6 +102,10 @@ export const UseBookPage = () => {
     window.location.reload();
   };
 
+  const valuetext = (value: number) => {
+    return `${value}`;
+  };
+
   return {
     currentCategory,
     currentSort,
@@ -114,7 +119,10 @@ export const UseBookPage = () => {
     setFilters,
     resetFilters,
     data,
+    isPending,
     isLoading,
+    isError,
+    isFetching,
     marks,
     SORT_OPTIONS,
     handleChange,

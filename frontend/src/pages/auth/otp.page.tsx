@@ -3,17 +3,17 @@ import rocketIcon from '@/assets/auth/rocket.svg';
 import blueRocketIcon from '@/assets/auth/blueRocket.svg';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
-import { convertTime, sleep } from '@/utils/helper';
+import { convertTime } from '@/utils/helper';
 import type { RegisterResponse, ReqVerifyEmail } from '@/types/auth';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { postResendOtp, postVerifyEmail } from '@/api/auth.api';
-import { AlertComponent, type TStatus as TAlertStatus } from '@/components/ui/toast';
 import Button from '@mui/material/Button';
 import { isAxiosError } from '@/api/axios.customize';
 import type { ApiError } from '@/types/api';
 import CircularProgress from '@mui/material/CircularProgress';
+import { toast } from '@/stores/toast.store';
 
 const schema = z.object({
   otp: z.string(),
@@ -22,12 +22,6 @@ const schema = z.object({
 export const OtpPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [resendLoading, setResendLoading] = useState<boolean>(false);
-  const [alertStatus, setAlertStatus] = useState<TAlertStatus>({
-    message: 'Success',
-    success: true,
-    open: false,
-  });
-
   const location = useLocation();
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm({
@@ -46,24 +40,14 @@ export const OtpPage = () => {
       setLoading(true);
       const result = await postVerifyEmail(req);
       if (result.success) {
-        setAlertStatus({
-          message: 'Register successfully, redirect to login after ',
-          success: result.success,
-          displayCooldown: true,
-          duration: 3000,
-        });
-        setLoading(false);
-        await sleep(3000);
         navigate('/login');
       }
     } catch (error: unknown) {
       if (isAxiosError<ApiError>(error) && error.response && error.response.data) {
         const err = error.response.data;
-        setAlertStatus({
-          message: err.error.message,
-          success: err.success,
-        });
+        toast.error(err.error.message);
       }
+    } finally {
       setLoading(false);
     }
   };
@@ -75,19 +59,13 @@ export const OtpPage = () => {
         email: state.email,
         otpType: 'EMAIL_VERIFICATION',
       });
-      if (result?.success) {
+      if (result.success) {
         setTime(state.otpExpireTime);
-        setAlertStatus({
-          message: result.message,
-          success: result.success,
-        });
+        toast.success(result.message);
       }
     } catch (error: any) {
       if (isAxiosError<ApiError>(error) && error.response && error.response.data) {
-        setAlertStatus({
-          message: error.response.data.error.message,
-          success: error.response.data.success,
-        });
+        toast.error(error.response.data.error.message);
       }
     }
     setResendLoading(false);
@@ -154,12 +132,7 @@ export const OtpPage = () => {
           <hr />
           <Link to={'/login'}>Back to login</Link>
         </form>
-        <div className="otp__footer"></div>
       </div>
-      <AlertComponent
-        handleClose={() => setAlertStatus({ ...alertStatus, open: false })}
-        status={{ ...alertStatus, displayCooldown: true, duration: 2000 }}
-      />
     </>
   );
 };
