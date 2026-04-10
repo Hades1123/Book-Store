@@ -8,6 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import bookIcon from '@/assets/book.svg';
 import { CartPopover } from '@/components/books/cart.popover';
+import { useQueryClient } from '@tanstack/react-query';
 
 export const NAV_ITEMS = [
   {
@@ -33,6 +34,7 @@ export const NAV_ITEMS = [
 ];
 export const HeaderComponent = () => {
   const user = useAuthStore((state) => state.user);
+  const queryClient = useQueryClient();
   const logout = useAuthStore((state) => state.logoutAction);
   const location = useLocation();
   const navigate = useNavigate();
@@ -48,7 +50,7 @@ export const HeaderComponent = () => {
   };
 
   const onLogout = async () => {
-    logout();
+    logout(queryClient);
   };
 
   return (

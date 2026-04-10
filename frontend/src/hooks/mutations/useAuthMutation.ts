@@ -6,14 +6,13 @@ import { useAuthStore } from '@/stores/auth.store';
 import { useCartStore } from '@/stores/cart.store';
 import { toast } from '@/stores/toast.store';
 import type { TCartItemInput, TLocalCartItem } from '@/types/cart';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
 import { useNavigate } from 'react-router';
 
 export const UseAuthMutation = () => {
   const fetchUser = useAuthStore((state) => state.fetchUser);
   const fetchCart = useCartStore((state) => state.fetchCart);
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const handleMergeCart = async (): Promise<boolean> => {
     const localCart = JSON.parse(localStorage.getItem(GUEST_CART) ?? '[]') as TLocalCartItem[];
@@ -95,19 +94,8 @@ export const UseAuthMutation = () => {
     },
   });
 
-  const logout = useMutation({
-    mutationFn: () => useAuthStore.getState().logoutAction(),
-    onSuccess: (result) => {
-      if (result.success) {
-        queryClient.clear();
-        toast.success('Đăng xuất thành công');
-      }
-    },
-  });
-
   return {
     login,
-    logout,
     register,
     resendOtp,
     verifyEmail,
