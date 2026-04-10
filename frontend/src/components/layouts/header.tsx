@@ -33,7 +33,7 @@ export const NAV_ITEMS = [
 ];
 export const HeaderComponent = () => {
   const user = useAuthStore((state) => state.user);
-  const logout = useAuthStore((state) => state.logout);
+  const logout = useAuthStore((state) => state.logoutAction);
   const location = useLocation();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -48,12 +48,7 @@ export const HeaderComponent = () => {
   };
 
   const onLogout = async () => {
-    try {
-      logout();
-      navigate('/login');
-    } catch (err: unknown) {
-      console.error(err);
-    }
+    logout();
   };
 
   return (

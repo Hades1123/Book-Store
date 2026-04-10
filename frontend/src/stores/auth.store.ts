@@ -1,13 +1,14 @@
 import { create } from 'zustand';
-import { postLogout } from '@/api/auth.api';
 import { getUserProfile } from '@/api/user.api';
 import type { IUser } from '@/types/user';
+import { postLogout } from '@/api/auth.api';
+import { toast } from './toast.store';
 
 interface AuthState {
   user: IUser | null;
   isLoading: boolean;
   fetchUser: () => Promise<void>;
-  logout: () => Promise<void>;
+  logoutAction: () => Promise<{ success: boolean; err?: unknown }>;
   setUser: (user: IUser | null) => void;
 }
 
@@ -27,18 +28,20 @@ export const useAuthStore = create<AuthState>()((set) => ({
     set({ isLoading: false });
   },
 
-  logout: async () => {
-    set({ isLoading: true });
+  setUser: (user) => set({ user }),
+
+  logoutAction: async () => {
     try {
       await postLogout();
       set({ user: null });
-    } catch (err) {
+      toast.success('Đăng xuất thành công !!!');
+      window.location.href = '/login';
+      return { success: true };
+    } catch (err: unknown) {
       console.error(err);
+      return { success: false, error: err };
     }
-    set({ isLoading: false });
   },
-
-  setUser: (user) => set({ user }),
 }));
 
 // Convenience getters (call from anywhere, even outside React)

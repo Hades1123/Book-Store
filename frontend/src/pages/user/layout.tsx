@@ -19,7 +19,7 @@ const MENU_ITEMS = [
 export const ProfileLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const logout = useAuthStore((state) => state.logout);
+  const logout = useAuthStore((state) => state.logoutAction);
 
   const onLogout = () => {
     logout();
