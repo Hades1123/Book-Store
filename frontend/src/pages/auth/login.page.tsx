@@ -12,14 +12,8 @@ import type { ReqLogin } from '@/types/auth';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
-import { postLogin } from '@/api/auth.api';
-import { isAxiosError } from '@/api/axios.customize';
-import type { ApiError } from '@/types/api';
 import CircularProgress from '@mui/material/CircularProgress';
-import type { TCartItemInput, TLocalCartItem } from '@/types/cart';
-import { mergeCartApi } from '@/api/cart.api';
-import { GUEST_CART } from '@/constants/common';
-import { toast } from '@/stores/toast.store';
+import { UseAuthMutation } from '@/hooks/mutations/useAuthMutation';
 
 const schema = z.object({
   email: z.email({ error: 'Invalid email format' }),
@@ -27,9 +21,9 @@ const schema = z.object({
 });
 
 export const LoginPage = () => {
+  const { login } = UseAuthMutation();
   const [passVisible, setPassVisible] = useState<boolean>(false);
   const navigate = useNavigate();
-  const [loading, setLoading] = useState<boolean>(false);
   const {
     handleSubmit,
     register,
@@ -38,39 +32,8 @@ export const LoginPage = () => {
     resolver: zodResolver(schema),
   });
 
-  const handleMergeCart = async (): Promise<boolean> => {
-    const localCart = JSON.parse(localStorage.getItem(GUEST_CART) ?? '[]') as TLocalCartItem[];
-    const cartItemInputs: TCartItemInput[] = localCart.map((item) => ({
-      productId: item.productId,
-      quantity: item.quantity,
-    }));
-    const result = await mergeCartApi({
-      items: cartItemInputs,
-    });
-    if (result && result.data) {
-      localStorage.removeItem(GUEST_CART);
-      return true;
-    }
-    return false;
-  };
-
   const onLogin = async (req: ReqLogin) => {
-    try {
-      setLoading(true);
-      const result = await postLogin(req);
-      if (result.data) {
-        const mergeCartSuccess = await handleMergeCart();
-        if (mergeCartSuccess) {
-          window.location.href = '/';
-        }
-      }
-    } catch (err) {
-      if (isAxiosError<ApiError>(err)) {
-        const data = err?.response?.data;
-        toast.error(data?.error.message ?? 'Internal server');
-      }
-    }
-    setLoading(false);
+    login.mutate(req);
   };
 
   const onTogglePassword = () => {
@@ -131,7 +94,7 @@ export const LoginPage = () => {
             sx={{ width: '100%' }}
             variant="contained"
             color="primary"
-            loading={loading}
+            loading={login.isPending}
             type="submit"
             loadingIndicator={<CircularProgress sx={{ color: 'blue', fontSize: '12' }} />}
           >
