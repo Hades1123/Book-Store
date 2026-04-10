@@ -206,6 +206,7 @@ export const BookPage = () => {
                           name: item.name,
                           price: item.price,
                           stockQuantity: item.stockQuantity,
+                          author: item.author,
                         });
                         toast.success('Thêm vào giỏ hàng thành công !');
                       }}

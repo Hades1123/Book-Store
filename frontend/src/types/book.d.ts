@@ -14,7 +14,7 @@ export interface IBook {
   createdAt: Date;
   updatedAt: Date;
   author: string;
-  categoryId: numb;
+  categoryId: number;
   price: bigint;
   publisher: string;
   isbn: string | null;

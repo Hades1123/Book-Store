@@ -4,6 +4,7 @@ export type TCartItemProductResponse = {
   discountPrice: bigint | null;
   coverPublicId: string | null;
   stockQuantity: number;
+  author: string;
 };
 
 export type TCartItemResponse = {

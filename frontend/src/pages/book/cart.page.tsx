@@ -40,7 +40,10 @@ export const CartPage = () => {
                   </div>
                   <div className="collections__content">
                     <div className="collections__first">
-                      <h3 className="collections__name">{item.product.name}</h3>
+                      <div>
+                        <h3 className="collections__name">{item.product.name}</h3>
+                        <span className="collections__author">{item.product.author}</span>
+                      </div>
                       <span className="collections__price">
                         {formatCurrency(Number(item.product.price))}
                       </span>

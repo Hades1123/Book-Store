@@ -1,16 +1,6 @@
 import { create } from 'zustand';
-import {
-  addToCartApi,
-  deleteCartItemApi,
-  getCartApi,
-  patchCartItemApi,
-} from '@/api/cart.api';
-import type {
-  TCartItemResponse,
-  TCartResponse,
-  TLocalCartItem,
-  TProductInfo,
-} from '@/types/cart';
+import { addToCartApi, deleteCartItemApi, getCartApi, patchCartItemApi } from '@/api/cart.api';
+import type { TCartItemResponse, TCartResponse, TLocalCartItem, TProductInfo } from '@/types/cart';
 import { GUEST_CART } from '@/constants/common';
 import { useAuthStore } from './auth.store';
 
@@ -37,6 +27,7 @@ const convertLocalCartToTCartResponse = (localCart: TLocalCartItem[]): TCartResp
       name: item.product.name,
       price: item.product.price,
       stockQuantity: item.product.stockQuantity,
+      author: item.product.author,
     },
   }));
 
@@ -65,9 +56,7 @@ export const useCartStore = create<CartState>()((set, get) => ({
         set({ cart: null });
       }
     } else {
-      const localCart = JSON.parse(
-        localStorage.getItem(GUEST_CART) ?? '[]'
-      ) as TLocalCartItem[];
+      const localCart = JSON.parse(localStorage.getItem(GUEST_CART) ?? '[]') as TLocalCartItem[];
       set({ cart: convertLocalCartToTCartResponse(localCart) });
     }
 
@@ -85,9 +74,7 @@ export const useCartStore = create<CartState>()((set, get) => ({
         console.error(err);
       }
     } else {
-      const localCart = JSON.parse(
-        localStorage.getItem(GUEST_CART) ?? '[]'
-      ) as TLocalCartItem[];
+      const localCart = JSON.parse(localStorage.getItem(GUEST_CART) ?? '[]') as TLocalCartItem[];
       const existing = localCart.find((item) => item.productId === productId);
 
       if (existing) {
@@ -124,9 +111,7 @@ export const useCartStore = create<CartState>()((set, get) => ({
         return { loadingItems: newSet };
       });
     } else {
-      const localCart = JSON.parse(
-        localStorage.getItem(GUEST_CART) ?? '[]'
-      ) as TLocalCartItem[];
+      const localCart = JSON.parse(localStorage.getItem(GUEST_CART) ?? '[]') as TLocalCartItem[];
       const newLocalCart = localCart.filter((item) => item.productId !== productId);
       localStorage.setItem(GUEST_CART, JSON.stringify(newLocalCart));
       set({ cart: convertLocalCartToTCartResponse(newLocalCart) });
@@ -147,9 +132,7 @@ export const useCartStore = create<CartState>()((set, get) => ({
         const result = await patchCartItemApi(productId, quantity);
         if (result?.data && cart) {
           const newItems = cart.items.map((item) =>
-            item.id === result.data?.id
-              ? { ...item, quantity: result.data.quantity }
-              : item
+            item.id === result.data?.id ? { ...item, quantity: result.data.quantity } : item
           );
           set({
             cart: {
@@ -170,9 +153,7 @@ export const useCartStore = create<CartState>()((set, get) => ({
         return { loadingItems: newSet };
       });
     } else {
-      const localCart = JSON.parse(
-        localStorage.getItem(GUEST_CART) ?? '[]'
-      ) as TLocalCartItem[];
+      const localCart = JSON.parse(localStorage.getItem(GUEST_CART) ?? '[]') as TLocalCartItem[];
       const newLocalCart = localCart.map((item) =>
         item.productId === productId ? { ...item, quantity } : item
       );
@@ -192,10 +173,5 @@ export const useTotalQuantity = () => {
 
 export const useTotalPrice = () => {
   const cart = useCartStore((state) => state.cart);
-  return (
-    cart?.items.reduce(
-      (acc, cur) => acc + Number(cur.product.price) * cur.quantity,
-      0
-    ) ?? 0
-  );
+  return cart?.items.reduce((acc, cur) => acc + Number(cur.product.price) * cur.quantity, 0) ?? 0;
 };

@@ -8,6 +8,7 @@ interface ICart {
 
 type TCartItemProductResponse = {
   name: string;
+  author: string;
   price: bigint;
   discountPrice: bigint | null;
   coverPublicId: string | null;
@@ -29,6 +30,7 @@ type TCartResponse = {
 
 type TProductInfo = {
   name: string;
+  author: string;
   price: bigint;
   discountPrice: bigint | null;
   coverPublicId: string | null;

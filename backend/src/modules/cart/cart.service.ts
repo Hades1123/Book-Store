@@ -32,6 +32,7 @@ export class CartService {
             discountPrice: true,
             coverPublicId: true,
             stockQuantity: true,
+            author: true,
           },
         },
       },
