@@ -1,4 +1,3 @@
-import type { ApiResponse } from '@/types/api';
 import axios from './axios.customize';
 import type { IBook, IBooksParams, IBooksRes, ICategoryRes } from '@/types/book';
 

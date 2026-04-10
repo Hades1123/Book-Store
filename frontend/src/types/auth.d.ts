@@ -30,5 +30,5 @@ export interface LoginResponse {
 
 export interface RegisterResponse {
   email: string;
-  otpExpireTime: number; // milisecond
+  expiredAt: Date;
 }

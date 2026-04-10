@@ -1,15 +1,18 @@
-import { postLogin, postLogout, postRegister } from '@/api/auth.api';
+import { postLogin, postRegister, postResendOtp, postVerifyEmail } from '@/api/auth.api';
 import { mergeCartApi } from '@/api/cart.api';
 import { GUEST_CART } from '@/constants/common';
+import { ErrorCode } from '@/constants/enum';
+import { useAuthStore } from '@/stores/auth.store';
+import { useCartStore } from '@/stores/cart.store';
 import { toast } from '@/stores/toast.store';
-import type { ApiError } from '@/types/api';
-import type { RegisterResponse } from '@/types/auth';
 import type { TCartItemInput, TLocalCartItem } from '@/types/cart';
 import { useMutation } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
 import { useNavigate } from 'react-router';
 
 export const UseAuthMutation = () => {
+  const fetchUser = useAuthStore((state) => state.fetchUser);
+  const fetchCart = useCartStore((state) => state.fetchCart);
   const navigate = useNavigate();
   const handleMergeCart = async (): Promise<boolean> => {
     const localCart = JSON.parse(localStorage.getItem(GUEST_CART) ?? '[]') as TLocalCartItem[];
@@ -32,13 +35,22 @@ export const UseAuthMutation = () => {
     onSuccess: async () => {
       const mergeCartSuccess = await handleMergeCart();
       if (mergeCartSuccess) {
-        window.location.href = '/';
+        // window.location.href = '/';
+        toast.success('Đăng nhập thành công');
+        navigate('/');
+        fetchUser();
+        fetchCart();
       }
     },
-    onError: (err: unknown) => {
+    onError: (err: unknown, variables) => {
       if (isAxiosError<ApiError>(err) && err.response && err.response.data) {
-        const message = err.response.data.error.message || 'Đăng nhập thất bại';
+        const error = err.response.data.error;
+        const message = error.message || 'Đăng nhập thất bại';
         toast.error(message);
+        if (error.code == ErrorCode.AUTH_EMAIL_NOT_VERIFIED) {
+          const { email, password } = variables;
+          navigate('/otp', { state: { email, password } });
+        }
       }
     },
   });
@@ -46,14 +58,8 @@ export const UseAuthMutation = () => {
   const register = useMutation({
     mutationFn: postRegister,
     onSuccess: (result) => {
-      if (result.data) {
-        const { email, otpExpireTime } = result.data;
-        const successData: RegisterResponse = {
-          email: email,
-          otpExpireTime: otpExpireTime / 1000,
-        };
-        navigate('/', { state: successData });
-      }
+      toast.success(result.message);
+      navigate('/login');
     },
     onError: (err: unknown) => {
       if (isAxiosError<ApiError>(err) && err.response && err.response.data) {
@@ -63,8 +69,36 @@ export const UseAuthMutation = () => {
     },
   });
 
+  const resendOtp = useMutation({
+    mutationFn: postResendOtp,
+    onSuccess: () => {
+      toast.success('Gửi otp thành công');
+    },
+    onError: (err) => {
+      if (isAxiosError<ApiError>(err) && err.response) {
+        toast.error(err.response.data.error.message);
+      }
+    },
+  });
+
+  const verifyEmail = useMutation({
+    mutationFn: postVerifyEmail,
+    onSuccess: (result) => {
+      if (result.success) {
+        toast.success('Xác thực thành công !!!');
+      }
+    },
+    onError: (err) => {
+      if (isAxiosError<ApiError>(err) && err.response?.data) {
+        toast.error(err.response.data.error.message);
+      }
+    },
+  });
+
   return {
     login,
     register,
+    resendOtp,
+    verifyEmail,
   };
 };

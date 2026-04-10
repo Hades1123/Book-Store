@@ -41,4 +41,12 @@ export class AppException extends HttpException {
   static inActiveEmail() {
     return new AppException(ErrorCode.USER_INACTIVE, 'Email must be verified before login', HttpStatus.UNAUTHORIZED);
   }
+
+  static emailNotVerified(email: string) {
+    return new AppException(
+      ErrorCode.AUTH_EMAIL_NOT_VERIFIED,
+      'Email not verified',
+      HttpStatus.FORBIDDEN,
+    );
+  }
 }

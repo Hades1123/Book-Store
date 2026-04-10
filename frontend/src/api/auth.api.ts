@@ -7,7 +7,6 @@ import type {
   ReqVerifyEmail,
 } from '@/types/auth';
 import axios from './axios.customize';
-import type { ApiResponse } from '@/types/api';
 
 export const postRegister = async (req: ReqRegister) => {
   const result = await axios.post<ApiResponse<RegisterResponse>>('/auth/register', req);

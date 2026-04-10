@@ -20,7 +20,7 @@ export class AuthController {
   ) {}
 
   @Post('register')
-  @ResponseMessage('We have just sent OTP to your email, check it !!!')
+  @ResponseMessage('Register successfully !!!')
   async registerUser(@Body() body: RegisterDto): Promise<RegisterResponse> {
     return this.authService.register(body);
   }

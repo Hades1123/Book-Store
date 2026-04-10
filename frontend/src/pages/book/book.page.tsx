@@ -1,7 +1,6 @@
 import thumbnail from '@/assets/book1.png';
 import './book.page.scss';
 import Slider from '@mui/material/Slider';
-import { useEffect } from 'react';
 import { MAX_PRICE, MIN_PRICE } from '@/constants/common';
 import { formatCurrency } from '@/utils/helper';
 import Typography from '@mui/material/Typography';

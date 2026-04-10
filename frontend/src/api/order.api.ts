@@ -1,6 +1,6 @@
 import type { TOrderSchema } from '@/schemas/order.schema';
 import axios from '@/api/axios.customize';
-import type { ApiResponse } from '@/types/api';
+import type { TCheckout, TOrderResponse, TPaymentMethod, TShippingAddress } from '@/types/order';
 
 export const checkoutAPI = async (rawData: TOrderSchema) => {
   const data: TCheckout = {

@@ -1,75 +1,79 @@
 import './otp.scss';
 import rocketIcon from '@/assets/auth/rocket.svg';
 import blueRocketIcon from '@/assets/auth/blueRocket.svg';
-import { Link, useLocation, useNavigate } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import { useEffect, useState } from 'react';
-import { convertTime } from '@/utils/helper';
-import type { RegisterResponse, ReqVerifyEmail } from '@/types/auth';
+import { convertTime, timeLeftInSeconds } from '@/utils/helper';
+import type { ReqLogin } from '@/types/auth';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { postResendOtp, postVerifyEmail } from '@/api/auth.api';
 import Button from '@mui/material/Button';
-import { isAxiosError } from '@/api/axios.customize';
-import type { ApiError } from '@/types/api';
 import CircularProgress from '@mui/material/CircularProgress';
+import { UseAuthMutation } from '@/hooks/mutations/useAuthMutation';
 import { toast } from '@/stores/toast.store';
+import { isAxiosError } from 'axios';
 
 const schema = z.object({
   otp: z.string(),
 });
 
 export const OtpPage = () => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [resendLoading, setResendLoading] = useState<boolean>(false);
+  const { resendOtp, verifyEmail, login } = UseAuthMutation();
+  const [time, setTime] = useState<number>(0);
   const location = useLocation();
-  const navigate = useNavigate();
+  const { state }: { state: ReqLogin } = location;
+  const [verifyLoading, setVerifyLoading] = useState<boolean>(false);
   const { register, handleSubmit } = useForm({
     resolver: zodResolver(schema),
   });
-  const { state }: { state: RegisterResponse } = location;
-  const [time, setTime] = useState<number>(state.otpExpireTime);
 
   const onSubmit: SubmitHandler<{ otp: string }> = async (data) => {
-    const req: ReqVerifyEmail = {
-      email: state.email,
-      otp: data.otp,
-      otpType: 'EMAIL_VERIFICATION',
-    };
     try {
-      setLoading(true);
-      const result = await postVerifyEmail(req);
-      if (result.success) {
-        navigate('/login');
-      }
-    } catch (error: unknown) {
-      if (isAxiosError<ApiError>(error) && error.response && error.response.data) {
-        const err = error.response.data;
-        toast.error(err.error.message);
+      setVerifyLoading(true);
+      await verifyEmail.mutateAsync({
+        email: state.email,
+        otp: data.otp,
+        otpType: 'EMAIL_VERIFICATION',
+      });
+      await login.mutateAsync({ email: state.email, password: state.password });
+    } catch (error) {
+      if (isAxiosError<ApiError>(error) && error.response?.data) {
+        toast.error(error.response.data.error.message);
       }
     } finally {
-      setLoading(false);
+      setVerifyLoading(false);
     }
   };
 
   const onResendOtp = async () => {
-    try {
-      setResendLoading(true);
-      const result = await postResendOtp({
-        email: state.email,
-        otpType: 'EMAIL_VERIFICATION',
-      });
-      if (result.success) {
-        setTime(state.otpExpireTime);
-        toast.success(result.message);
+    resendOtp.mutate(
+      { email: state.email, otpType: 'EMAIL_VERIFICATION' },
+      {
+        onSuccess: (data) => {
+          if (data.data) {
+            setTime(timeLeftInSeconds(data.data.expiredAt));
+          }
+        },
       }
-    } catch (error: any) {
-      if (isAxiosError<ApiError>(error) && error.response && error.response.data) {
-        toast.error(error.response.data.error.message);
-      }
-    }
-    setResendLoading(false);
+    );
   };
+
+  useEffect(() => {
+    if (!state.email) {
+      return;
+    }
+    resendOtp.mutate(
+      { email: state.email, otpType: 'EMAIL_VERIFICATION' },
+      {
+        onSuccess: (data) => {
+          if (data.data) {
+            setTime(timeLeftInSeconds(data.data.expiredAt));
+          }
+        },
+      }
+    );
+  }, [state.email]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -110,7 +114,7 @@ export const OtpPage = () => {
             color="primary"
             variant="contained"
             type="submit"
-            loading={loading}
+            loading={verifyLoading}
             loadingIndicator={<CircularProgress sx={{ color: 'blue', fontSize: 12 }} />}
           >
             Verify Identity
@@ -125,7 +129,7 @@ export const OtpPage = () => {
             loadingIndicator={<CircularProgress style={{ color: 'blue', fontSize: 12 }} />}
             onClick={onResendOtp}
             disabled={time > 0}
-            loading={resendLoading}
+            loading={resendOtp.isPending}
           >
             Resend Otp
           </Button>

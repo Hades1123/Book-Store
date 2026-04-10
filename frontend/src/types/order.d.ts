@@ -1,4 +1,4 @@
-type TPaymentMethod = 'COD' | 'VNPAY';
+export type TPaymentMethod = 'COD' | 'VNPAY';
 
 type TShippingAddress = {
   receiverName: string;
