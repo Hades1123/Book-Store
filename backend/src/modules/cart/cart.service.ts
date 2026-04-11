@@ -36,6 +36,9 @@ export class CartService {
           },
         },
       },
+      orderBy: {
+        createdAt: 'asc',
+      },
     });
 
     const mappedItems: TCartItemResponse[] = items.map((item) => ({

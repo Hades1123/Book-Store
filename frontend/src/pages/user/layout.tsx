@@ -8,6 +8,7 @@ import LogoutIcon from '@/assets/auth/logout.svg?react';
 import NotifyIcon from '@/assets/notify.svg?react';
 import SettingIcon from '@/assets/setting.svg?react';
 import { useAuthStore } from '@/stores/auth.store';
+import { useQueryClient } from '@tanstack/react-query';
 
 const MENU_ITEMS = [
   { id: 'info', label: 'Profile Info', icon: UserIcon, path: '/user' },
@@ -20,9 +21,10 @@ export const ProfileLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const logout = useAuthStore((state) => state.logoutAction);
+  const queryClient = useQueryClient();
 
   const onLogout = () => {
-    logout();
+    logout(queryClient);
     navigate('/');
   };
 

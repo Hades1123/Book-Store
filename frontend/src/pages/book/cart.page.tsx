@@ -1,4 +1,3 @@
-import { useCartStore, useTotalPrice } from '@/stores/cart.store';
 import './cart.page.scss';
 import thumbnail from '@/assets/book1.png';
 import { formatCurrency } from '@/utils/helper';
@@ -7,20 +6,21 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import CartIcon from '@/assets/cart.svg?react';
 import type { MouseEvent } from 'react';
 import { Link } from 'react-router';
+import { useCartMutation } from '@/hooks/mutations/useCartMutation';
+import { useCart, useTotalPrice } from '@/hooks/queries/useCart';
 
 export const CartPage = () => {
-  const cart = useCartStore((state) => state.cart);
-  const deleteCartItem = useCartStore((state) => state.deleteCartItem);
-  const updateCartItem = useCartStore((state) => state.updateCartItem);
+  const { data: cart } = useCart();
+  const { deleteCartItem, updateCartItem } = useCartMutation();
   const totalPrice = useTotalPrice();
 
   const handleDeleteCartItem = (e: MouseEvent<SVGSVGElement>, productId: string) => {
     e.preventDefault();
-    deleteCartItem(productId);
+    deleteCartItem.mutate(productId);
   };
 
   const handleUpdateCartItem = (productId: string, quantity: number) => {
-    updateCartItem(productId, quantity);
+    updateCartItem.mutate({ productId, quantity });
   };
 
   return (
@@ -57,7 +57,7 @@ export const CartPage = () => {
                         />
                         <div
                           className="collections__remove"
-                          onClick={() => deleteCartItem(item.productId)}
+                          onClick={() => deleteCartItem.mutate(item.productId)}
                         >
                           <DeleteOutlineOutlinedIcon />
                           <span>Remove</span>

@@ -3,16 +3,15 @@ import { mergeCartApi } from '@/api/cart.api';
 import { GUEST_CART } from '@/constants/common';
 import { ErrorCode } from '@/constants/enum';
 import { useAuthStore } from '@/stores/auth.store';
-import { useCartStore } from '@/stores/cart.store';
 import { toast } from '@/stores/toast.store';
 import type { TCartItemInput, TLocalCartItem } from '@/types/cart';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
 import { useNavigate } from 'react-router';
 
 export const UseAuthMutation = () => {
+  const queryClient = useQueryClient();
   const fetchUser = useAuthStore((state) => state.fetchUser);
-  const fetchCart = useCartStore((state) => state.fetchCart);
   const navigate = useNavigate();
   const handleMergeCart = async (): Promise<boolean> => {
     const localCart = JSON.parse(localStorage.getItem(GUEST_CART) ?? '[]') as TLocalCartItem[];
@@ -38,7 +37,7 @@ export const UseAuthMutation = () => {
         toast.success('Đăng nhập thành công');
         navigate('/');
         fetchUser();
-        fetchCart();
+        queryClient.invalidateQueries({ queryKey: ['cart'] });
       }
     },
     onError: (err: unknown, variables) => {

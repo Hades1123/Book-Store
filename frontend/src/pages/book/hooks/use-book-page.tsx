@@ -1,13 +1,10 @@
 import { fetchBooks, getCategoryStructure } from '@/api/book.api';
 import { MAX_PRICE, MIN_PRICE } from '@/constants/common';
-import { useCartStore } from '@/stores/cart.store';
 import { useBookFilters } from '@/hooks/use-bookFilter';
 import { useDebounce } from '@/hooks/use-debounce';
 import type { TSortBy, TSortKey, TSortOrder } from '@/types/book';
-import type { TProductInfo } from '@/types/cart';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { useEffect, useState, type ChangeEvent, type MouseEvent } from 'react';
-import { useNavigate } from 'react-router';
+import { useEffect, useState, type ChangeEvent } from 'react';
 
 const SORT_OPTIONS: Record<TSortKey, { sortBy: TSortBy; sortOrder: TSortOrder; label: string }> = {
   'price-asc': { sortBy: 'price', sortOrder: 'asc', label: 'Price: Low to High' },
@@ -21,10 +18,6 @@ const marks = [
 
 export const UseBookPage = () => {
   const { setFilter, setFilters, filters, resetFilters } = useBookFilters();
-  const addToCart = useCartStore((state) => state.addToCart);
-  const navigate = useNavigate();
-  // status of cart popover
-  const [open, setIsOpen] = useState<boolean>(false);
 
   // Derive initial local state from URL params (single source of truth = URL)
   const [price, setPrice] = useState<number[] | null>(() => {
@@ -65,7 +58,7 @@ export const UseBookPage = () => {
   });
 
   // Event function
-  const handleChange = (event: Event, newValue: number[]) => {
+  const handleChange = (_: Event, newValue: number[]) => {
     setPrice(newValue);
   };
 
@@ -75,16 +68,6 @@ export const UseBookPage = () => {
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     setCurrentSearchValue(event.target.value);
-  };
-
-  const handleAddToCart = (
-    e: MouseEvent<HTMLButtonElement>,
-    productId: string,
-    productInfo: TProductInfo
-  ) => {
-    e.preventDefault();
-    addToCart(productId, 1, productInfo);
-    setIsOpen(true);
   };
 
   const handleClickCategory = (value: { id: string; label: string }) => {
@@ -97,11 +80,6 @@ export const UseBookPage = () => {
       setFilter('categoryIds', value.id);
     }
     setCurrentCategory(value.id);
-  };
-
-  const handleBuyNow = (productId: string, quantity: number, productInfo: TProductInfo) => {
-    addToCart(productId, quantity, productInfo);
-    navigate('/cart');
   };
 
   const handleResetAll = () => {
@@ -144,14 +122,11 @@ export const UseBookPage = () => {
     isFetching,
     marks,
     SORT_OPTIONS,
-    handleBuyNow,
     handleChange,
     handleChangePage,
     handleSearch,
-    handleAddToCart,
     handleClickCategory,
     handleResetAll,
-    setIsOpen,
     filters,
     setCurrentCategory,
     categoryStructure,

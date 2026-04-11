@@ -1,4 +1,4 @@
-import { useCartStore, useTotalPrice } from '@/stores/cart.store';
+import { useCartStore } from '@/stores/cart.store';
 import './checkout.page.scss';
 import thumbnail from '@/assets/book1.png';
 import { formatCurrency } from '@/utils/helper';
@@ -8,6 +8,7 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { orderSchema, type TOrderSchema } from '@/schemas/order.schema';
 import { checkoutAPI } from '@/api/order.api';
+import { useTotalPrice } from '@/hooks/queries/useCart';
 
 const MAX_ITEMS = 3;
 
@@ -92,34 +93,6 @@ export const CheckoutPage = () => {
               )}
             </div>
           </section>
-          {/* <section className="checkout__delivery">
-            <div className="checkout__title">
-              <span>02</span>
-              <h2>Delivery Method</h2>
-            </div>
-            <div className="checkout__delivery-container">
-              <div className="checkout__standard  checkout__method-item">
-                <div className="checkout__method--left">
-                  <input type="radio" id="checkout__standard" />
-                  <label className="checkout__method-name" htmlFor="checkout__standard">
-                    <h4>Standard Shipping</h4>
-                    <span>3-5 business days</span>
-                  </label>
-                </div>
-                <div className="checkout__method--right">£4.50</div>
-              </div>
-              <div className="checkout__express checkout__method-item">
-                <div className="checkout__method--left">
-                  <input type="radio" id="checkout__express" />
-                  <label className="checkout__method-name" htmlFor="checkout__express">
-                    <h4>Express Courier</h4>
-                    <span>Next business day</span>
-                  </label>
-                </div>
-                <div className="checkout__method--right">£12.00</div>
-              </div>
-            </div>
-          </section> */}
           <section className="checkout__payment">
             <div className="checkout__title">
               <span>02</span>

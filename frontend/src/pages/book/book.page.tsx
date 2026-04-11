@@ -1,4 +1,3 @@
-import thumbnail from '@/assets/book1.png';
 import './book.page.scss';
 import Slider from '@mui/material/Slider';
 import { MAX_PRICE, MIN_PRICE } from '@/constants/common';
@@ -12,20 +11,15 @@ import CircularProgress from '@mui/material/CircularProgress';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import { Link } from 'react-router';
-import CartIcon from '@/assets/cart.svg?react';
 import { UseBookPage } from './hooks/use-book-page';
 import { CategoryNode } from '@/components/books/category.node';
-import { toast } from '@/stores/toast.store';
+import { BookCard } from '@/components/books/book.card';
 
 export const BookPage = () => {
   const {
     SORT_OPTIONS,
     currentSort,
     data,
-    debouncePrice,
-    debounceSearch,
-    handleAddToCart,
     handleChange,
     handleChangePage,
     handleResetAll,
@@ -43,7 +37,6 @@ export const BookPage = () => {
     currentCategory,
     handleClickCategory,
     valuetext,
-    handleBuyNow,
   } = UseBookPage();
 
   return (
@@ -154,70 +147,7 @@ export const BookPage = () => {
                 </Backdrop>
               )}
               {data?.bookList.map((item) => (
-                <div className="book__item-container">
-                  <Link to={`${item.id}`} style={{ textDecoration: 'none' }}>
-                    <div className="book__card">
-                      <div className="book__img-wrapper">
-                        <img className="book__thumbnail" src={thumbnail} alt="thumbnail" />
-                        <div className="book__detail">
-                          <div className="book__detail-publisher">
-                            {' '}
-                            <span>Publisher: </span>
-                            {item.publisher}
-                          </div>
-                          <div className="book__detail-page">
-                            <span>Pages: </span>
-                            {item.pages}
-                          </div>
-                          <div className="book__detail-language">
-                            {' '}
-                            <span>Language: </span>
-                            {item.language}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="book__content">
-                        <div className="book__card-category">Philosophy</div>
-                        <div className="book__card-title">{item.name}</div>
-                        <div className="book__card-author">{item.author}</div>
-                        <div className="book__card-price">{formatCurrency(Number(item.price))}</div>
-                      </div>
-                    </div>
-                  </Link>
-                  <div className="book__btn">
-                    <button
-                      className="book__btn-cart"
-                      onClick={(e) => {
-                        handleAddToCart(e, item.id, {
-                          coverPublicId: item.coverPublicId,
-                          discountPrice: item.discountPrice,
-                          name: item.name,
-                          price: item.price,
-                          stockQuantity: item.stockQuantity,
-                          author: item.author,
-                        });
-                        toast.success('Thêm vào giỏ hàng thành công !');
-                      }}
-                    >
-                      <CartIcon />
-                    </button>
-                    <button
-                      className="book__btn-buy"
-                      onClick={() => {
-                        handleBuyNow(item.id, 1, {
-                          author: item.author,
-                          coverPublicId: item.coverPublicId,
-                          discountPrice: item.discountPrice,
-                          name: item.name,
-                          price: item.price,
-                          stockQuantity: item.stockQuantity,
-                        });
-                      }}
-                    >
-                      Buy now
-                    </button>
-                  </div>
-                </div>
+                <BookCard item={item} />
               ))}
             </div>
             <Pagination
@@ -225,7 +155,7 @@ export const BookPage = () => {
                 display: 'flex',
                 justifyContent: 'center',
               }}
-              onChange={(e, page) => handleChangePage(page)}
+              onChange={(_, page) => handleChangePage(page)}
               count={data?.pagination.totalPages}
               page={filters.page}
               color="primary"

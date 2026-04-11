@@ -39,19 +39,17 @@ export const HomePage = () => {
           <div>View All Arrivals</div>
         </div>
         <div className="books">
-          {[0, 1, 2, 3].map(() => {
+          {[0, 1, 2, 3].map((_, index) => {
             return (
-              <>
-                <div className="book">
-                  <div className="thumbnail-wrapper">
-                    <img src={demoThumbnail} alt="thumbnail" />
-                  </div>
-                  <div className="book__category">Essays & Critique</div>
-                  <div className="book__title">The Invisible Thread</div>
-                  <div className="book__author">Elena Rossi</div>
-                  <div className="book__price">{formatCurrency(200000)}</div>
+              <div className="book" key={`homepage-${index}`}>
+                <div className="thumbnail-wrapper">
+                  <img src={demoThumbnail} alt="thumbnail" />
                 </div>
-              </>
+                <div className="book__category">Essays & Critique</div>
+                <div className="book__title">The Invisible Thread</div>
+                <div className="book__author">Elena Rossi</div>
+                <div className="book__price">{formatCurrency(200000)}</div>
+              </div>
             );
           })}
         </div>
