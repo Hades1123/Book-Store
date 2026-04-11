@@ -11,12 +11,6 @@ export const CartPopover = () => {
   const navigate = useNavigate();
   const { data: cart } = useCart();
   const { deleteCartItem, updateCartItem } = useCartMutation();
-  const isItemLoading = (productId: string) => {
-    return (
-      (deleteCartItem.isPending && deleteCartItem.variables === productId) ||
-      (updateCartItem.isPending && updateCartItem.variables?.productId === productId)
-    );
-  };
   const totalPrice = useTotalPrice();
   const totalQuantity = useTotalQuantity();
 
@@ -34,9 +28,9 @@ export const CartPopover = () => {
           <div className="cartpopover__hr" />
           {cart?.items.map((item) => (
             <CartPopoverItem
-              isLoading={isItemLoading(item.productId)}
+              key={item.productId}
               item={item}
-              onDelete={(e) => deleteCartItem.mutate(item.productId)}
+              onDelete={() => deleteCartItem.mutate(item.productId)}
               onUpdate={(productId: string, quantity: number) =>
                 updateCartItem.mutate({ productId: productId, quantity: quantity })
               }

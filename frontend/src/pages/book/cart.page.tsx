@@ -1,7 +1,7 @@
 import './cart.page.scss';
 import thumbnail from '@/assets/book1.png';
 import { formatCurrency } from '@/utils/helper';
-import { CartInput } from '@/components/books/cart.input';
+import { CartInput } from '@/components/cart/cart.input';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import CartIcon from '@/assets/cart.svg?react';
 import type { MouseEvent } from 'react';

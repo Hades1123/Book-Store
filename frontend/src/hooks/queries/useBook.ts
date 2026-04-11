@@ -8,7 +8,6 @@ export const useCategoryQuery = () => {
       const result = await getCategoryStructure();
       return result.data;
     },
-    staleTime: Infinity, // Data never stale, no background refetch
   });
 
   return {

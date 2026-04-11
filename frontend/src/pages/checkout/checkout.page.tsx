@@ -1,4 +1,3 @@
-import { useCartStore } from '@/stores/cart.store';
 import './checkout.page.scss';
 import thumbnail from '@/assets/book1.png';
 import { formatCurrency } from '@/utils/helper';
@@ -8,13 +7,13 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { orderSchema, type TOrderSchema } from '@/schemas/order.schema';
 import { checkoutAPI } from '@/api/order.api';
-import { useTotalPrice } from '@/hooks/queries/useCart';
+import { useCart, useTotalPrice } from '@/hooks/queries/useCart';
 
 const MAX_ITEMS = 3;
 
 export const CheckoutPage = () => {
   const [numberOfItems, setNumberOfItems] = useState<number>(MAX_ITEMS);
-  const cart = useCartStore((state) => state.cart);
+  const { data: cart } = useCart();
   const subTotal = useTotalPrice();
 
   const navigate = useNavigate();

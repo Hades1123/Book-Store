@@ -14,6 +14,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { CategorySidebar } from '@/components/books/category.sidebar';
 import { BookCard } from '@/components/books/book.card';
 import { UseBookPage } from '../../hooks/use-book-page';
+import { useCallback } from 'react';
 
 export const BookPage = () => {
   const {
@@ -36,6 +37,16 @@ export const BookPage = () => {
     currentCategory,
     valuetext,
   } = UseBookPage();
+
+  const handleCategoryClick = useCallback(
+    (ids: string) => setFilter('categoryIds', ids),
+    [setFilter]
+  );
+
+  const handleResetCategory = useCallback(() => {
+    setCurrentCategory(null);
+    setFilter('categoryIds', undefined);
+  }, [setFilter, setCurrentCategory]);
 
   return (
     <>
@@ -77,11 +88,8 @@ export const BookPage = () => {
             <div className="book__category">
               <CategorySidebar
                 currentCategory={currentCategory}
-                onCategoryClick={(ids) => setFilter('categoryIds', ids)}
-                onResetCategory={() => {
-                  setCurrentCategory(null);
-                  setFilter('categoryIds', undefined);
-                }}
+                onCategoryClick={handleCategoryClick}
+                onResetCategory={handleResetCategory}
                 setCurrentCategory={setCurrentCategory}
               />
             </div>
@@ -130,7 +138,7 @@ export const BookPage = () => {
                 </Backdrop>
               )}
               {data?.bookList.map((item) => (
-                <BookCard item={item} />
+                <BookCard item={item} key={item.id} />
               ))}
             </div>
             <Pagination

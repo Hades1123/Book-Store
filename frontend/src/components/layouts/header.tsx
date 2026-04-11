@@ -7,7 +7,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import bookIcon from '@/assets/book.svg';
-import { CartPopover } from '@/components/books/cart.popover';
+import { CartPopover } from '@/components/cart/cart.popover';
 import { useQueryClient } from '@tanstack/react-query';
 
 export const NAV_ITEMS = [

@@ -24,5 +24,4 @@ export const ErrorCode = {
   INTERNAL_ERROR: 'INTERNAL_ERROR',
 } as const;
 
-// 2. Tạo Type từ Object này (Để ông dùng cho các hàm xử lý lỗi)
 export type ErrorCodeType = (typeof ErrorCode)[keyof typeof ErrorCode];
