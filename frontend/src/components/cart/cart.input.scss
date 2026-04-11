@@ -16,7 +16,6 @@
     cursor: pointer;
     user-select: none;
     &:hover {
-      // border-right: 2px orange solid;
       box-shadow: 1px 0 0 0 red;
     }
   }
@@ -27,7 +26,6 @@
     cursor: pointer;
     user-select: none;
     &:hover {
-      // border-left: 2px orange solid;
       box-shadow: -1px 0 0 red;
     }
   }

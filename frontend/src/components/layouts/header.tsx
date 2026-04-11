@@ -34,8 +34,8 @@ export const NAV_ITEMS = [
 ];
 export const HeaderComponent = () => {
   const user = useAuthStore((state) => state.user);
-  const queryClient = useQueryClient();
   const logout = useAuthStore((state) => state.logoutAction);
+  const queryClient = useQueryClient();
   const location = useLocation();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

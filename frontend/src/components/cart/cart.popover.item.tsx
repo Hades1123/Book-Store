@@ -27,9 +27,10 @@ export const CartPopoverItem = memo(({ item, onDelete, onUpdate }: IProps) => {
           </Link>
           <div className="cartpopover__price">{formatCurrency(Number(item.product.price))}</div>
           <CartInput
-            handleDeleteCartItem={(_, productId) => onDelete(productId)}
+            handleDeleteCartItem={onDelete}
             handleUpdateCartItem={onUpdate}
-            item={item}
+            productId={item.productId}
+            quantity={item.quantity}
           />
         </div>
       </div>
