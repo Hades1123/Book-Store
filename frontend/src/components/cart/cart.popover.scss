@@ -29,17 +29,20 @@
     position: absolute;
     top: calc(100% + 15px);
     right: 0;
-    display: none;
+    visibility: hidden;
     pointer-events: none;
     opacity: 0;
     z-index: 999;
-    transform: translateY(-15px) scale(0.95);
-    transition: all 0.2s ease;
+    transform: translateY(-8px) scale(0.97);
+    transition:
+      opacity 0.18s ease,
+      transform 0.18s ease,
+      visibility 0.18s;
   }
 
   &:hover &__dropdown {
+    visibility: visible;
     opacity: 1;
-    display: block;
     pointer-events: auto;
     transform: translateY(0) scale(1);
   }

@@ -1,22 +1,20 @@
 import { Link } from 'react-router';
 import { CartInput } from './cart.input';
 import thumbnail from '@/assets/book1.png';
-import { type MouseEvent } from 'react';
 import type { TCartItemResponse } from '@/types/cart';
 import { formatCurrency } from '@/utils/helper';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import { memo } from 'react';
 
 interface IProps {
   item: TCartItemResponse;
-  onDelete: (e: MouseEvent<SVGSVGElement>) => void;
+  onDelete: (productId: string) => void;
   onUpdate: (productId: string, quantity: number) => void;
 }
 
-export const CartPopoverItem = (props: IProps) => {
-  const { item, onDelete, onUpdate } = props;
-
+export const CartPopoverItem = memo(({ item, onDelete, onUpdate }: IProps) => {
   return (
-    <div className={`cartpopover__item`} key={item.productId}>
+    <div className={`cartpopover__item`}>
       <div className="cartpopover__main">
         <Link to={`/book/${item.productId}`}>
           <div className="cartpopover__img-wrapper">
@@ -28,14 +26,17 @@ export const CartPopoverItem = (props: IProps) => {
             {item.product.name}
           </Link>
           <div className="cartpopover__price">{formatCurrency(Number(item.product.price))}</div>
-          {/* cart input  */}
-          <CartInput handleDeleteCartItem={onDelete} handleUpdateCartItem={onUpdate} item={item} />
+          <CartInput
+            handleDeleteCartItem={(_, productId) => onDelete(productId)}
+            handleUpdateCartItem={onUpdate}
+            item={item}
+          />
         </div>
       </div>
       <DeleteOutlineOutlinedIcon
         sx={{ alignSelf: 'start', ':hover': { color: 'red', cursor: 'pointer' } }}
-        onClick={onDelete}
+        onClick={() => onDelete(item.productId)}
       />
     </div>
   );
-};
+});

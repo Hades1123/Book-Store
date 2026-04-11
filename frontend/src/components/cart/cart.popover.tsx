@@ -6,6 +6,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { useCart, useTotalPrice, useTotalQuantity } from '@/hooks/queries/useCart';
 import { useCartMutation } from '@/hooks/mutations/useCartMutation';
 import { CartPopoverItem } from './cart.popover.item';
+import { useCallback } from 'react';
 
 export const CartPopover = () => {
   const navigate = useNavigate();
@@ -13,6 +14,16 @@ export const CartPopover = () => {
   const { deleteCartItem, updateCartItem } = useCartMutation();
   const totalPrice = useTotalPrice();
   const totalQuantity = useTotalQuantity();
+
+  const handleDelete = useCallback(
+    (productId: string) => deleteCartItem.mutate(productId),
+    [deleteCartItem.mutate]
+  );
+
+  const handleUpdate = useCallback(
+    (productId: string, quantity: number) => updateCartItem.mutate({ productId, quantity }),
+    [updateCartItem.mutate]
+  );
 
   return (
     <IconButton
@@ -30,10 +41,8 @@ export const CartPopover = () => {
             <CartPopoverItem
               key={item.productId}
               item={item}
-              onDelete={() => deleteCartItem.mutate(item.productId)}
-              onUpdate={(productId: string, quantity: number) =>
-                updateCartItem.mutate({ productId: productId, quantity: quantity })
-              }
+              onDelete={handleDelete}
+              onUpdate={handleUpdate}
             />
           ))}
           {cart?.items.length == 0 && <div>No available books</div>}
