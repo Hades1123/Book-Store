@@ -3,30 +3,9 @@ import { addToCartApi, deleteCartItemApi, patchCartItemApi } from '@/api/cart.ap
 import { GUEST_CART } from '@/constants/common';
 import { useAuthStore } from '@/stores/auth.store';
 import { toast } from '@/stores/toast.store';
-import type { TCartItemResponse, TCartResponse, TLocalCartItem } from '@/types/cart';
+import type { TCartResponse, TLocalCartItem } from '@/types/cart';
+import { convertLocalCartToTCartResponse } from '@/utils/helper';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-
-const convertLocalCartToTCartResponse = (localCart: TLocalCartItem[]): TCartResponse => {
-  const cartItems: TCartItemResponse[] = localCart.map((item, index) => ({
-    id: index,
-    productId: item.productId,
-    quantity: item.quantity,
-    product: {
-      coverPublicId: item.product.coverPublicId,
-      discountPrice: item.product.discountPrice,
-      name: item.product.name,
-      price: item.product.price,
-      stockQuantity: item.product.stockQuantity,
-      author: item.product.author,
-    },
-  }));
-
-  return {
-    id: 0,
-    items: cartItems,
-    totalItems: cartItems.reduce((acc, cur) => acc + cur.quantity, 0),
-  };
-};
 
 export const useCartMutation = () => {
   const user = useAuthStore.getState().user;
