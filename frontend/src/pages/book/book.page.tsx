@@ -12,7 +12,7 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { UseBookPage } from './hooks/use-book-page';
-import { CategoryNode } from '@/components/books/category.node';
+import { CategorySidebar } from '@/components/books/category.sidebar';
 import { BookCard } from '@/components/books/book.card';
 
 export const BookPage = () => {
@@ -31,11 +31,9 @@ export const BookPage = () => {
     currentSearchValue,
     price,
     filters,
-    categoryStructure,
     setCurrentCategory,
     setCurrentSort,
     currentCategory,
-    handleClickCategory,
     valuetext,
   } = UseBookPage();
 
@@ -77,30 +75,15 @@ export const BookPage = () => {
               </Box>
             </div>
             <div className="book__category">
-              <h2 style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                Category{' '}
-                <RestartAltIcon
-                  onClick={() => {
-                    setCurrentCategory(null);
-                    setFilter('categoryIds', undefined);
-                  }}
-                  sx={{
-                    cursor: 'pointer',
-                    ':hover': {
-                      color: 'red',
-                    },
-                  }}
-                />{' '}
-              </h2>
-              {categoryStructure &&
-                categoryStructure.map((item) => (
-                  <CategoryNode
-                    currentCategory={currentCategory}
-                    handleClickCategory={handleClickCategory}
-                    category={item}
-                    key={item.id}
-                  />
-                ))}
+              <CategorySidebar
+                currentCategory={currentCategory}
+                onCategoryClick={(ids) => setFilter('categoryIds', ids)}
+                onResetCategory={() => {
+                  setCurrentCategory(null);
+                  setFilter('categoryIds', undefined);
+                }}
+                setCurrentCategory={setCurrentCategory}
+              />
             </div>
           </aside>
           <main className="book__main">

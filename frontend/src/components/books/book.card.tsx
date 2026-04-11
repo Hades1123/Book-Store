@@ -1,31 +1,12 @@
+import { memo } from 'react';
 import type { IBook } from '@/types/book';
 import { formatCurrency } from '@/utils/helper';
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import thumbnail from '@/assets/book1.png';
-import CartIcon from '@/assets/cart.svg?react';
-import { useCartMutation } from '@/hooks/mutations/useCartMutation';
-import type { TProductInfo } from '@/types/cart';
-import type { MouseEvent } from 'react';
+import { CartButton } from './cart.btn';
+import { BuyButton } from './buy.btn';
 
-export const BookCard = ({ item }: { item: IBook }) => {
-  const { addToCart } = useCartMutation();
-  const navigate = useNavigate();
-  const handleAddToCart = (
-    e: MouseEvent<HTMLButtonElement>,
-    productId: string,
-    product: TProductInfo
-  ) => {
-    e.preventDefault();
-    addToCart.mutate({
-      product,
-      productId,
-      quantity: 1,
-    });
-  };
-  const handleBuyNow = (productId: string, quantity: number, product: TProductInfo) => {
-    addToCart.mutate({ productId, quantity, product });
-    navigate('/cart');
-  };
+export const BookCard = memo(({ item }: { item: IBook }) => {
   return (
     <div className="book__item-container">
       <Link to={`${item.id}`} style={{ textDecoration: 'none' }}>
@@ -58,37 +39,9 @@ export const BookCard = ({ item }: { item: IBook }) => {
         </div>
       </Link>
       <div className="book__btn">
-        <button
-          className="book__btn-cart"
-          onClick={(e) => {
-            handleAddToCart(e, item.id, {
-              coverPublicId: item.coverPublicId,
-              discountPrice: item.discountPrice,
-              name: item.name,
-              price: item.price,
-              stockQuantity: item.stockQuantity,
-              author: item.author,
-            });
-          }}
-        >
-          <CartIcon />
-        </button>
-        <button
-          className="book__btn-buy"
-          onClick={() => {
-            handleBuyNow(item.id, 1, {
-              author: item.author,
-              coverPublicId: item.coverPublicId,
-              discountPrice: item.discountPrice,
-              name: item.name,
-              price: item.price,
-              stockQuantity: item.stockQuantity,
-            });
-          }}
-        >
-          Buy now
-        </button>
+        <CartButton item={item} />
+        <BuyButton item={item} />
       </div>
     </div>
   );
-};
+});

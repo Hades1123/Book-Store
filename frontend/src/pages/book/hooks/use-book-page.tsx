@@ -1,4 +1,4 @@
-import { fetchBooks, getCategoryStructure } from '@/api/book.api';
+import { fetchBooks } from '@/api/book.api';
 import { MAX_PRICE, MIN_PRICE } from '@/constants/common';
 import { useBookFilters } from '@/hooks/use-bookFilter';
 import { useDebounce } from '@/hooks/use-debounce';
@@ -49,13 +49,13 @@ export const UseBookPage = () => {
     placeholderData: keepPreviousData,
   });
 
-  const { data: categoryStructure = [] } = useQuery({
-    queryKey: ['categoryStructure'],
-    queryFn: async () => {
-      const result = await getCategoryStructure();
-      return result.data;
-    },
-  });
+  // const { data: categoryStructure = [] } = useQuery({
+  //   queryKey: ['categoryStructure'],
+  //   queryFn: async () => {
+  //     const result = await getCategoryStructure();
+  //     return result.data;
+  //   },
+  // });
 
   // Event function
   const handleChange = (_: Event, newValue: number[]) => {
@@ -68,18 +68,6 @@ export const UseBookPage = () => {
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     setCurrentSearchValue(event.target.value);
-  };
-
-  const handleClickCategory = (value: { id: string; label: string }) => {
-    const current = categoryStructure.find((item) => value.label === item.name);
-    if (current && current.children) {
-      const result = current.children.map((item) => item.id);
-      result.push(value.id);
-      setFilter('categoryIds', result.join(','));
-    } else {
-      setFilter('categoryIds', value.id);
-    }
-    setCurrentCategory(value.id);
   };
 
   const handleResetAll = () => {
@@ -111,7 +99,6 @@ export const UseBookPage = () => {
     price,
     debounceSearch,
     debouncePrice,
-    open,
     setFilter,
     setFilters,
     resetFilters,
@@ -125,11 +112,9 @@ export const UseBookPage = () => {
     handleChange,
     handleChangePage,
     handleSearch,
-    handleClickCategory,
     handleResetAll,
     filters,
     setCurrentCategory,
-    categoryStructure,
     valuetext,
   };
 };
