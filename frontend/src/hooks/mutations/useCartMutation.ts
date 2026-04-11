@@ -6,12 +6,13 @@ import { toast } from '@/stores/toast.store';
 import type { TCartResponse, TLocalCartItem } from '@/types/cart';
 import { convertLocalCartToTCartResponse } from '@/utils/helper';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { CART_KEYS } from '@/constants/queryKeys';
 
 export const useCartMutation = () => {
   const queryClient = useQueryClient();
 
-  // Read user & build cart queryKey at call time (not stale from hook init)
-  const getCartKey = () => ['cart', useAuthStore.getState().user?.id] as const;
+  // Read user at call time (not stale from hook init)
+  const getCartKey = () => CART_KEYS.detail(useAuthStore.getState().user?.id);
   const getUser = () => useAuthStore.getState().user;
 
   const addToCart = useMutation({
@@ -70,7 +71,7 @@ export const useCartMutation = () => {
     },
     onSuccess: () => {
       // Refetch to get the real server state
-      queryClient.invalidateQueries({ queryKey: ['cart'] });
+      queryClient.invalidateQueries({ queryKey: CART_KEYS.all });
       toast.success('Đã thêm sản phẩm vào giỏ hàng');
     },
     onError: (err, _, context) => {
@@ -117,7 +118,7 @@ export const useCartMutation = () => {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['cart'] });
+      queryClient.invalidateQueries({ queryKey: CART_KEYS.all });
     },
   });
 
@@ -158,7 +159,7 @@ export const useCartMutation = () => {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['cart'] });
+      queryClient.invalidateQueries({ queryKey: CART_KEYS.all });
     },
   });
 

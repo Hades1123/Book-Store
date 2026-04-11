@@ -4,6 +4,7 @@ import { useBookFilters } from '@/hooks/use-bookFilter';
 import { useDebounce } from '@/hooks/use-debounce';
 import type { TSortBy, TSortKey, TSortOrder } from '@/types/book';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { BOOK_KEYS } from '@/constants/queryKeys';
 import { useEffect, useState, type ChangeEvent } from 'react';
 
 const SORT_OPTIONS: Record<TSortKey, { sortBy: TSortBy; sortOrder: TSortOrder; label: string }> = {
@@ -41,7 +42,7 @@ export const UseBookPage = () => {
 
   // tanstack query
   const { data, isLoading, isPending, isError, isFetching } = useQuery({
-    queryKey: ['books', filters],
+    queryKey: BOOK_KEYS.list(filters),
     queryFn: async () => {
       const result = await fetchBooks(filters);
       return result.data;

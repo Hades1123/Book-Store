@@ -4,11 +4,12 @@ import { useAuthStore } from '@/stores/auth.store';
 import type { TLocalCartItem } from '@/types/cart';
 import { convertLocalCartToTCartResponse } from '@/utils/helper';
 import { useQuery } from '@tanstack/react-query';
+import { CART_KEYS } from '@/constants/queryKeys';
 
 export const useCart = () => {
   const user = useAuthStore((state) => state.user);
   return useQuery({
-    queryKey: ['cart', user?.id],
+    queryKey: CART_KEYS.detail(user?.id),
     queryFn: async () => {
       if (user) {
         return (await getCartApi()).data;

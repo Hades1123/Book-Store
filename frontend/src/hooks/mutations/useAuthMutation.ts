@@ -6,6 +6,7 @@ import { useAuthStore } from '@/stores/auth.store';
 import { toast } from '@/stores/toast.store';
 import type { TCartItemInput, TLocalCartItem } from '@/types/cart';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { CART_KEYS } from '@/constants/queryKeys';
 import { isAxiosError } from 'axios';
 import { useNavigate } from 'react-router';
 
@@ -37,7 +38,7 @@ export const UseAuthMutation = () => {
         toast.success('Đăng nhập thành công');
         navigate('/');
         fetchUser();
-        queryClient.invalidateQueries({ queryKey: ['cart'] });
+        queryClient.invalidateQueries({ queryKey: CART_KEYS.all });
       }
     },
     onError: (err: unknown, variables) => {
