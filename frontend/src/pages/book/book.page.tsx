@@ -11,9 +11,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import { UseBookPage } from './hooks/use-book-page';
 import { CategorySidebar } from '@/components/books/category.sidebar';
 import { BookCard } from '@/components/books/book.card';
+import { UseBookPage } from '../../hooks/use-book-page';
 
 export const BookPage = () => {
   const {

@@ -49,14 +49,6 @@ export const UseBookPage = () => {
     placeholderData: keepPreviousData,
   });
 
-  // const { data: categoryStructure = [] } = useQuery({
-  //   queryKey: ['categoryStructure'],
-  //   queryFn: async () => {
-  //     const result = await getCategoryStructure();
-  //     return result.data;
-  //   },
-  // });
-
   // Event function
   const handleChange = (_: Event, newValue: number[]) => {
     setPrice(newValue);
