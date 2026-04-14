@@ -5,12 +5,6 @@
   background: rgba(254, 248, 247, 0.8);
   backdrop-filter: blur(6px);
 
-  // &__hr {
-  //   height: 1px;
-  //   width: 100%;
-  //   background-color: red;
-  // }
-
   &__header {
     h1 {
       @include mixins.text-style($size: 6rem, $lh: 6rem, $style: italic, $family: 'Newsreader');
@@ -29,6 +23,10 @@
   &__container {
     display: flex;
     justify-content: space-between;
+
+    @include mixins.responsive('lg') {
+      flex-direction: column-reverse;
+    }
   }
 
   &__main {
@@ -37,6 +35,10 @@
     flex-direction: column;
     gap: 4rem;
     margin-bottom: 5rem;
+
+    @include mixins.responsive('lg') {
+      width: 100%;
+    }
   }
 
   &__item-container {
@@ -124,6 +126,10 @@
     background: #f8f2f2;
     padding: 2.5rem;
     height: fit-content;
+
+    @include mixins.responsive('lg') {
+      width: 100%;
+    }
   }
 
   &__summary {

@@ -12,7 +12,8 @@ export const useCart = () => {
     queryKey: CART_KEYS.detail(user?.id),
     queryFn: async () => {
       if (user) {
-        return (await getCartApi()).data;
+        const result = await getCartApi();
+        return result.data;
       } else {
         const localCart = JSON.parse(localStorage.getItem(GUEST_CART) ?? '[]') as TLocalCartItem[];
         return convertLocalCartToTCartResponse(localCart);

@@ -13,8 +13,11 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { CategorySidebar } from '@/components/books/category.sidebar';
 import { BookCard } from '@/components/books/book.card';
-import { UseBookPage } from '../../hooks/use-book-page';
+import { UseBookPage } from '@/hooks/use-book-page';
 import { useCallback } from 'react';
+import { useUIStore } from '@/stores/ui.store';
+import Drawer from '@mui/material/Drawer';
+import Button from '@mui/material/Button';
 
 export const BookPage = () => {
   const {
@@ -25,7 +28,7 @@ export const BookPage = () => {
     handleChangePage,
     handleResetAll,
     handleSearch,
-    isFetching,
+    isLoading,
     marks,
     setFilter,
     setFilters,
@@ -37,6 +40,9 @@ export const BookPage = () => {
     currentCategory,
     valuetext,
   } = UseBookPage();
+
+  const isSidebarOpen = useUIStore((state) => state.sidebarOpen);
+  const setSidebarOpen = useUIStore((state) => state.setSidebarOpen);
 
   const handleCategoryClick = useCallback(
     (ids: string) => setFilter('categoryIds', ids),
@@ -52,48 +58,111 @@ export const BookPage = () => {
     <>
       <div className="book">
         <div className="book__container">
-          <aside className="book__sidebar">
-            <div className="book__search">
-              <label htmlFor="book-search">Search</label>
-              <input
-                id="book-search"
-                type="text"
-                placeholder="Search authors or books"
-                onChange={handleSearch}
-                value={currentSearchValue}
-              />
-            </div>
-            <div className="book__price">
-              <h2>Price Range</h2>
-              <Slider
-                min={MIN_PRICE}
-                max={MAX_PRICE}
-                marks={marks}
-                step={10000}
-                getAriaLabel={() => 'Temperature range'}
-                value={price ?? [MIN_PRICE, MAX_PRICE]}
-                onChange={handleChange}
-                valueLabelDisplay="off"
-                getAriaValueText={valuetext}
-              />
-              <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Typography variant="body2" sx={{ cursor: 'pointer' }}>
-                  {formatCurrency((price && price[0]) ?? MIN_PRICE)}
-                </Typography>
-                <Typography variant="body2" sx={{ cursor: 'pointer' }}>
-                  {formatCurrency((price && price[1]) ?? MAX_PRICE)}
-                </Typography>
-              </Box>
-            </div>
-            <div className="book__category">
-              <CategorySidebar
-                currentCategory={currentCategory}
-                onCategoryClick={handleCategoryClick}
-                onResetCategory={handleResetCategory}
-                setCurrentCategory={setCurrentCategory}
-              />
-            </div>
-          </aside>
+          <Drawer
+            open={isSidebarOpen}
+            onClose={() => setSidebarOpen(false)}
+            keepMounted={false}
+            slotProps={{
+              paper: {
+                sx: {
+                  minWidth: 200,
+                  width: '50%',
+                },
+              },
+            }}
+          >
+            {
+              <aside className="book__sidebar">
+                <Button variant="contained" onClick={() => setSidebarOpen(false)}>
+                  Close
+                </Button>
+                <div className="book__search">
+                  <label htmlFor="book-search">Search</label>
+                  <input
+                    id="book-search"
+                    type="text"
+                    placeholder="Search authors or books"
+                    onChange={handleSearch}
+                    value={currentSearchValue}
+                  />
+                </div>
+                <div className="book__price">
+                  <h2>Price Range</h2>
+                  <Slider
+                    min={MIN_PRICE}
+                    max={MAX_PRICE}
+                    marks={marks}
+                    step={10000}
+                    getAriaLabel={() => 'Temperature range'}
+                    value={price ?? [MIN_PRICE, MAX_PRICE]}
+                    onChange={handleChange}
+                    valueLabelDisplay="off"
+                    getAriaValueText={valuetext}
+                  />
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Typography variant="body2" sx={{ cursor: 'pointer' }}>
+                      {formatCurrency((price && price[0]) ?? MIN_PRICE)}
+                    </Typography>
+                    <Typography variant="body2" sx={{ cursor: 'pointer' }}>
+                      {formatCurrency((price && price[1]) ?? MAX_PRICE)}
+                    </Typography>
+                  </Box>
+                </div>
+                <div className="book__category">
+                  <CategorySidebar
+                    currentCategory={currentCategory}
+                    onCategoryClick={handleCategoryClick}
+                    onResetCategory={handleResetCategory}
+                    setCurrentCategory={setCurrentCategory}
+                  />
+                </div>
+              </aside>
+            }
+          </Drawer>
+          {!isSidebarOpen && (
+            <aside className="book__sidebar book__sidebar--hidden">
+              <div className="book__search">
+                <label htmlFor="book-search">Search</label>
+                <input
+                  id="book-search"
+                  type="text"
+                  placeholder="Search authors or books"
+                  onChange={handleSearch}
+                  value={currentSearchValue}
+                />
+              </div>
+              <div className="book__price">
+                <h2>Price Range</h2>
+                <Slider
+                  min={MIN_PRICE}
+                  max={MAX_PRICE}
+                  marks={marks}
+                  step={10000}
+                  getAriaLabel={() => 'Temperature range'}
+                  value={price ?? [MIN_PRICE, MAX_PRICE]}
+                  onChange={handleChange}
+                  valueLabelDisplay="off"
+                  getAriaValueText={valuetext}
+                />
+                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Typography variant="body2" sx={{ cursor: 'pointer' }}>
+                    {formatCurrency((price && price[0]) ?? MIN_PRICE)}
+                  </Typography>
+                  <Typography variant="body2" sx={{ cursor: 'pointer' }}>
+                    {formatCurrency((price && price[1]) ?? MAX_PRICE)}
+                  </Typography>
+                </Box>
+              </div>
+              <div className="book__category">
+                <CategorySidebar
+                  currentCategory={currentCategory}
+                  onCategoryClick={handleCategoryClick}
+                  onResetCategory={handleResetCategory}
+                  setCurrentCategory={setCurrentCategory}
+                />
+              </div>
+            </aside>
+          )}
           <main className="book__main">
             <div className="book__sortbar">
               <div className="book__stat">
@@ -125,14 +194,14 @@ export const BookPage = () => {
               </div>
             </div>
             <div className="book__grid">
-              {isFetching && (
+              {isLoading && (
                 <Backdrop
                   sx={(theme) => ({
                     color: '#fff',
                     zIndex: theme.zIndex.drawer + 1,
                     position: 'absolute',
                   })}
-                  open={isFetching}
+                  open={isLoading}
                 >
                   <CircularProgress color="primary" />
                 </Backdrop>

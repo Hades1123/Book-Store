@@ -4,7 +4,6 @@ import { formatCurrency } from '@/utils/helper';
 import { CartInput } from '@/components/cart/cart.input';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import CartIcon from '@/assets/cart.svg?react';
-import type { MouseEvent } from 'react';
 import { Link } from 'react-router';
 import { useCartMutation } from '@/hooks/mutations/useCartMutation';
 import { useCart, useTotalPrice } from '@/hooks/queries/useCart';
@@ -14,8 +13,7 @@ export const CartPage = () => {
   const { deleteCartItem, updateCartItem } = useCartMutation();
   const totalPrice = useTotalPrice();
 
-  const handleDeleteCartItem = (e: MouseEvent<SVGSVGElement>, productId: string) => {
-    e.preventDefault();
+  const handleDeleteCartItem = (productId: string) => {
     deleteCartItem.mutate(productId);
   };
 
@@ -51,7 +49,8 @@ export const CartPage = () => {
                     <div className="collections__second">
                       <div className="collections__second--left">
                         <CartInput
-                          item={item}
+                          productId={item.productId}
+                          quantity={item.quantity}
                           handleDeleteCartItem={handleDeleteCartItem}
                           handleUpdateCartItem={handleUpdateCartItem}
                         />

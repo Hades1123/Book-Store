@@ -7,10 +7,19 @@ $item-width: 17rem;
   background: #fef8f7;
   padding: 3rem 6rem;
 
+  @include mixins.responsive('sm') {
+    padding: 2rem 0.5rem;
+  }
+
   &__container {
     display: grid;
     grid-template-columns: 20rem 1fr;
     gap: 6rem;
+
+    @include mixins.responsive('lg') {
+      display: flex;
+      flex-direction: column;
+    }
   }
 
   &__sidebar {
@@ -26,6 +35,11 @@ $item-width: 17rem;
       @include mixins.text-style($size: 0.75rem, $weight: 700, $lh: 1rem);
       letter-spacing: 0.15rem;
       text-transform: uppercase;
+    }
+    &--hidden {
+      @include mixins.responsive('lg') {
+        display: none;
+      }
     }
   }
 
@@ -71,6 +85,9 @@ $item-width: 17rem;
     @include mixins.text-style($size: 0.75rem, $weight: 700, $lh: 1rem);
     letter-spacing: 0.15rem;
     text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
   input[type='text'] {
@@ -104,6 +121,17 @@ $item-width: 17rem;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     margin-bottom: 2rem;
+
+    @include mixins.responsive('lg') {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    @include mixins.responsive('md') {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
   }
 
   &__item-container {
@@ -115,6 +143,7 @@ $item-width: 17rem;
     border: 2px rgba(128, 128, 128, 0.18) solid;
     background-color: white;
     border-radius: 5px;
+    align-self: center;
   }
 
   &__img-wrapper {

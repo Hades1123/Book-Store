@@ -9,6 +9,8 @@ import IconButton from '@mui/material/IconButton';
 import bookIcon from '@/assets/book.svg';
 import { CartPopover } from '@/components/cart/cart.popover';
 import { useQueryClient } from '@tanstack/react-query';
+import MenuIcon from '@mui/icons-material/Menu';
+import { useUIStore } from '@/stores/ui.store';
 
 export const NAV_ITEMS = [
   {
@@ -34,12 +36,13 @@ export const NAV_ITEMS = [
 ];
 export const HeaderComponent = () => {
   const user = useAuthStore((state) => state.user);
-  const logout = useAuthStore((state) => state.logoutAction);
   const queryClient = useQueryClient();
   const location = useLocation();
-  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const logout = useAuthStore((state) => state.logoutAction);
+  const setSidebarOpen = useUIStore((state) => state.setSidebarOpen);
+  const navigate = useNavigate();
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -55,6 +58,11 @@ export const HeaderComponent = () => {
 
   return (
     <header className="header">
+      {location.pathname == '/book' && (
+        <IconButton className="header__menu" onClick={() => setSidebarOpen(true)}>
+          <MenuIcon />
+        </IconButton>
+      )}
       <div className="header__left" onClick={() => navigate('/')}>
         <div className="wrapper">
           <img src={bookIcon} alt="logo" />

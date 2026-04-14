@@ -1,5 +1,5 @@
 import { memo, useCallback } from 'react';
-import { useCategoryQuery } from '@/hooks/queries/useBook';
+import { useCategoryQuery } from '@/hooks/queries/useCategory';
 import { CategoryNode } from './category.node';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
