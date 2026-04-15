@@ -1,27 +1,21 @@
 import { useCartMutation } from '@/hooks/mutations/useCartMutation';
 import type { IBook } from '@/types/book';
 import CartIcon from '@/assets/cart.svg?react';
+import { handleAddToCart } from '@/utils/cart';
+import { useCart } from '@/hooks/queries/useCart';
 
 export const CartButton = ({ item }: { item: IBook }) => {
   const { addToCart } = useCartMutation();
+  const { data: cart } = useCart();
 
   return (
     <button
       className="book__btn-cart"
       onClick={(e) => {
-        e.preventDefault();
-        addToCart.mutate({
-          productId: item.id,
-          quantity: 1,
-          product: {
-            name: item.name,
-            price: item.price,
-            author: item.author,
-            coverPublicId: item.coverPublicId,
-            discountPrice: item.discountPrice,
-            stockQuantity: item.stockQuantity,
-          },
-        });
+        if (cart) {
+          e.preventDefault();
+          handleAddToCart(item, cart, addToCart);
+        }
       }}
     >
       <CartIcon />

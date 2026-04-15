@@ -1,10 +1,7 @@
-import { fetchBooks } from '@/api/book.api';
 import { MAX_PRICE, MIN_PRICE } from '@/constants/common';
 import { useBookFilters } from '@/hooks/use-bookFilter';
 import { useDebounce } from '@/hooks/use-debounce';
 import type { TSortBy, TSortKey, TSortOrder } from '@/types/book';
-import { useQuery } from '@tanstack/react-query';
-import { BOOK_KEYS } from '@/constants/queryKeys';
 import { useEffect, useState, type ChangeEvent } from 'react';
 
 const SORT_OPTIONS: Record<TSortKey, { sortBy: TSortBy; sortOrder: TSortOrder; label: string }> = {
@@ -39,15 +36,6 @@ export const UseBookPage = () => {
   // Debounce value
   const debounceSearch = useDebounce<string>(currentSearchValue, 1000);
   const debouncePrice = useDebounce<number[] | null>(price, 1000);
-
-  // tanstack query
-  const { data, isLoading, isPending, isError, isFetching } = useQuery({
-    queryKey: BOOK_KEYS.list(filters),
-    queryFn: async () => {
-      const result = await fetchBooks(filters);
-      return result.data;
-    },
-  });
 
   // Event function
   const handleChange = (_: Event, newValue: number[]) => {
@@ -86,26 +74,21 @@ export const UseBookPage = () => {
   return {
     currentCategory,
     currentSort,
-    setCurrentSort,
     currentSearchValue,
     price,
     debounceSearch,
     debouncePrice,
+    marks,
+    SORT_OPTIONS,
+    filters,
     setFilter,
     setFilters,
     resetFilters,
-    data,
-    isPending,
-    isLoading,
-    isError,
-    isFetching,
-    marks,
-    SORT_OPTIONS,
+    setCurrentSort,
     handleChange,
     handleChangePage,
     handleSearch,
     handleResetAll,
-    filters,
     setCurrentCategory,
     valuetext,
   };

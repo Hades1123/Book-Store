@@ -1,19 +1,25 @@
-import { fetchBooks } from '@/api/book.api';
+import { fetchBookById, fetchBooks } from '@/api/book.api';
 import { BOOK_KEYS } from '@/constants/queryKeys';
 import { useQuery } from '@tanstack/react-query';
-import { useBookFilters } from '@/hooks/use-bookFilter';
+import type { IBooksParams } from '@/types/book';
 
-export const useBookQuery = () => {
-  const { filters } = useBookFilters();
-  const { data: books } = useQuery({
-    queryKey: [BOOK_KEYS.all],
+export const useBooks = (filters: IBooksParams) => {
+  return useQuery({
+    queryKey: [BOOK_KEYS.list(filters)],
     queryFn: async () => {
       const result = await fetchBooks(filters);
       return result.data;
     },
   });
+};
 
-  return {
-    books,
-  };
+export const useBookDetail = (id: string) => {
+  return useQuery({
+    queryKey: [BOOK_KEYS.detail(id)],
+    queryFn: async () => {
+      const result = await fetchBookById(id);
+      return result.data;
+    },
+    enabled: !!id,
+  });
 };

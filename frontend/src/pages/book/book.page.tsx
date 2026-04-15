@@ -13,33 +13,34 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { CategorySidebar } from '@/components/books/category.sidebar';
 import { BookCard } from '@/components/books/book.card';
-import { UseBookPage } from '@/hooks/use-book-page';
+import { UseBookPage } from '@/hooks/useBookClient';
 import { useCallback } from 'react';
 import { useUIStore } from '@/stores/ui.store';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
+import { useBooks } from '@/hooks/queries/useBookQuery';
 
 export const BookPage = () => {
   const {
     SORT_OPTIONS,
     currentSort,
-    data,
+    marks,
+    currentSearchValue,
+    price,
+    filters,
+    currentCategory,
     handleChange,
     handleChangePage,
     handleResetAll,
     handleSearch,
-    isLoading,
-    marks,
     setFilter,
     setFilters,
-    currentSearchValue,
-    price,
-    filters,
     setCurrentCategory,
     setCurrentSort,
-    currentCategory,
     valuetext,
   } = UseBookPage();
+
+  const { data: books, isLoading } = useBooks(filters);
 
   const isSidebarOpen = useUIStore((state) => state.sidebarOpen);
   const setSidebarOpen = useUIStore((state) => state.setSidebarOpen);
@@ -167,11 +168,11 @@ export const BookPage = () => {
             <div className="book__sortbar">
               <div className="book__stat">
                 Showing{' '}
-                {(data?.pagination.limit ?? 0) * (data?.pagination.page ?? 0) >
-                (data?.pagination.total ?? 0)
-                  ? (data?.pagination.total ?? 0) % (data?.pagination.limit ?? 1)
-                  : data?.pagination.limit}{' '}
-                of {data?.pagination.total} Titles
+                {(books?.pagination.limit ?? 0) * (books?.pagination.page ?? 0) >
+                (books?.pagination.total ?? 0)
+                  ? (books?.pagination.total ?? 0) % (books?.pagination.limit ?? 1)
+                  : books?.pagination.limit}{' '}
+                of {books?.pagination.total} Titles
               </div>
               <div className="book__sortmenu">
                 <SortByMenu
@@ -206,7 +207,7 @@ export const BookPage = () => {
                   <CircularProgress color="primary" />
                 </Backdrop>
               )}
-              {data?.bookList.map((item) => (
+              {books?.bookList.map((item) => (
                 <BookCard item={item} key={item.id} />
               ))}
             </div>
@@ -216,7 +217,7 @@ export const BookPage = () => {
                 justifyContent: 'center',
               }}
               onChange={(_, page) => handleChangePage(page)}
-              count={data?.pagination.totalPages}
+              count={books?.pagination.totalPages}
               page={filters.page}
               color="primary"
             />

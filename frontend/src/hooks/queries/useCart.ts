@@ -19,6 +19,7 @@ export const useCart = () => {
         return convertLocalCartToTCartResponse(localCart);
       }
     },
+    staleTime: 5 * 60 * 1000,
   });
 };
 

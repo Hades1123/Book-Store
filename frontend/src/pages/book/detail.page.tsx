@@ -1,30 +1,24 @@
 import { Link, useParams } from 'react-router';
 import './detail.page.scss';
-import { useEffect, useState } from 'react';
-import { fetchBookById } from '@/api/book.api';
-import type { IBook } from '@/types/book';
 import thumbnail from '@/assets/book1.png';
 import { formatCurrency } from '@/utils/helper';
+import { useBookDetail } from '@/hooks/queries/useBookQuery';
 import { useCartMutation } from '@/hooks/mutations/useCartMutation';
 import { useCart } from '@/hooks/queries/useCart';
-import { useBookQuery } from '@/hooks/queries/useBookQuery';
+import { handleAddToCart } from '@/utils/cart';
 
 export const DetailBookPage = () => {
   const { id } = useParams();
-  const [currentBook, setCurrentBook] = useState<IBook>();
-  useEffect(() => {
-    const fetchDetailBook = async () => {
-      try {
-        const result = await fetchBookById(id ?? '');
-        if (result.data) {
-          setCurrentBook(result.data);
-        }
-      } catch (error: unknown) {
-        console.log(error);
-      }
-    };
-    fetchDetailBook();
-  }, [id]);
+  const { data: currentBook } = useBookDetail(id!);
+  const { data: cart } = useCart();
+  const { addToCart } = useCartMutation();
+
+  const onClickCart = () => {
+    if (!currentBook || !cart) {
+      return;
+    }
+    handleAddToCart(currentBook, cart, addToCart);
+  };
 
   return (
     <>
@@ -55,7 +49,9 @@ export const DetailBookPage = () => {
             </div>
             <div className="detailbook__btn">
               <button className="detailbook__checkout">Checkout</button>
-              <button className="detailbook__cart">Add to cart</button>
+              <button className="detailbook__cart" onClick={onClickCart}>
+                Add to cart
+              </button>
             </div>
             <ul className="detailbook__spec">
               <li>
