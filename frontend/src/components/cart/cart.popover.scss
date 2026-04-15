@@ -2,13 +2,14 @@
 
 .cartpopover {
   position: relative;
+  cursor: pointer;
 
   &__badge {
     color: red;
     position: absolute;
     font-size: 1rem;
-    top: -4px;
-    right: -5px;
+    top: -7px;
+    right: -8px;
     width: 1rem;
     height: 1rem;
     border-radius: 999px;

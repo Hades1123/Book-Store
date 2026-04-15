@@ -1,25 +1,17 @@
 import './cart.page.scss';
 import thumbnail from '@/assets/book1.png';
 import { formatCurrency } from '@/utils/helper';
-import { CartInput } from '@/components/cart/cart.input';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import CartIcon from '@/assets/cart.svg?react';
 import { Link } from 'react-router';
 import { useCartMutation } from '@/hooks/mutations/useCartMutation';
 import { useCart, useTotalPrice } from '@/hooks/queries/useCart';
+import { CartButton } from '@/components/cart/cart.btn';
 
 export const CartPage = () => {
   const { data: cart } = useCart();
-  const { deleteCartItem, updateCartItem } = useCartMutation();
+  const { deleteCartItem } = useCartMutation();
   const totalPrice = useTotalPrice();
-
-  const handleDeleteCartItem = (productId: string) => {
-    deleteCartItem.mutate(productId);
-  };
-
-  const handleUpdateCartItem = (productId: string, quantity: number) => {
-    updateCartItem.mutate({ productId, quantity });
-  };
 
   return (
     <div className="collections">
@@ -48,11 +40,14 @@ export const CartPage = () => {
                     </div>
                     <div className="collections__second">
                       <div className="collections__second--left">
-                        <CartInput
-                          productId={item.productId}
-                          quantity={item.quantity}
-                          handleDeleteCartItem={handleDeleteCartItem}
-                          handleUpdateCartItem={handleUpdateCartItem}
+                        <CartButton
+                          // @ts-expect-error
+                          item={{
+                            author: item.product.author,
+                            price: item.product.price,
+                            name: item.product.name,
+                            id: item.productId,
+                          }}
                         />
                         <div
                           className="collections__remove"

@@ -1,10 +1,10 @@
 import { Link } from 'react-router';
-import { CartInput } from './cart.input';
 import thumbnail from '@/assets/book1.png';
 import type { TCartItemResponse } from '@/types/cart';
 import { formatCurrency } from '@/utils/helper';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { memo } from 'react';
+import { CartButton } from './cart.btn';
 
 interface IProps {
   item: TCartItemResponse;
@@ -12,7 +12,7 @@ interface IProps {
   onUpdate: (productId: string, quantity: number) => void;
 }
 
-export const CartPopoverItem = memo(({ item, onDelete, onUpdate }: IProps) => {
+export const CartPopoverItem = memo(({ item, onDelete }: IProps) => {
   return (
     <div className={`cartpopover__item`}>
       <div className="cartpopover__main">
@@ -26,11 +26,13 @@ export const CartPopoverItem = memo(({ item, onDelete, onUpdate }: IProps) => {
             {item.product.name}
           </Link>
           <div className="cartpopover__price">{formatCurrency(Number(item.product.price))}</div>
-          <CartInput
-            handleDeleteCartItem={onDelete}
-            handleUpdateCartItem={onUpdate}
-            productId={item.productId}
-            quantity={item.quantity}
+          <CartButton
+            // @ts-expect-error
+            item={{
+              id: item.productId,
+              author: item.product.author,
+              price: item.product.price,
+            }}
           />
         </div>
       </div>

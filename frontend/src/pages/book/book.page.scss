@@ -97,6 +97,11 @@ $item-width: 17rem;
     margin-top: 1.5rem;
   }
 
+  input[type='text'].book__btn-cart {
+    margin-top: 0rem;
+    padding: 0.5rem 0.5rem;
+  }
+
   &__sortbar {
     display: flex;
     justify-content: space-between;

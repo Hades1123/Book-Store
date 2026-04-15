@@ -1,12 +1,12 @@
 import { formatCurrency } from '@/utils/helper';
 import './cart.popover.scss';
 import { useNavigate } from 'react-router';
-import IconButton from '@mui/material/IconButton';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { useCart, useTotalPrice, useTotalQuantity } from '@/hooks/queries/useCart';
 import { useCartMutation } from '@/hooks/mutations/useCartMutation';
 import { CartPopoverItem } from './cart.popover.item';
 import { useCallback } from 'react';
+import Box from '@mui/material/Box';
 
 export const CartPopover = () => {
   const navigate = useNavigate();
@@ -26,11 +26,7 @@ export const CartPopover = () => {
   );
 
   return (
-    <IconButton
-      className="cartpopover"
-      sx={{ position: 'relative' }}
-      onClick={() => navigate('/cart')}
-    >
+    <Box className="cartpopover" sx={{ position: 'relative' }} onClick={() => navigate('/cart')}>
       <ShoppingCartOutlinedIcon />
       <div className="cartpopover__badge">{totalQuantity > 99 ? '99+' : totalQuantity}</div>
       <div className="cartpopover__dropdown" onClick={(e) => e.stopPropagation()}>
@@ -56,6 +52,6 @@ export const CartPopover = () => {
           </div>
         </div>
       </div>
-    </IconButton>
+    </Box>
   );
 };

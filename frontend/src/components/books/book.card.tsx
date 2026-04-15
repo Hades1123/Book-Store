@@ -3,7 +3,7 @@ import type { IBook } from '@/types/book';
 import { formatCurrency } from '@/utils/helper';
 import { Link } from 'react-router';
 import thumbnail from '@/assets/book1.png';
-import { CartButton } from './cart.btn';
+import { CartButton } from '@/components/cart/cart.btn';
 import { BuyButton } from './buy.btn';
 
 export const BookCard = memo(({ item }: { item: IBook }) => {
