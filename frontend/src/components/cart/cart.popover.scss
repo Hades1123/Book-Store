@@ -41,10 +41,12 @@
   }
 
   &:hover &__dropdown {
-    visibility: visible;
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0) scale(1);
+    @media (hover: hover) {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
   }
 
   &__container {

@@ -22,7 +22,7 @@ export const BuyButton = ({ item }: { item: IBook }) => {
           productId: item.id,
           quantity: 1,
         });
-        navigate('/cart');
+        navigate('/checkout');
       }}
     >
       Buy now

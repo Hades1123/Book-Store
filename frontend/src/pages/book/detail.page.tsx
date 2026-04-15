@@ -5,11 +5,13 @@ import { fetchBookById } from '@/api/book.api';
 import type { IBook } from '@/types/book';
 import thumbnail from '@/assets/book1.png';
 import { formatCurrency } from '@/utils/helper';
+import { useCartMutation } from '@/hooks/mutations/useCartMutation';
+import { useCart } from '@/hooks/queries/useCart';
+import { useBookQuery } from '@/hooks/queries/useBookQuery';
 
 export const DetailBookPage = () => {
   const { id } = useParams();
   const [currentBook, setCurrentBook] = useState<IBook>();
-
   useEffect(() => {
     const fetchDetailBook = async () => {
       try {

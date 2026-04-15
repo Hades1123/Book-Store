@@ -1,16 +1,14 @@
 import { isAxiosError } from '@/api/axios.customize';
-import { addToCartApi, deleteCartItemApi, patchCartItemApi } from '@/api/cart.api';
+import { addToCartApi, deleteCartItemApi, mergeCartApi, patchCartItemApi } from '@/api/cart.api';
 import { GUEST_CART } from '@/constants/common';
 import { useAuthStore } from '@/stores/auth.store';
 import { toast } from '@/stores/toast.store';
-import type { TCartResponse, TLocalCartItem } from '@/types/cart';
+import type { TCartItemInput, TCartResponse, TLocalCartItem } from '@/types/cart';
 import { convertLocalCartToTCartResponse } from '@/utils/helper';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { CART_KEYS } from '@/constants/queryKeys';
 
 export const useCartMutation = () => {
-  const queryClient = useQueryClient();
-
   // Read user at call time (not stale from hook init)
   const getCartKey = () => CART_KEYS.detail(useAuthStore.getState().user?.id);
   const getUser = () => useAuthStore.getState().user;
@@ -31,12 +29,12 @@ export const useCartMutation = () => {
         return convertLocalCartToTCartResponse(localCart);
       }
     },
-    onMutate: async (param: TLocalCartItem) => {
+    onMutate: async (param: TLocalCartItem, { client }) => {
       const cartKey = getCartKey();
       // Cancel any outgoing refetches so they don't overwrite our optimistic update
-      await queryClient.cancelQueries({ queryKey: cartKey });
+      await client.cancelQueries({ queryKey: cartKey });
 
-      const previousCart = queryClient.getQueryData<TCartResponse>(cartKey);
+      const previousCart = client.getQueryData<TCartResponse>(cartKey);
 
       if (previousCart) {
         const existingItem = previousCart.items.find((item) => item.productId === param.productId);
@@ -52,7 +50,7 @@ export const useCartMutation = () => {
           newItems = [
             ...previousCart.items,
             {
-              id: Date.now(), // temporary id
+              id: Date.now(),
               productId: param.productId,
               quantity: param.quantity,
               product: param.product,
@@ -60,7 +58,7 @@ export const useCartMutation = () => {
           ];
         }
 
-        queryClient.setQueryData<TCartResponse>(cartKey, {
+        client.setQueryData<TCartResponse>(cartKey, {
           ...previousCart,
           items: newItems,
           totalItems: newItems.reduce((acc, cur) => acc + cur.quantity, 0),
@@ -69,15 +67,13 @@ export const useCartMutation = () => {
 
       return { previousCart };
     },
-    onSuccess: () => {
-      // Refetch to get the real server state
-      queryClient.invalidateQueries({ queryKey: CART_KEYS.all });
+    onSuccess: (_data, _variables, _onMutateResult, { client }) => {
+      client.invalidateQueries({ queryKey: CART_KEYS.all });
       toast.success('Đã thêm sản phẩm vào giỏ hàng');
     },
-    onError: (err, _, context) => {
-      // Rollback on error
-      if (context?.previousCart) {
-        queryClient.setQueryData<TCartResponse>(getCartKey(), context.previousCart);
+    onError: (err, _, onMutateResult, { client }) => {
+      if (onMutateResult?.previousCart) {
+        client.setQueryData<TCartResponse>(getCartKey(), onMutateResult.previousCart);
       }
       if (isAxiosError<ApiError>(err) && err.response?.data) {
         toast.error(err.response.data.error.message);
@@ -96,12 +92,12 @@ export const useCartMutation = () => {
         return convertLocalCartToTCartResponse(newLocalCart);
       }
     },
-    onMutate: async (productId: string) => {
+    onMutate: async (productId: string, { client }) => {
       const cartKey = getCartKey();
-      const previousCart = queryClient.getQueryData<TCartResponse>(cartKey);
+      const previousCart = client.getQueryData<TCartResponse>(cartKey);
       if (previousCart) {
         const newItems = previousCart.items.filter((item) => item.productId != productId);
-        queryClient.setQueryData<TCartResponse>(cartKey, {
+        client.setQueryData<TCartResponse>(cartKey, {
           ...previousCart,
           items: newItems,
           totalItems: newItems.reduce((acc, cur) => acc + cur.quantity, 0),
@@ -109,16 +105,16 @@ export const useCartMutation = () => {
       }
       return { previousCart };
     },
-    onError: (err, _, context) => {
-      if (context?.previousCart) {
-        queryClient.setQueryData<TCartResponse>(getCartKey(), context.previousCart);
+    onError: (err, _, onMutateResult, { client }) => {
+      if (onMutateResult?.previousCart) {
+        client.setQueryData<TCartResponse>(getCartKey(), onMutateResult.previousCart);
       }
       if (isAxiosError<ApiError>(err) && err.response?.data) {
         toast.error(err.response.data.error.message);
       }
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: CART_KEYS.all });
+    onSuccess: (_data, _variables, _onMutateResult, { client }) => {
+      client.invalidateQueries({ queryKey: CART_KEYS.all });
     },
   });
 
@@ -135,14 +131,14 @@ export const useCartMutation = () => {
         return convertLocalCartToTCartResponse(newLocalCart);
       }
     },
-    onMutate: ({ productId, quantity }) => {
+    onMutate: ({ productId, quantity }, { client }) => {
       const cartKey = getCartKey();
-      const previousCart = queryClient.getQueryData<TCartResponse>(cartKey);
+      const previousCart = client.getQueryData<TCartResponse>(cartKey);
       if (previousCart) {
         const newItems = previousCart.items.map((item) =>
           item.productId == productId ? { ...item, quantity } : item
         );
-        queryClient.setQueryData<TCartResponse>(cartKey, {
+        client.setQueryData<TCartResponse>(cartKey, {
           ...previousCart,
           items: newItems,
           totalItems: newItems.reduce((acc, cur) => acc + cur.quantity, 0),
@@ -150,22 +146,48 @@ export const useCartMutation = () => {
       }
       return { previousCart };
     },
-    onError: (err, _, context) => {
-      if (context?.previousCart) {
-        queryClient.setQueryData<TCartResponse>(getCartKey(), context.previousCart);
+    onError: (err, _, onMutateResult, { client }) => {
+      if (onMutateResult?.previousCart) {
+        client.setQueryData<TCartResponse>(getCartKey(), onMutateResult.previousCart);
       }
       if (isAxiosError<ApiError>(err) && err.response?.data) {
         toast.error(err.response.data.error.message);
       }
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: CART_KEYS.all });
+    onSuccess: (_data, _variables, _onMutateResult, { client }) => {
+      client.invalidateQueries({ queryKey: CART_KEYS.all });
     },
+  });
+
+  const mergeCart = useMutation({
+    mutationFn: async () => {
+      const localCart = JSON.parse(localStorage.getItem(GUEST_CART) ?? '[]') as TLocalCartItem[];
+      if (localCart.length === 0) {
+        return null;
+      }
+      const cartItemInputs: TCartItemInput[] = localCart.map((item) => ({
+        productId: item.productId,
+        quantity: item.quantity,
+      }));
+      const result = await mergeCartApi({
+        items: cartItemInputs,
+      });
+      return result.data;
+    },
+    onSuccess: () => {
+      localStorage.removeItem(GUEST_CART);
+    },
+    onError: () => {
+      toast.error('Đồng bộ giỏ hàng không thành công !');
+    },
+    retry: 2,
+    retryDelay: 1000,
   });
 
   return {
     addToCart,
     deleteCartItem,
     updateCartItem,
+    mergeCart,
   };
 };

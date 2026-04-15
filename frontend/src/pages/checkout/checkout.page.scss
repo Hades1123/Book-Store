@@ -1,6 +1,11 @@
+@use '../../styles/mixins';
+
 .checkout {
   padding: 3rem 6rem;
   background-color: #fef8f7;
+  @include mixins.responsive('lg') {
+    padding: 1rem 1rem;
+  }
 
   input[type='text'] {
     color: #6b7280;
@@ -20,6 +25,13 @@
     display: grid;
     grid-template-columns: 1.5fr 1fr;
     gap: 6rem;
+    @include mixins.responsive('sm') {
+      display: flex;
+      flex-direction: column;
+    }
+    @include mixins.responsive('lg') {
+      gap: 1rem;
+    }
   }
 
   &__header {
@@ -125,9 +137,10 @@
   }
 
   &__img-wrapper {
-    aspect-ratio: 2/3;
     width: 4rem;
+    height: 6rem;
     overflow: hidden;
+    flex-shrink: 0;
     img {
       width: 100%;
       height: 100%;
@@ -140,6 +153,9 @@
   &__right {
     padding: 2.5rem;
     background-color: #f8f2f2;
+    @include mixins.responsive('lg') {
+      padding: 1rem;
+    }
   }
 
   &__summary {

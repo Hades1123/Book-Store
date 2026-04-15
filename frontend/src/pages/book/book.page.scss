@@ -117,12 +117,11 @@ $item-width: 17rem;
 
   &__grid {
     display: grid;
-    // grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     margin-bottom: 2rem;
 
-    @include mixins.responsive('lg') {
+    @include mixins.responsive('xl') {
       grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
     }
