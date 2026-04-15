@@ -6,6 +6,7 @@ import { handleAddToCart } from '@/utils/cart';
 import { useCart } from '@/hooks/queries/useCart';
 import { useEffect, useState, type ChangeEvent, type KeyboardEvent } from 'react';
 import { toast } from '@/stores/toast.store';
+import './cart.quantity.scss';
 
 export const CartButton = ({ item }: { item: IBook }) => {
   const { addToCart } = useCartMutation();
@@ -44,7 +45,7 @@ export const CartButton = ({ item }: { item: IBook }) => {
     <>
       {quantity === 0 ? (
         <button
-          className="book__btn-cart"
+          className="cart-quantity__default"
           onClick={(e) => {
             if (cart) {
               e.preventDefault();
@@ -55,22 +56,19 @@ export const CartButton = ({ item }: { item: IBook }) => {
           <CartIcon />
         </button>
       ) : quantity < 10 ? (
-        <div className="cart-input__btn">
+        <div className="cart-quantity">
           {quantity === 1 ? (
             <DeleteOutlineOutlinedIcon
               sx={{
                 fontSize: '16px',
-                height: 'auto',
-                ':hover': {
-                  cursor: 'pointer',
-                  color: 'red',
-                },
+                cursor: 'pointer',
+                ':hover': { color: 'red' },
               }}
               onClick={() => deleteCartItem.mutate(item.id)}
             />
           ) : (
             <div
-              className="cart-input__minus"
+              className="cart-quantity__btn"
               onClick={() => {
                 updateCartItem.mutate({
                   productId: item.id,
@@ -82,9 +80,9 @@ export const CartButton = ({ item }: { item: IBook }) => {
               <span>-</span>
             </div>
           )}
-          <span>{quantity}</span>
+          <span className="cart-quantity__value">{quantity}</span>
           <div
-            className="cart-input__plus"
+            className="cart-quantity__btn"
             onClick={() => {
               updateCartItem.mutate({
                 productId: item.id,
@@ -99,7 +97,7 @@ export const CartButton = ({ item }: { item: IBook }) => {
       ) : (
         <input
           type="text"
-          className="book__btn-cart"
+          className="cart-quantity__input"
           value={inputQuantity}
           onKeyDown={handleOnKeydown}
           onChange={handleOnChange}

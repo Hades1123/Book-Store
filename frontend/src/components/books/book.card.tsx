@@ -9,7 +9,7 @@ import { BuyButton } from './buy.btn';
 export const BookCard = memo(({ item }: { item: IBook }) => {
   return (
     <div className="book__item-container">
-      <Link to={`${item.id}`} style={{ textDecoration: 'none' }}>
+      <div style={{ textDecoration: 'none' }}>
         <div className="book__card">
           <div className="book__img-wrapper">
             <img className="book__thumbnail" src={thumbnail} alt="thumbnail" />
@@ -32,12 +32,14 @@ export const BookCard = memo(({ item }: { item: IBook }) => {
           </div>
           <div className="book__content">
             <div className="book__card-category">Philosophy</div>
-            <div className="book__card-title">{item.name}</div>
+            <Link to={`${item.id}`} className="book__card-title">
+              {item.name}
+            </Link>
             <div className="book__card-author">{item.author}</div>
             <div className="book__card-price">{formatCurrency(Number(item.price))}</div>
           </div>
         </div>
-      </Link>
+      </div>
       <div className="book__btn">
         <CartButton item={item} />
         <BuyButton item={item} />

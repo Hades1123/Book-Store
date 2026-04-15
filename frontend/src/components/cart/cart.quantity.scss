@@ -1,0 +1,135 @@
+@use '../../styles/mixins';
+
+// Cart Quantity Controls - reusable across components
+// Used in: cart.btn.tsx, cart.popover.item.tsx, cart.input.tsx
+
+.cart-quantity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 2rem;
+  width: 100%; // Fill parent width (grid cell in book card)
+
+  &__default {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 1px #a43716 solid;
+    border-radius: 4px;
+    width: 100%; // Fill grid cell in book card
+    height: 2rem;
+  }
+
+  // Button styles (+/-)
+  &__btn {
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(164, 55, 22, 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+
+    &:hover {
+      background-color: rgba(164, 55, 22, 0.1);
+      border-color: #a43716;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    span {
+      font-size: 1rem;
+      color: #a43716;
+      font-weight: 600;
+    }
+  }
+
+  // Quantity display
+  &__value {
+    min-width: 2rem;
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #1d1b1b;
+  }
+
+  // Input field (when quantity >= 10)
+  &__input {
+    width: 100%; // Fill parent width
+    height: 2rem;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid rgba(164, 55, 22, 0.3);
+    border-radius: 4px;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #1d1b1b;
+    background-color: white;
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: #a43716;
+      box-shadow: 0 0 0 2px rgba(164, 55, 22, 0.1);
+    }
+
+    &:hover {
+      border-color: rgba(164, 55, 22, 0.5);
+    }
+
+    // Remove number input spinners
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    &[type='text'] {
+      -moz-appearance: textfield;
+    }
+  }
+}
+
+// Legacy class names (keeping for backward compatibility)
+.cart-input__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 2rem;
+}
+
+.cart-input__minus,
+.cart-input__plus {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(164, 55, 22, 0.3);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+
+  &:hover {
+    background-color: rgba(164, 55, 22, 0.1);
+    border-color: #a43716;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  span {
+    font-size: 1rem;
+    color: #a43716;
+    font-weight: 600;
+  }
+}
