@@ -58,14 +58,9 @@ export const CartButton = ({ item }: { item: IBook }) => {
       ) : quantity < 10 ? (
         <div className="cart-quantity">
           {quantity === 1 ? (
-            <DeleteOutlineOutlinedIcon
-              sx={{
-                fontSize: '16px',
-                cursor: 'pointer',
-                ':hover': { color: 'red' },
-              }}
-              onClick={() => deleteCartItem.mutate(item.id)}
-            />
+            <div className="cart-quantity__btn" onClick={() => deleteCartItem.mutate(item.id)}>
+              <DeleteOutlineOutlinedIcon />
+            </div>
           ) : (
             <div
               className="cart-quantity__btn"

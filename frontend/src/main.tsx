@@ -8,7 +8,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { StrictMode } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ToastContainer } from './components/ui/toast.container';
+import { ToastContainer } from './components/ui/toast';
 import { useInitStores } from './hooks/useInitStores';
 import router from '@/routes/main.route';
 

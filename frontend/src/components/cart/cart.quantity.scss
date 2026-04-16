@@ -1,7 +1,22 @@
 @use '../../styles/mixins';
 
-// Cart Quantity Controls - reusable across components
-// Used in: cart.btn.tsx, cart.popover.item.tsx, cart.input.tsx
+.detailbook {
+  .cart-quantity {
+    justify-content: space-between;
+    background-color: white;
+    height: auto;
+    &__btn {
+      width: 30%;
+      height: 100%;
+      @include mixins.responsive('sm') {
+        height: 4rem;
+      }
+    }
+    &__input {
+      height: auto;
+    }
+  }
+}
 
 .cart-quantity {
   display: flex;

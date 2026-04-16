@@ -3,22 +3,11 @@ import './detail.page.scss';
 import thumbnail from '@/assets/book1.png';
 import { formatCurrency } from '@/utils/helper';
 import { useBookDetail } from '@/hooks/queries/useBookQuery';
-import { useCartMutation } from '@/hooks/mutations/useCartMutation';
-import { useCart } from '@/hooks/queries/useCart';
-import { handleAddToCart } from '@/utils/cart';
+import { CartButton } from '@/components/cart/cart.btn';
 
 export const DetailBookPage = () => {
   const { id } = useParams();
   const { data: currentBook } = useBookDetail(id!);
-  const { data: cart } = useCart();
-  const { addToCart } = useCartMutation();
-
-  const onClickCart = () => {
-    if (!currentBook || !cart) {
-      return;
-    }
-    handleAddToCart(currentBook, cart, addToCart);
-  };
 
   return (
     <>
@@ -47,12 +36,12 @@ export const DetailBookPage = () => {
               </p>
               <div className="detailbook__note-quote">“</div>
             </div>
-            <div className="detailbook__btn">
-              <button className="detailbook__checkout">Checkout</button>
-              <button className="detailbook__cart" onClick={onClickCart}>
-                Add to cart
-              </button>
-            </div>
+            {currentBook && (
+              <div className="detailbook__btn">
+                <button className="detailbook__checkout">Checkout</button>
+                <CartButton item={currentBook} />
+              </div>
+            )}
             <ul className="detailbook__spec">
               <li>
                 <h4>Publisher</h4>
