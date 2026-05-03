@@ -1,6 +1,7 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { AppException } from 'src/common/exceptions/app.exception';
 import { PrismaService } from 'src/database/prisma.service';
+import { CloudinaryService } from 'src/modules/cloudinary/cloudinary.service';
 import { TAllUsersRes, TUserResponse } from './types/user-response.type';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PaginationDto } from './dto/pagination.dto';
@@ -8,7 +9,10 @@ import { Role, User } from 'src/generated/prisma/client';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly cloudinaryService: CloudinaryService
+  ) {}
 
   async getUserProfile(id: string): Promise<TUserResponse> {
     const user = await this.prismaService.user.findUnique({ where: { id } });
@@ -30,6 +34,13 @@ export class UserService {
       return this.getUserProfile(id);
     }
     const { avatarPublicId, fullName, phone } = body;
+
+    let oldAvatarPublicId: string | null = null;
+    if (avatarPublicId) {
+      const currentUser = await this.prismaService.user.findUnique({ where: { id } });
+      oldAvatarPublicId = currentUser?.avatarPublicId ?? null;
+    }
+
     const user = await this.prismaService.user.update({
       where: { id },
       data: {
@@ -38,6 +49,15 @@ export class UserService {
         phone,
       },
     });
+
+    if (
+      oldAvatarPublicId &&
+      avatarPublicId &&
+      oldAvatarPublicId !== avatarPublicId
+    ) {
+      this.cloudinaryService.deleteFile(oldAvatarPublicId).catch(() => {});
+    }
+
     return {
       id: user.id,
       avatarPublicId: user.avatarPublicId,
