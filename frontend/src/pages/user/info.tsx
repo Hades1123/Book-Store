@@ -1,9 +1,10 @@
-import CameraIcon from '@/assets/camera.svg?react';
 import UserIcon from '@/assets/user.svg?react';
 import EditIcon from '@/assets/edit-profile.svg?react';
-import avatar from '@/assets/avatar.png';
+import defaultAvatar from '@/assets/avatar.png';
 import './info.scss';
 import { useAuthStore } from '@/stores/auth.store';
+import { useState } from 'react';
+import { EditProfileModal } from '@/components/EditProfileModal';
 
 const ORDER_ITEMS = [
   {
@@ -29,21 +30,24 @@ const ORDER_ITEMS = [
   },
 ];
 
+const getAvatarUrl = (publicId: string | undefined): string => {
+  if (!publicId) return defaultAvatar;
+  return `https://res.cloudinary.com/${import.meta.env.VITE_CLOUDINARY_NAME}/image/upload/c_fill,g_face,h_200,w_200/${publicId}`;
+};
+
 export const ProfileInfo = () => {
   const user = useAuthStore((state) => state.user);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const avatarUrl = getAvatarUrl(user?.avatarPublicId);
+
   return (
     <>
       <div className="profile-info-page">
         {/* user profile section  */}
         <section className="user-profile profile-card">
           <div className="user-profile__img-wrapper">
-            <img src={avatar} alt="avatar" />
-            <label htmlFor="profile-upload-avatar">
-              <div className="user-profile__upload">
-                <CameraIcon />
-              </div>
-            </label>
-            <input type="file" id="profile-upload-avatar" />
+            <img src={avatarUrl} alt="avatar" />
           </div>
           <div className="user-profile__info">
             <h1 className="user-profile__name">{user?.fullName}</h1>
@@ -53,7 +57,7 @@ export const ProfileInfo = () => {
               editions and modernist prose.
             </p>
           </div>
-          <div className="user-profile__edit">
+          <div className="user-profile__edit" onClick={() => setIsModalOpen(true)}>
             <EditIcon />
             <span>Edit Profile</span>
           </div>
@@ -116,6 +120,8 @@ export const ProfileInfo = () => {
           </div>
         </section>
       </div>
+
+      <EditProfileModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 };
