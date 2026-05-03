@@ -1,23 +1,18 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import tsconfigPaths from 'vite-tsconfig-paths';
+import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
+import babel from '@rolldown/plugin-babel';
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    react({
-      babel: {
-        plugins: [['babel-plugin-react-compiler']],
-      },
-    }),
-    tsconfigPaths(),
-    svgr(),
-  ],
+  plugins: [react(), svgr(), babel({ presets: [reactCompilerPreset()] })],
   css: {
     preprocessorOptions: {
       scss: {
         silenceDeprecations: ['import', 'mixed-decls', 'color-functions', 'global-builtin'],
       },
     },
+  },
+  resolve: {
+    tsconfigPaths: true,
   },
 });

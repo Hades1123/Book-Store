@@ -102,10 +102,10 @@ export const LoginPage = () => {
           </Button>
           <span className="login__btn-sep">OR CONTINUE WITH</span>
           <div className="login__Oauth">
-            <button className="login__Oauth-gg">
+            <button type="button" className="login__Oauth-gg">
               <img src={ggIcon} alt="gg" /> Google
             </button>
-            <button className="login__Oauth-fb">
+            <button type="button" className="login__Oauth-fb">
               <img src={fbIcon} alt="fb" />
               Facebook
             </button>
