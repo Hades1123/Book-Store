@@ -14,7 +14,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { CategorySidebar } from '@/components/books/category.sidebar';
 import { BookCard } from '@/components/books/book.card';
 import { UseBookPage } from '@/hooks/useBookClient';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useUIStore } from '@/stores/ui.store';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
@@ -54,6 +54,13 @@ export const BookPage = () => {
     setCurrentCategory(null);
     setFilter('categoryIds', undefined);
   }, [setFilter, setCurrentCategory]);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, [currentCategory]);
 
   return (
     <>
