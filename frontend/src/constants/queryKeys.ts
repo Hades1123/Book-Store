@@ -40,3 +40,11 @@ export const CATEGORY_KEYS = {
   /** ['categories', 'structure'] — cây category */
   structure: () => [...CATEGORY_KEYS.all, 'structure'] as const,
 };
+
+// ─── Address ─────────────────────────────────────────────────────────────────
+export const ADDRESS_KEYS = {
+  /** ['addresses'] */
+  all: ['addresses'] as const,
+  /** ['addresses', 'list'] */
+  list: () => [...ADDRESS_KEYS.all, 'list'] as const,
+};

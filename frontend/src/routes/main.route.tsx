@@ -12,6 +12,7 @@ import { DetailBookPage } from '@/pages/book/detail.page';
 import { ScrollTop } from '@/components/layouts/scroll-top';
 import { CartPage } from '@/pages/book/cart.page';
 import { CheckoutPage } from '@/pages/checkout/checkout.page';
+import { AddressPage } from '@/pages/user/address';
 
 const router = createBrowserRouter([
   {
@@ -78,7 +79,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'address',
-        element: <div>This is address routes</div>,
+        element: <AddressPage />,
       },
     ],
   },
