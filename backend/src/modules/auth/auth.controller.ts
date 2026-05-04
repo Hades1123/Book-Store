@@ -50,8 +50,8 @@ export class AuthController {
       cookieOptions(ms(this.jwtConfigService.jwtRefreshExpire as StringValue)),
     );
     return {
-      accessToken: '********',
-      refreshToken: '********',
+      accessToken: accessToken,
+      refreshToken: refreshToken,
     };
   }
 
@@ -70,8 +70,8 @@ export class AuthController {
       cookieOptions(ms(this.jwtConfigService.jwtRefreshExpire as StringValue)),
     );
     return {
-      accessToken: '........',
-      refreshToken: '........',
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
     };
   }
 
@@ -82,8 +82,8 @@ export class AuthController {
     res.clearCookie(COOKIE_NAMES.ACCESS_TOKEN);
     res.clearCookie(COOKIE_NAMES.REFRESH_TOKEN);
     return {
-      accessToken: '?',
-      refreshToken: '?',
+      accessToken: 'empty',
+      refreshToken: 'empty',
     };
   }
 }
